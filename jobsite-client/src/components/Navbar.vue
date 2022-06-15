@@ -77,6 +77,10 @@
     color: #ff7b00;
 }
 
+.Home:hover {
+    color: #ff7b00;
+}
+
 .Navbar-tab {
     list-style-type: none;
     margin: 0px;

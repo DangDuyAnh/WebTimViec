@@ -1,5 +1,9 @@
 <script>
+import Navbar from '../../components/Navbar.vue';
 export default {
+  components: {
+    Navbar
+  },
   data() {
     return {
       index: 0
@@ -17,6 +21,7 @@ export default {
 </script>
 
 <template>
+    <Navbar />
     <div class="container">
         <div class="search-box">
             <div class="input-wrapper">

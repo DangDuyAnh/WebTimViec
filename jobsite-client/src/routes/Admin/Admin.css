@@ -1,0 +1,22 @@
+.Navbar-tab {
+    list-style-type: none;
+}
+
+.Navbar-tab li {
+    float: left;
+}
+
+.Navbar-tab-p {
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 17px;
+    color: #757575;
+    margin: 10px 20px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.new {
+    color: black
+}
