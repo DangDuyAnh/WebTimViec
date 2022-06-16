@@ -3,6 +3,7 @@ import TrangChu from "./TrangChu/TrangChu.vue";
 import ViecLam from "./ViecLam.vue";
 import Admin from './Admin/Admin.vue';
 import CreateRecruit from './Admin/CreateRecruit.vue';
+import DetailRecruit from './Admin/DetailRecruit.vue';
 import Login from "./Taikhoan/Login.vue";
 import Register from "./Taikhoan/Register.vue";
 
@@ -22,6 +23,10 @@ const routes = [
   {
     path: '/admin/create-recruit',
     component: CreateRecruit
+  },
+  {
+    path: '/admin/detail-recruit',
+    component: DetailRecruit
   },
   {
     path: "/dang-nhap",

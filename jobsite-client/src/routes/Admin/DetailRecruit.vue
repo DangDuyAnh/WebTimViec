@@ -10,11 +10,20 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="dashboard.html">
+                    <div class="navbar-brand admin-out-text" href="dashboard.html">
+
+                        <!-- <b class="logo-icon">
+
+                            <img src="./plugins/images/logo-icon.png" alt="homepage" />
+                        </b>
+
+                        <span class="logo-text"> 
+                            <img src="./plugins/images/logo-text.png" alt="homepage" />
+                        </span> -->
                         <span class="logo-text logo-admin"> 
                             JOB SITE
                         </span> 
-                    </a>
+                    </div>
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
@@ -37,7 +46,7 @@
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
-                    <ul class="navbar-nav ms-auto d-flex align-items-center">
+                    <ul class="navbar-nav ms-auto d-flex align-items-center" >
 
                         <!-- ============================================================== -->
                         <!-- Search -->
@@ -88,7 +97,7 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin"
                                 aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
@@ -142,19 +151,16 @@
             <!-- ============================================================== -->
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
-                    <div>
-                        <ul class="Navbar-tab">
-                            <li>
-                                <p class = "Navbar-tab-p new">Việc đang tuyển</p>
-                            </li>
-
-                            <li>
-                                <p class = "Navbar-tab-p">Việc đã tuyển</p>
-                            </li>
-
-                        </ul>
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title" :style="{color: '#ff7b00'}">Thông tin tuyển dụng</h4>
                     </div>
-        
+
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <div class="d-md-flex">
+                            <ol class="breadcrumb ms-auto">
+                            </ol>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -168,79 +174,61 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Việc đã tuyển dụng</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-success">659</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Việc đang tuyển dụng</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash2"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-purple">869</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Ứng viên đang chờ</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash3"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-info">911</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="row">
-                    <div class="col-md-12 col-lg-12 col-sm-12">
-                        <div class="white-box white-box-extra">
-                            <div>
-                                <span :style="{margin:0, padding: 0, marginBottom: 0, fontWeight: '800', fontSize: '16px'}">1/5/2000 - 3/3/2007</span>
-                            </div>
-                            <div :style="{margin: '15px 0px'}">
-                                <span :style="{margin:0, padding: 0, marginBottom: 0, fontSize: '16px'}">Tiêu đề công việc</span>
-                            </div>
-                            <div :style="{margin: 0, padding: 0}">
-                                <span :style="{margin:0, padding: 0, color: '#7ACE4C'}">Đã tuyển 12/15 ứng viên</span></div>
-                            <div>
-                                <span :style="{margin:0, padding: 0, color: '#F33E15'}">Có 5 ứng viên đang chờ</span>
+                    <div class="col-md-12">
+                        <div class="white-box">
+                            <div :style="{marginLeft: '50px'}">
+                                <div :style="{display: 'flex'}">
+                                    <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px', fontSize: '16px'}">Tiêu đề công việc: </p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó</p>
+                                </div>
+                                <div :style="{display: 'flex'}">
+                                    <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px'}">Số lượng cần tuyển: </p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó</p>
+                                </div>
+                                <div :style="{display: 'flex'}">
+                                    <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px'}">Ngành nghề: </p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó, gì gì đó 2, gì gì đó 3</p>
+                                </div>
+                                <div :style="{display: 'flex'}">
+                                    <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px'}">Mức lương: </p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó, gì gì đó 2, gì gì đó 3</p>
+                                </div>
+                                <div :style="{display: 'flex'}">
+                                    <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px', fontSize: '16px'}">Thời gian ứng tuyển: </p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó</p>
+                                </div>
+                                <div :style="{display: 'flex'}">
+                                    <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px'}">Cấp bậc: </p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó</p>
+                                </div>
+                                <div :style="{display: 'flex'}">
+                                    <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px'}">Yêu cầu kinh nghiệm: </p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó, gì gì đó 2, gì gì đó 3</p>
+                                </div>
+                                <div :style="{display: 'flex'}">
+                                    <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px'}">Hình thức làm việc: </p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó, gì gì đó 2, gì gì đó 3</p>
+                                </div>
+
+                                <div :style="{display: 'flex', margin: '50px 0px 10px 0px'}">
+                                    <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px', color: 'green'}">Đã ứng tuyển: </p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px', color: 'green'}">12/15 ứng viên</p>
+                                </div>
+
+                                <div :style="{display: 'flex', alignItems: 'center'}">
+                                    <p class="booking-pay-line" :style="{fontWeight:'bold', width: '210px'}">Danh sách ứng viên: </p>
+                                    <div :style="{width: '400px'}">
+                                        <select class="form-select shadow-none row border-top">
+                                            <option>Ứng viên đã tuyển</option>
+                                            <option>Ứng viên đang chờ</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                
                             </div>
                         </div>
-
-                        <div class="white-box white-box-extra">
-                            <div>
-                                <span :style="{margin:0, padding: 0, marginBottom: 0, fontWeight: '800', fontSize: '16px'}">1/5/2000 - 3/3/2007</span>
-                            </div>
-                            <div :style="{margin: '15px 0px'}">
-                                <span :style="{margin:0, padding: 0, marginBottom: 0, fontSize: '16px'}">Tiêu đề công việc</span>
-                            </div>
-                            <div :style="{margin: 0, padding: 0}">
-                                <span :style="{margin:0, padding: 0, color: '#7ACE4C'}">Đã tuyển 12/15 ứng viên</span></div>
-                            <div>
-                                <span :style="{margin:0, padding: 0, color: '#F33E15'}">Có 5 ứng viên đang chờ</span>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -261,65 +249,11 @@
     </div>
 </template>
 
-<script>
-
-</script>
-
-
 <style>
-@import './css/style.min.css';
-@import './Admin.css';
-
-
-.icon-admin {
-    width: 15px;
-    height: 15px;
-    padding: 2px 10px;
-}
-
-.icon-admin-2 {
-    width: 15px;
-    height: 15px;
-    padding: 2px 10px;
-    color: white;
-    cursor: pointer;
-}
-
-.logo-admin {
-    color: #ff7b00;
-    font-size: 25px;
-    font-weight: 700;
-    margin-left: 15px;
-}
-
-.admin-out-text {
-    text-align: center;
-}
-
-.logout {
-    right: 10px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: none;
-}
-
-
-.logout:hover {
-    background-color: #d3d3d3;
-}
-
-.logout p {
-    font-size: 16px;
-    color: black;
-    margin: 0;
+    .booking-pay-line {
+    margin: 3px 0px 3px 0px;
     padding: 0;
-}
-
-.white-box-extra:hover {
-    background-color: #f8f8f8;
-    cursor: pointer;
-}
+    font-size: 16px;
+    }
 
 </style>

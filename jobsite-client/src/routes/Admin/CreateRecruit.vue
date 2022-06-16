@@ -186,13 +186,15 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group mb-4" :style="{position: 'relative'}">
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Số lượng cần tuyển</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="text" class="form-control p-0 border-0">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Ngành nghề:</label>
-                                        <!-- <div class="col-md-12 border-bottom p-0">
-                                            <input type="email" placeholder="johnathan@admin.com"
-                                                class="form-control p-0 border-0" name="example-email"
-                                                id="example-email">
-                                        </div> -->
                                         <div class="content">
                                             <ul>
                                                 <li v-for="(tag, index) in tags">
@@ -204,35 +206,94 @@
                                     </div>
 
                                     <div class="form-group mb-4">
-                                        <label class="col-md-12 p-0">Password</label>
-                                        <div class="col-md-12 border-bottom p-0">
-                                            <input type="password" value="password" class="form-control p-0 border-0">
+                                        <label class="col-md-6 p-0">Mức lương</label>
+                                        <div>
+                                            <div :style="{float: 'left'}">
+                                                <p :style="{fontSize:'16px', padding: 0, margin: '7px 10px 0px 0px', fontStyle: 'italic', fontWeight: '800'}">từ</p>
+                                            </div>
+                                            <div class="col-md-4 border-bottom p-0" :style="{float: 'left'}">
+                                                <input class="form-control p-0 border-0" placeholder="0" v-model="from">
+                                            </div>
+                                            <div :style="{float: 'left'}">
+                                                <p :style="{fontSize:'16px', padding: 0, margin: '7px 0px 0px 7px', fontStyle: 'italic'}">VNĐ</p>
+                                            </div>
+
+                                            <div :style="{float: 'left'}">
+                                                <p :style="{fontSize:'16px', padding: 0, margin: '7px 10px 0px 170px', fontStyle: 'italic', fontWeight: '800'}">đến</p>
+                                            </div>
+                                            <div class="col-md-4 border-bottom p-0" :style="{float: 'left'}">
+                                                <input  class="form-control p-0 border-0" placeholder="0" v-model="to">
+                                            </div>
+                                            <div :style="{float: 'left'}">
+                                                <p :style="{fontSize:'16px', padding: 0, margin: '7px 0px 0px 7px', fontStyle: 'italic'}">VNĐ</p>
+                                            </div>                                         
                                         </div>
                                     </div>
-                                    <div class="form-group mb-4">
-                                        <label class="col-md-12 p-0">Phone No</label>
-                                        <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" placeholder="123 456 7890"
-                                                class="form-control p-0 border-0">
+
+                                    <div class="form-group mb-4" :style="{marginTop: '60px'}">
+                                        <label class="col-md-6 p-0">Thời gian ứng tuyển</label>
+                                        <div>
+                                            <div :style="{float: 'left'}">
+                                                <p :style="{fontSize:'16px', padding: 0, margin: '7px 10px 0px 0px', fontStyle: 'italic', fontWeight: '800'}">từ</p>
+                                            </div>
+                                            <div :style="{float: 'left'}">
+                                                <DatePicker v-model:value="timeStart" />
+                                            </div>
+
+                                            <div :style="{float: 'left'}">
+                                                <p :style="{fontSize:'16px', padding: 0, margin: '7px 10px 0px 395px', fontStyle: 'italic', fontWeight: '800'}">đến</p>
+                                            </div>
+                                            <div :style="{float: 'left'}">
+                                                <DatePicker v-model:value="timeEnd" />
+                                            </div>                                   
                                         </div>
                                     </div>
-                                    <div class="form-group mb-4">
-                                        <label class="col-sm-12">Select Country</label>
+
+                                    <div class="form-group mb-4" :style="{marginTop: '60px'}">
+                                        <label class="col-sm-12">Cấp bậc</label>
 
                                         <div class="col-sm-12 border-bottom">
                                             <select class="form-select shadow-none p-0 border-0 form-control-line">
-                                                <option>London</option>
-                                                <option>India</option>
-                                                <option>Usa</option>
-                                                <option>Canada</option>
-                                                <option>Caneda</option>
-                                                <option>Thailand</option>
+                                                <option>--Chọn cấp bậc--</option>
+                                                <option>Fresher</option>
+                                                <option>Giám đốc</option>
+                                                <option>Nhân viên</option>
+                                                <option>Project Manager</option>
+                                                <option>Thực tập sinh</option>
+                                                <option>Trưởng phòng</option>
+                                                <option>Sennior</option>
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="form-group mb-4">
+                                        <label class="col-sm-12">Yêu cầu kinh nghiệm</label>
+
+                                        <div class="col-sm-12 border-bottom">
+                                            <select class="form-select shadow-none p-0 border-0 form-control-line">
+                                                <option>--Chọn số năm kinh nghiệm--</option>
+                                                <option>Không cần kinh nghiệm</option>
+                                                <option>Dưới 1 năm</option>
+                                                <option>Từ 1 - 3 năm</option>
+                                                <option>> 5 năm</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label class="col-sm-12">Hình thức làm việc</label>
+
+                                        <div class="col-sm-12 border-bottom">
+                                            <select class="form-select shadow-none p-0 border-0 form-control-line">
+                                                <option>Offline</option>
+                                                <option>Remote</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group mb-4">
                                         <div class="col-sm-12">
-                                            <button class="btn btn-success">Update Profile</button>
+                                            <button class="btn btn-success">Đăng tin</button>
                                         </div>
                                     </div>
                                 </form>
@@ -258,11 +319,21 @@
 </template>
 
 <script>
+import DatePicker from 'vue-datepicker-next';
+import 'vue-datepicker-next/index.css';
+
 export default {
+    components: { DatePicker },
   data() {
     return {
       tags: [],
-      text: ''
+      text: '',
+      from: undefined,
+      to: undefined,
+      savedFrom: 0,
+      savedTo: 0,
+      timeStart: null,
+      timeEnd: null
     }
   },
     methods: {
@@ -287,8 +358,22 @@ export default {
         },
         remove(index) {
             this.tags = [...this.tags.slice(0, index), ...this.tags.slice(index + 1)];
-        }
+        },
     },
+    watch: {
+        from: function(newValue) {
+        this.savedFrom = newValue
+        const result = newValue.replace(/\D/g, "")
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        this.from = result;
+        },
+        to: function(newValue) {
+        this.savedTo = newValue
+        const result = newValue.replace(/\D/g, "")
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        this.to = result;
+        },
+  }
 }
 </script>
 
