@@ -3,6 +3,8 @@ import TrangChu from "./TrangChu/TrangChu.vue";
 import ViecLam from "./ViecLam.vue";
 import Admin from './Admin/Admin.vue';
 import CreateRecruit from './Admin/CreateRecruit.vue';
+import Login from "./Taikhoan/Login.vue";
+import Register from "./Taikhoan/Register.vue";
 
 const routes = [
   {
@@ -20,12 +22,21 @@ const routes = [
   {
     path: '/admin/create-recruit',
     component: CreateRecruit
-  }
+  },
+  {
+    path: "/dang-nhap",
+    component: Login,
+  },
+  {
+    path: "/dang-ky",
+    component: Register,
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
 
 export default router;

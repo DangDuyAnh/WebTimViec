@@ -186,14 +186,23 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group mb-4">
-                                        <label for="example-email" class="col-md-12 p-0">Ngành nghề:</label>
-                                        <div class="col-md-12 border-bottom p-0">
+                                    <div class="form-group mb-4" :style="{position: 'relative'}">
+                                        <label class="col-md-12 p-0">Ngành nghề:</label>
+                                        <!-- <div class="col-md-12 border-bottom p-0">
                                             <input type="email" placeholder="johnathan@admin.com"
                                                 class="form-control p-0 border-0" name="example-email"
                                                 id="example-email">
+                                        </div> -->
+                                        <div class="content">
+                                            <ul>
+                                                <li v-for="(tag, index) in tags">
+                                                    {{tag}} <i class="fas fa-times-circle" @click="remove(index)"></i>
+                                                </li>
+                                                <input type="text" spellcheck="false" v-model="text"  @keyup.right="addTag($event)">
+                                            </ul>
                                         </div>
                                     </div>
+
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Password</label>
                                         <div class="col-md-12 border-bottom p-0">
@@ -247,3 +256,125 @@
         <!-- ============================================================== -->
     </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      tags: [],
+      text: ''
+    }
+  },
+    methods: {
+        increment() {
+            this.index++
+        },
+        decrement() {
+		    this.index--
+		},
+        addTag(e){
+            let tag = e.target.value.replace(/\s+/g, ' ');
+            if(tag.length > 1 && !this.tags.includes(tag)){
+                this.text = ''
+                if(this.tags.length < 10){
+                    tag.split(',').forEach(tag => {
+                        this.tags.push(tag);
+                        createTag();
+                    });
+                }
+               
+            }
+        },
+        remove(index) {
+            this.tags = [...this.tags.slice(0, index), ...this.tags.slice(index + 1)];
+        }
+    },
+}
+</script>
+
+<style>
+/* Import Google Font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+::selection{
+  color: #fff;
+  background: #5372F0;
+}
+.wrapper{
+  width: 496px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px 25px 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.06);
+}
+.wrapper :where(.title, li, li i, .details){
+  display: flex;
+  align-items: center;
+}
+.title img{
+  max-width: 21px;
+}
+.title h2{
+  font-size: 21px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+.wrapper .content{
+  margin: 10px 0;
+}
+.content p{
+  font-size: 15px;
+}
+.content ul{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 7px;
+  margin: 12px 0;
+  border-radius: 5px;
+  border: 1px solid #a6a6a6;
+}
+.content ul  li{
+  color: #333;
+  margin: 4px 4px;
+  list-style: none;
+  border-radius: 5px;
+  background: #F2F2F2;
+  padding: 5px 8px 5px 8px;
+  border: 1px solid #e3e1e1;
+  font-size: 16px;
+}
+.content ul li i{
+  height: 20px;
+  width: 20px;
+  color: #808080;
+  margin-left: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  justify-content: center;
+}
+.content ul input{
+  flex: 1;
+  padding: 5px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+.wrapper .details{
+  justify-content: space-between;
+}
+.details button{
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 9px 15px;
+  border-radius: 5px;
+  background: #5372F0;
+  transition: background 0.3s ease;
+}
+.details button:hover{
+  background: #2c52ed;
+}
+</style>
