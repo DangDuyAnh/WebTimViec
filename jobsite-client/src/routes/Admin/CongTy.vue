@@ -10,11 +10,20 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="dashboard.html">
+                    <div class="navbar-brand admin-out-text" href="dashboard.html">
+
+                        <!-- <b class="logo-icon">
+
+                            <img src="./plugins/images/logo-icon.png" alt="homepage" />
+                        </b>
+
+                        <span class="logo-text"> 
+                            <img src="./plugins/images/logo-text.png" alt="homepage" />
+                        </span> -->
                         <span class="logo-text logo-admin"> 
                             JOB SITE
                         </span> 
-                    </a>
+                    </div>
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
@@ -37,7 +46,7 @@
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
-                    <ul class="navbar-nav ms-auto d-flex align-items-center">
+                    <ul class="navbar-nav ms-auto d-flex align-items-center" >
 
                         <!-- ============================================================== -->
                         <!-- Search -->
@@ -88,7 +97,7 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin"
                                 aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
@@ -142,19 +151,17 @@
             <!-- ============================================================== -->
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
-                    <div>
-                        <ul class="Navbar-tab">
-                            <li>
-                                <p class = "Navbar-tab-p new">Việc đang tuyển</p>
-                            </li>
-
-                            <li>
-                                <p class = "Navbar-tab-p">Việc đã tuyển</p>
-                            </li>
-
-                        </ul>
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Thông tin công ty</h4>
                     </div>
-        
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <div class="d-md-flex">
+                            <ol class="breadcrumb ms-auto">
+                            </ol>
+                            <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
+                                class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Lưu</a>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -168,95 +175,83 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Việc đã tuyển dụng</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-success">659</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Việc đang tuyển dụng</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash2"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-purple">869</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Ứng viên đang chờ</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash3"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-info">911</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="row">
-                    <div class="col-md-12 col-lg-12 col-sm-12">
-                        <div class="white-box white-box-extra">
-                            <div>
-                                <div>
-                                    <span :style="{margin:0, padding: 0, marginBottom: 0, fontWeight: '800', fontSize: '16px'}">1/5/2000 - 3/3/2007</span>
-                                </div>
-                                <div :style="{margin: '15px 0px'}">
-                                    <span :style="{margin:0, padding: 0, marginBottom: 0, fontSize: '16px'}">Tiêu đề công việc</span>
-                                </div>
-                                <div :style="{margin: 0, padding: 0}">
-                                    <span :style="{margin:0, padding: 0, color: 'green'}">Đã tuyển 12/15 ứng viên</span></div>
-                                <div>
-                                    <span :style="{margin:0, padding: 0, color: '#F33E15'}">Có 5 ứng viên đang chờ</span>
-                                </div>
-                            </div>
+                    <div class="col-md-12">
+                        <div class="white-box">
+                                <form class="form-horizontal form-material">
 
-                            <div :style="{display: 'flex', flexDirection: 'column', justifyContent: 'center'}">
-                                <button class="button-admin" :style="{color: 'green', border: '1px solid green'}">Hoàn thành</button>
-                                <button class="button-admin" :style="{color: 'blue', border: '1px solid blue'}">Chỉnh sửa</button>
-                                <button class="button-admin" :style="{color: 'red', border: '1px solid red'}">Xóa</button>
-                            </div>
+                                    <div class="form-group mb-4">
+                                        <p :style="{fontSize:'16px', padding: 0, marginBottom:'15px', fontWeight: 'bold'}">Thông tin chung: </p>
+                                        <label class="col-md-12 p-0">Tên công ty</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="text" class="form-control p-0 border-0">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Mô tả công ty</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <textarea rows="5" class="form-control p-0 border-0"></textarea>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group mb-4">
+                                        <div>
+                                            <div :style="{float: 'left'}">
+                                                <p :style="{fontSize:'16px', padding: 0, marginBottom: '15px', fontWeight: 'bold'}">Địa chỉ: </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-4" :style="{marginTop: '60px'}">
+                                        <label class="col-sm-12">Quốc gia</label>
+
+                                        <div class="col-sm-12 border-bottom">
+                                            <select class="form-select shadow-none p-0 border-0 form-control-line">
+                                                <option>Việt Nam</option>
+                                                <option>Hàn Quốc</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label class="col-sm-12">Thành phố</label>
+
+                                        <div class="col-sm-12 border-bottom">
+                                            <select class="form-select shadow-none p-0 border-0 form-control-line">
+                                                <option>Hà Nội</option>
+                                                <option>Hồ Chí Minh</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="form-group mb-4">
+                                        <label class="col-sm-12">Quận / Huyện</label>
+
+                                        <div class="col-sm-12 border-bottom">
+                                            <select class="form-select shadow-none p-0 border-0 form-control-line">
+                                                <option>Hai Bà Trưng</option>
+                                                <option>Hoàn Kiếm</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Số nhà, phố, phường</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="text" class="form-control p-0 border-0" value="số 1 Đại Cồ Việt">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <div class="col-sm-12">
+                                            <button class="btn btn-success">Lưu</button>
+                                        </div>
+                                    </div>
+                                </form>
                         </div>
-
-                        <div class="white-box white-box-extra">
-                            <div>
-                                <div>
-                                    <span :style="{margin:0, padding: 0, marginBottom: 0, fontWeight: '800', fontSize: '16px'}">1/5/2000 - 3/3/2007</span>
-                                </div>
-                                <div :style="{margin: '15px 0px'}">
-                                    <span :style="{margin:0, padding: 0, marginBottom: 0, fontSize: '16px'}">Tiêu đề công việc</span>
-                                </div>
-                                <div :style="{margin: 0, padding: 0}">
-                                    <span :style="{margin:0, padding: 0, color: 'green'}">Đã tuyển 12/15 ứng viên</span></div>
-                                <div>
-                                    <span :style="{margin:0, padding: 0, color: '#F33E15'}">Có 5 ứng viên đang chờ</span>
-                                </div>
-                            </div>
-
-                            <div :style="{display: 'flex', flexDirection: 'column', justifyContent: 'center'}">
-                                <button class="button-admin" :style="{color: 'green', border: '1px solid green'}">Hoàn thành</button>
-                                <button class="button-admin" :style="{color: 'blue', border: '1px solid blue'}">Chỉnh sửa</button>
-                                <button class="button-admin" :style="{color: 'red', border: '1px solid red'}">Xóa</button>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -278,69 +273,60 @@
 </template>
 
 <script>
+import DatePicker from 'vue-datepicker-next';
+import 'vue-datepicker-next/index.css';
 
+export default {
+    components: { DatePicker },
+  data() {
+    return {
+      tags: [],
+      text: '',
+      from: undefined,
+      to: undefined,
+      savedFrom: 0,
+      savedTo: 0,
+      timeStart: null,
+      timeEnd: null
+    }
+  },
+    methods: {
+        increment() {
+            this.index++
+        },
+        decrement() {
+		    this.index--
+		},
+        addTag(e){
+            let tag = e.target.value.replace(/\s+/g, ' ');
+            if(tag.length > 1 && !this.tags.includes(tag)){
+                this.text = ''
+                if(this.tags.length < 10){
+                    tag.split(',').forEach(tag => {
+                        this.tags.push(tag);
+                        createTag();
+                    });
+                }
+               
+            }
+        },
+        remove(index) {
+            this.tags = [...this.tags.slice(0, index), ...this.tags.slice(index + 1)];
+        },
+    },
+    watch: {
+        from: function(newValue) {
+        this.savedFrom = newValue
+        const result = newValue.replace(/\D/g, "")
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        this.from = result;
+        },
+        to: function(newValue) {
+        this.savedTo = newValue
+        const result = newValue.replace(/\D/g, "")
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        this.to = result;
+        },
+  }
+}
 </script>
-
-
-<style>
-@import './css/style.min.css';
-@import './Admin.css';
-
-
-.icon-admin {
-    width: 15px;
-    height: 15px;
-    padding: 2px 10px;
-}
-
-.icon-admin-2 {
-    width: 15px;
-    height: 15px;
-    padding: 2px 10px;
-    color: white;
-    cursor: pointer;
-}
-
-.logo-admin {
-    color: #ff7b00;
-    font-size: 25px;
-    font-weight: 700;
-    margin-left: 15px;
-}
-
-.admin-out-text {
-    text-align: center;
-}
-
-.logout {
-    right: 10px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: none;
-}
-
-
-.logout:hover {
-    background-color: #d3d3d3;
-}
-
-.logout p {
-    font-size: 16px;
-    color: black;
-    margin: 0;
-    padding: 0;
-}
-
-.white-box-extra:hover {
-    background-color: #f8f8f8;
-    cursor: pointer;
-}
-
-.white-box-extra {
-    display: flex;
-    justify-content: space-between;
-}
-
-</style>

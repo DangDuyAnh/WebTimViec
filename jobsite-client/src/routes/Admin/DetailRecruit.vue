@@ -104,7 +104,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/cong-ty"
                                 aria-expanded="false">
                                 <!-- <i class="fa fa-building" aria-hidden="true"></i> -->
                                 <font-awesome-icon icon="building" class='icon-admin'/>
@@ -177,7 +177,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
-                            <div :style="{marginLeft: '50px'}">
+                            <div :style="{marginLeft: '170px'}">
                                 <div :style="{display: 'flex'}">
                                     <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px', fontSize: '16px'}">Tiêu đề công việc: </p>
                                     <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó</p>
@@ -218,11 +218,67 @@
 
                                 <div :style="{display: 'flex', alignItems: 'center'}">
                                     <p class="booking-pay-line" :style="{fontWeight:'bold', width: '210px'}">Danh sách ứng viên: </p>
-                                    <div :style="{width: '400px'}">
+                                    <div :style="{width: '600px'}">
                                         <select class="form-select shadow-none row border-top">
                                             <option>Ứng viên đã tuyển</option>
                                             <option>Ứng viên đang chờ</option>
                                         </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div :style="{marginTop: '40px'}">
+                                        <div class="row-user">
+                                            <div :style="{display: 'flex', alignItems: 'center'}">
+                                                <img src="../../assets/img_avatar3.png" class='avatar-circle'/>
+                                                <div class="user-name">User name</div>
+                                                <font-awesome-icon icon="xmark" :style="{marginLeft: '10px', fontSize: '18px',color: '#F33155'}"/>
+                                            </div> 
+
+                                            <div :style="{display: 'flex', alignItems: 'center'}">
+                                                <div class="avatar-wrapper-button button-color-yellow">
+                                                    <font-awesome-icon icon="id-badge" class='icon-button'/>
+                                                </div>
+                                                <div class="avatar-wrapper-button button-color-blue">
+                                                    <font-awesome-icon icon="comments" class='icon-button'/>
+                                                </div>
+                                                <div class="avatar-wrapper-button button-color-green">
+                                                    <font-awesome-icon icon="check" class='icon-button'/>
+                                                </div>
+                                                <div class="avatar-wrapper-button button-color-red">
+                                                    <font-awesome-icon icon="xmark" class='icon-button'/>
+                                                </div>
+                                            </div> 
+                                        </div>
+
+                                        <div class="row-user">
+                                            <div :style="{display: 'flex', alignItems: 'center'}">
+                                                <img src="../../assets/img_avatar3.png" class='avatar-circle'/>
+                                                <div class="user-name">User name</div>
+                                                <font-awesome-icon icon="check" :style="{marginLeft: '10px', fontSize: '18px',color: '#7ACE4C'}"/>
+                                            </div> 
+
+                                            <div :style="{display: 'flex', alignItems: 'center'}">
+                                                <div class="avatar-wrapper-button button-color-yellow">
+                                                    <font-awesome-icon icon="id-badge" class='icon-button'/>
+                                                </div>
+                                                <div class="avatar-wrapper-button button-color-blue">
+                                                    <font-awesome-icon icon="comments" class='icon-button'/>
+                                                </div>
+                                                <div class="avatar-wrapper-button button-color-green">
+                                                    <font-awesome-icon icon="check" class='icon-button'/>
+                                                </div>
+                                                <div class="avatar-wrapper-button button-color-red">
+                                                    <font-awesome-icon icon="xmark" class='icon-button'/>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-4" :style="{margin: '40px 0px 0px 350px'}">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-success" :style="{color: 'white'}">Lưu</button>
                                     </div>
                                 </div>
 

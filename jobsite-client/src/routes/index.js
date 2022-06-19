@@ -6,7 +6,10 @@ import CreateRecruit from './Admin/CreateRecruit.vue';
 import DetailRecruit from './Admin/DetailRecruit.vue';
 import Login from "./Taikhoan/Login.vue";
 import Register from "./Taikhoan/Register.vue";
-
+import Chat from "./Admin/Chat.vue";
+import AdminRegister from "./Admin/AdminRegister.vue";
+import CongTy from "./Admin/CongTy.vue";
+import MyCV from './MyCV.vue'
 const routes = [
   {
     path: "/",
@@ -29,12 +32,28 @@ const routes = [
     component: DetailRecruit
   },
   {
+    path: '/admin/chat',
+    component: Chat
+  },
+  {
     path: "/dang-nhap",
     component: Login,
   },
   {
     path: "/dang-ky",
     component: Register,
+  },
+  {
+    path: "/dang-ky-admin",
+    component: AdminRegister,
+  },
+  {
+    path: "/admin/cong-ty",
+    component: CongTy,
+  },
+  {
+    path: '/my-cv',
+    component: MyCV
   },
 ];
 

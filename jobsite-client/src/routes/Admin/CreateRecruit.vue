@@ -104,7 +104,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/cong-ty"
                                 aria-expanded="false">
                                 <!-- <i class="fa fa-building" aria-hidden="true"></i> -->
                                 <font-awesome-icon icon="building" class='icon-admin'/>
