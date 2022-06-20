@@ -5,6 +5,7 @@ Lên [https://mariadb.org/](https://mariadb.org/) xem hướng dẫn cài + ch�
 Sau khi chạy được, import SQL file ở 'db/db.sql' vào database
 
 chạy mariadbd.exe --console
+
 ## Tạo virtual env + chạy server
 
 Mở cmd ở 'WebTimViec' chạy lần lượt
@@ -47,8 +48,6 @@ http://localhost:8000/api/login-google
 - Payload:             Google Oauth2.0 response
 
 - Response:          { 'token' : <token>, 'user_info' : <info> }
-  
-  
 
 Test Login Google
 
@@ -61,3 +60,15 @@ http://localhost:8000/api/test-auth
 - Authorization:   token lấy bằng API bên trên
 
 - Response:          text
+
+Register
+
+```http
+http://localhost:8000/api/register
+```
+
++ Method: POST
+
++ 
+
++ Response: giống với Google login bên trên

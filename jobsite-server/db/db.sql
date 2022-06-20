@@ -365,6 +365,38 @@ INSERT INTO `user` (`ID`, `username`, `password`, `first_name`, `last_name`, `so
 	(4, 'Nguyễn Hữu Kiệt', '28d3cf225a817ef98f79e87f85eca91080e6f77b41c21b342511bbee930f6600d65b598e61bdea4a40e5679f9f01713705b9998fb9fc813b29eabfcfea3a922406b708ddf3ed64ab74e84c0db156883b9870a5ab2d44470062182afad9f140ce3aa16762f4c3627ea6e2f174e8e0da82d9c9845642541f6f062d620ad85c78b2', 'Kiệt', 'Nguyễn Hữu', 'kietnguyen10112000@gmail.com', '114594750559756865595', 'https://accounts.google.com', '2022-06-13 21:13:15', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJleHAiOjE2NTUyMTU5OTYsImlhdCI6MTY1NTEyOTU5Nn0.c8IYCmVUOfEocdj9cw1fF77Tkn6A1e4Is4LAnGU_Vp8', '2022-06-14 14:13:16');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
+-- Dumping structure for table jobsite-db.user_role
+CREATE TABLE IF NOT EXISTS `user_role` (
+  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) COLLATE utf16_unicode_ci DEFAULT NULL,
+  `desc` varchar(256) COLLATE utf16_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+
+-- Dumping data for table jobsite-db.user_role: ~3 rows (approximately)
+/*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
+INSERT INTO `user_role` (`ID`, `name`, `desc`) VALUES
+	(1, 'admin', 'full quyền'),
+	(2, 'employer', 'employer desc'),
+	(3, 'employee', 'employee desc');
+/*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
+
+-- Dumping structure for table jobsite-db.user_role_relationship
+CREATE TABLE IF NOT EXISTS `user_role_relationship` (
+  `user_id` bigint(20) unsigned NOT NULL,
+  `user_role` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`user_id`,`user_role`),
+  KEY `FK__user_role` (`user_role`),
+  CONSTRAINT `FK__user` FOREIGN KEY (`user_id`) REFERENCES `user` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK__user_role` FOREIGN KEY (`user_role`) REFERENCES `user_role` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+
+-- Dumping data for table jobsite-db.user_role_relationship: ~1 rows (approximately)
+/*!40000 ALTER TABLE `user_role_relationship` DISABLE KEYS */;
+INSERT INTO `user_role_relationship` (`user_id`, `user_role`) VALUES
+	(4, 1);
+/*!40000 ALTER TABLE `user_role_relationship` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -12,6 +12,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 
 import traceback
+import hashlib
 
 #from rest_framework import status
 #from rest_framework.decorators import api_view
@@ -19,6 +20,7 @@ from rest_framework.views import APIView
 
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated 
+from rest_framework import status
 #from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 #from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -38,7 +40,7 @@ class LoginGoogle(APIView):
     permission_classes = [] #disables permission
 
     def response_login(self, user: User, request):
-        res = Response('user.token')
+        res = Response()
         serializer_context = {
             'request': request,
         }
@@ -104,3 +106,52 @@ class TestAuth(APIView):
         user: User = request.user
         return Response(Utils.model_to_dict(user))
         
+
+
+class Registration(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def insert_user(self, username, password, email):
+        user = User()
+        #user.first_name = 'NULL'
+        #user.last_name = 'NULL'
+        user.username = username
+        user.password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        user.joined_date = datetime.datetime.now()
+        #user.social_account_id = info['sub']
+        user.social_account = email
+        #user.social_auth_iss = info['iss']
+
+        # to get user id
+        user.save()
+
+        user.token, user.token_expires = generate_access_token(user)
+        user.save()
+
+        return user
+
+    def post(self, request):
+        user_name = request.data['username']
+        password = request.data['password']
+        email = request.data['email']
+
+        print(request.data)
+
+        try:
+            User.objects.get(username=user_name)
+            return Response('User name existed', status.HTTP_400_BAD_REQUEST)
+        except User.DoesNotExist:
+            user = self.insert_user(user_name, password, email)
+
+            serializer_context = {
+                'request': request,
+            }
+            serialized_user = UserSerializer(user, context=serializer_context)
+
+            data = {
+                'access_token': user.token,
+                'user': serialized_user.data,
+            }
+
+            return Response(data, status.HTTP_200_OK)
