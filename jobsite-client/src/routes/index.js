@@ -9,7 +9,11 @@ import Register from "./Taikhoan/Register.vue";
 import Chat from "./Admin/Chat.vue";
 import AdminRegister from "./Admin/AdminRegister.vue";
 import CongTy from "./Admin/CongTy.vue";
-import MyCV from './MyCV.vue'
+import MyCV from './MyCV.vue';
+import MyLetter from './MyLetter.vue';
+import CongTy2 from './CongTy.vue'
+import ViecLamCongTy from './ViecLamCongTy.vue';
+import ChatEmployee from './Chat.vue'
 const routes = [
   {
     path: "/",
@@ -55,6 +59,22 @@ const routes = [
     path: '/my-cv',
     component: MyCV
   },
+  {
+    path: '/my-letter',
+    component: MyLetter
+  },
+  {
+    path: '/cong-ty',
+    component: CongTy2
+  },
+  {
+    path: '/viec-lam-cong-ty',
+    component: ViecLamCongTy
+  },
+  {
+    path: '/chat',
+    component: ChatEmployee
+  }
 ];
 
 const router = createRouter({

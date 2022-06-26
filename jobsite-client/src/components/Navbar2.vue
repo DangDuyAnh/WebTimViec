@@ -1,0 +1,71 @@
+<template>
+    <div class="Navbar">
+
+        <div class="Navbar-inner">
+            <a class="Home">
+                Home
+            </a>
+
+            <ul class='Navbar-tab'>
+                <li class="Navbar-dropdown">
+                    <a class="Navbar-dropbtn">Việc làm</a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-line">
+                            <font-awesome-icon icon="magnifying-glass" class='dropdown-icon'/>
+                            <a class="dropdown-line-a">Tìm việc làm</a>
+                        </div>
+                        <div class="dropdown-line">
+                            <font-awesome-icon icon="floppy-disk" class='dropdown-icon'/>
+                            <a class="dropdown-line-a">Việc làm đã lưu</a>
+                        </div>
+                        <div class="dropdown-line">
+                            <font-awesome-icon icon="share-from-square" class='dropdown-icon'/>
+                            <a class="dropdown-line-a">Việc làm đã ứng tuyển</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="Navbar-dropdown">
+                    <a class="Navbar-dropbtn">Hồ sơ & CV</a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-line">
+                                <font-awesome-icon icon="id-badge" class='dropdown-icon'/>
+                                <a class="dropdown-line-a">Quản lý CV</a>
+                            </div>
+                            <div class="dropdown-line">
+                                <font-awesome-icon icon="envelope-open-text" class='dropdown-icon'/>
+                                <a class="dropdown-line-a">Thư xin việc</a>
+                            </div>
+                        </div>
+                </li>
+
+                <li class="Navbar-dropdown">
+                    <a class="Navbar-dropbtn">Công ty</a>
+                </li>          
+            </ul>
+        </div>
+
+        <div :style="{marginRight: '22px', display: 'flex', alignItems: 'center'}">
+
+            <font-awesome-icon icon="comments" :style="{color: '#ff7b00', fontSize: '20px', marginRight: '30px', cursor: 'pointer'}"/>
+
+            <div class="Navbar-dropdown">
+                <div :style="{display: 'flex', alignItems: 'center', backgroundColor: '#f5f5f5', padding: '7px 12px', borderRadius: '30px'}">
+                    <img src='../assets/img_avatar3.png' :style="{width: '35px', height: '35px', borderRadius: '50%', marginRight: '10px'}"/>
+                    <h1 :style="{margin: 0, padding: 0, fontSize: '16px', fontWeight: 'bold'}">User Name</h1>
+                    <font-awesome-icon icon="angle-down" class='icon-admin-2' :style="{color: '#ff7b00'}"/>
+                </div>
+
+                <div class="dropdown-content">
+                    <div class="dropdown-line" :style="{minWidth: '0px', width: '160px'}">
+                        <a class="dropdown-line-a" :style="{color: '#ff7b00'}">Đăng xuất</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<style>
+
+</style>

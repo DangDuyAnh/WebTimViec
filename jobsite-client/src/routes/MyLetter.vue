@@ -17,14 +17,14 @@ export default {
     <div class="container-cv">
       <div class="boxwhite-cv">
         <div class="cv-da-tai">
-          <h1>CV đã tải lên</h1>
+          <h1>Thư xin việc đã tải lên</h1>
           <input type='file' id='file' accept=".pdf" :style="{display: 'none'}"/>
           <label for='file'>Tải mới</label>
         </div>
 
         <div class="image-CV-list">
             <div class="image-CV">
-              <img src='../assets/CV1.png'/>
+              <img src='../assets/Letter1.png'/>
               <div class="CV-inner">
               <div class="dat-lam-cv">
               <button>Đặt làm CV chính</button>
@@ -35,7 +35,7 @@ export default {
               </div>
             </div>
             <div class="image-CV">
-              <img src='../assets/CV2.png'/>
+              <img src='../assets/Letter2.png'/>
               <div class="CV-inner">
               <div class="dat-lam-cv">
               <button>Đặt làm CV chính</button>
@@ -46,7 +46,7 @@ export default {
               </div>
             </div>
             <div class="image-CV">
-              <img src='../assets/CV3.png'/>
+              <img src='../assets/Letter3.png'/>
               <div class="CV-inner">
               <div class="dat-lam-cv">
               <button>Đặt làm CV chính</button>
