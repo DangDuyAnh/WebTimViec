@@ -10,6 +10,12 @@ import Chat from "./Admin/Chat.vue";
 import AdminRegister from "./Admin/AdminRegister.vue";
 import CongTy from "./Admin/CongTy.vue";
 import MyCV from './MyCV.vue'
+import TimViecLam from './TimViecLam.vue'
+import PhienDichVien from './PhienDichVien.vue'
+import NhanVienKho from './NhanVienKho.vue'
+import ViecDaLuu from './ViecDaLuu.vue'
+import ViecDaUngTuyen from './ViecDaUngTuyen.vue'
+
 const routes = [
   {
     path: "/",
@@ -53,7 +59,27 @@ const routes = [
   },
   {
     path: '/my-cv',
-    component: MyCV
+    component: MyCV,
+  },
+  {
+    path: '/tim-viec-lam',
+    component: TimViecLam
+  },
+  {
+    path: '/tim-viec-lam/phien-dich-vien',
+    component: PhienDichVien
+  },
+  {
+    path: '/tim-viec-lam/nhan-vien-kho',
+    component: NhanVienKho
+  },
+  {
+    path: '/viec-da-luu',
+    component: ViecDaLuu
+  },
+  {
+    path: '/viec-da-ung-tuyen',
+    component: ViecDaUngTuyen
   },
 ];
 
