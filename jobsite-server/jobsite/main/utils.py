@@ -9,7 +9,13 @@ from django.core import serializers
 class Utils:
     @staticmethod
     def model_to_dict(obj):
-        return json.loads(serializers.serialize('json', [obj]))[0]['fields']
+        obj = json.loads(serializers.serialize('json', [obj]))[0]
+        fields = obj['fields']
+        pk =  { 
+            #'pk': obj['pk'],
+            'id': obj['pk']
+        }
+        return  pk | fields
 
     @staticmethod
     def random_hex(length):

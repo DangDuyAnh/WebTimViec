@@ -24,3 +24,23 @@ class User(models.Model):
     class Meta:
         managed = False
         db_table = 'user'
+
+
+class UserRole(models.Model):
+    id = models.BigAutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    name = models.CharField(max_length=64, blank=True, null=True)
+    desc = models.CharField(max_length=256, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'user_role'
+
+
+class UserRoleRelationship(models.Model):
+    user = models.OneToOneField('User', models.DO_NOTHING, primary_key=True)
+    user_role = models.ForeignKey('UserRole', models.DO_NOTHING, db_column='user_role')
+
+    class Meta:
+        managed = False
+        db_table = 'user_role_relationship'
+        unique_together = (('user', 'user_role'),)

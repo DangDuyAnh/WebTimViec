@@ -60,7 +60,7 @@ export default {
 
     window.loginGoogle = function (googleRespone) {
       axios
-      .post('http://localhost:8000/api/login-google', googleRespone)
+      .post('http://localhost:8000/api/user/login-google', googleRespone)
       .then((token) => {
         // token here, save it
         console.log(token)
