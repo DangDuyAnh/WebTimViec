@@ -34,7 +34,7 @@ class Registration(APIView):
         company.status = 0
         company.save()
         
-        return Response('Done')
+        return Response(Utils.model_to_dict(company))
 
 
 class List(APIView):
