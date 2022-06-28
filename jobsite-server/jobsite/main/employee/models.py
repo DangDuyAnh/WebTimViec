@@ -14,3 +14,24 @@ class Employee(models.Model):
     class Meta:
         managed = False
         db_table = 'employee'
+
+
+class EmployeeAppliedJob(models.Model):
+    employee = models.OneToOneField('Employee', models.DO_NOTHING, primary_key=True)
+    job = models.ForeignKey('Job', models.DO_NOTHING)
+    status = models.PositiveIntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'employee_applied_job'
+        unique_together = (('employee', 'job'),)
+
+
+class EmployeeSavedJob(models.Model):
+    employee = models.OneToOneField('Employee', models.DO_NOTHING, primary_key=True)
+    job = models.ForeignKey('Job', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'employee_saved_job'
+        unique_together = (('employee', 'job'),)

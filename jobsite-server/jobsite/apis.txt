@@ -1,0 +1,78 @@
+Quy ước status
++ 0 waiting
++ 1 accepted
++ 2 rejected
+
+
+Company
++ /company/register
+    Post
+    Đầu vào form-data: như bảng trong csdl
+    register xong thì phải vô csdl để set status cho company thành 1
+
++ /company/list
+
+
+User
++ /user/login-google
++ /user/register
+
++ /user/set-role
+    Post
+    Đầu vào form-data: 'role_id' (2 == employee, 3 == employer)
+    Với role_id == 3 cần cung cấp thêm trường company_id
+    company_id được tạo ra bằng /company/register, hoặc ấy từ /employer/company
+    register xong thì phải vô csdl để set status cho employer thành 1
+
+Job
++ /job/register
+    Post
+    Đầu vào form-data: full một bản ghi của job như trong csdl
+    (có check employer thuộc company)
+
++ /job/delete
+    Post
+    Đầu vào form-data: 'job_id'
+    (có check employer thuộc company)
+
++ /job/update
+    Post
+    Đầu vào form-data: full một bản ghi của job như trong csdl
+    (có check employer thuộc company)
+
++ /job/list
+
++ /job/detail
+
++ /job/filter
+    Get
+    Query param: bất kì trường nào trong csdl, nhưng chỉ dùng được dấu '=' (vd: /job/filter?job_id=1)
+
+
+Employer
++ /employer/company
++ /employer/job-list
++ /employer/applicant-list
+    Get
+    Query param: bắt buộc phải có 'job_id', 'status' thì tùy (có thể = 0, = 1, hoặc ko có)
+    'job_id' được lấy bằng '/employer/job-list'
+
++ /employer/set-status
+    Set status cho application của Employee
+    Post
+    Đầu vào form-data: employee_id, job_id, status (lấy từ /employer/applicant-list)
+
+
+Employee
++ /employee/profile
+    Get
+    Query param: id
+
++ /employee/save
+    Get
+    Query param: job_id
+
+    
++ /employee/apply
+    Get
+    Query param: job_id
