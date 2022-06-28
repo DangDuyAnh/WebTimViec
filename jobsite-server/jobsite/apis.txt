@@ -69,10 +69,17 @@ Employee
     Query param: id
 
 + /employee/save
+    Post
+    Query param: job_id
+
++ /employee/saved-list
     Get
     Query param: job_id
 
-    
 + /employee/apply
+    Post
+    Query param: job_id
+
++ /employee/applied-list
     Get
     Query param: job_id
