@@ -65,14 +65,25 @@ class Apply(APIView):
 
         return Response(Utils.model_to_dict(new))
 
-class Save(APIView):
+
+class AppliedList(APIView):
     authentication_classes = [EmployeeJWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
         employee: Employee = request.user.employee
+        items = EmployeeAppliedJob.objects.filter(employee=employee)
+        return Response(Utils.query_set_to_list(items))
 
-        job_id = request.query_params['job_id']
+
+class Save(APIView):
+    authentication_classes = [EmployeeJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        employee: Employee = request.user.employee
+
+        job_id = request.data['job_id']
 
         items = EmployeeSavedJob.objects.filter(employee=employee)
 
@@ -91,3 +102,13 @@ class Save(APIView):
         new = EmployeeSavedJob.objects.create(employee=employee, job=jobs.first(), status=0)
 
         return Response(Utils.model_to_dict(new))
+
+
+class SavedList(APIView):
+    authentication_classes = [EmployeeJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        employee: Employee = request.user.employee
+        items = EmployeeSavedJob.objects.filter(employee=employee)
+        return Response(Utils.query_set_to_list(items))
