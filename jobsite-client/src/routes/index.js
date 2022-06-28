@@ -9,7 +9,11 @@ import Register from "./Taikhoan/Register.vue";
 import Chat from "./Admin/Chat.vue";
 import AdminRegister from "./Admin/AdminRegister.vue";
 import CongTy from "./Admin/CongTy.vue";
-import MyCV from './MyCV.vue'
+import MyCV from './MyCV.vue';
+import MyLetter from './MyLetter.vue';
+import CongTy2 from './CongTy.vue'
+import ViecLamCongTy from './ViecLamCongTy.vue';
+import ChatEmployee from './Chat.vue'
 import TimViecLam from './TimViecLam.vue'
 import PhienDichVien from './PhienDichVien.vue'
 import NhanVienKho from './NhanVienKho.vue'
@@ -20,10 +24,6 @@ const routes = [
   {
     path: "/",
     component: TrangChu,
-  },
-  {
-    path: "/viec-lam",
-    component: ViecLam,
   },
   {
     path: '/admin',
