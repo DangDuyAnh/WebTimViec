@@ -14,6 +14,12 @@ import MyLetter from './MyLetter.vue';
 import CongTy2 from './CongTy.vue'
 import ViecLamCongTy from './ViecLamCongTy.vue';
 import ChatEmployee from './Chat.vue'
+import TimViecLam from './TimViecLam.vue'
+import PhienDichVien from './PhienDichVien.vue'
+import NhanVienKho from './NhanVienKho.vue'
+import ViecDaLuu from './ViecDaLuu.vue'
+import ViecDaUngTuyen from './ViecDaUngTuyen.vue'
+
 const routes = [
   {
     path: "/",
@@ -57,7 +63,27 @@ const routes = [
   },
   {
     path: '/my-cv',
-    component: MyCV
+    component: MyCV,
+  },
+  {
+    path: '/tim-viec-lam',
+    component: TimViecLam
+  },
+  {
+    path: '/tim-viec-lam/phien-dich-vien',
+    component: PhienDichVien
+  },
+  {
+    path: '/tim-viec-lam/nhan-vien-kho',
+    component: NhanVienKho
+  },
+  {
+    path: '/viec-da-luu',
+    component: ViecDaLuu
+  },
+  {
+    path: '/viec-da-ung-tuyen',
+    component: ViecDaUngTuyen
   },
   {
     path: '/my-letter',

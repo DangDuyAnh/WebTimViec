@@ -2,7 +2,7 @@
     <div class="Navbar">
 
         <div class="Navbar-inner">
-            <a class="Home">
+            <a class="Home" href="/">
                 Home
             </a>
 
