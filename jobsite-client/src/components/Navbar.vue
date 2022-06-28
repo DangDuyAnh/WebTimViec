@@ -1,3 +1,19 @@
+<script>
+export default {
+        methods: {
+        dangNhap() {
+            window.location='/dang-nhap'
+        },
+        dangky() {
+            window.location='/dang-ky'
+        },
+        dangkyAdmin() {
+            window.location='/dang-ky-admin'
+        }
+    },
+}
+</script>
+
 <template>
     <div class="Navbar">
 
@@ -12,15 +28,15 @@
                     <div class="dropdown-content">
                         <div class="dropdown-line">
                             <font-awesome-icon icon="magnifying-glass" class='dropdown-icon'/>
-                            <a class="dropdown-line-a">Tìm việc làm</a>
+                            <a class="dropdown-line-a" href="/tim-viec-lam">Tìm việc làm</a>
                         </div>
                         <div class="dropdown-line">
                             <font-awesome-icon icon="floppy-disk" class='dropdown-icon'/>
-                            <a class="dropdown-line-a">Việc làm đã lưu</a>
+                            <a class="dropdown-line-a" href="/viec-da-luu">Việc làm đã lưu</a>
                         </div>
                         <div class="dropdown-line">
                             <font-awesome-icon icon="share-from-square" class='dropdown-icon'/>
-                            <a class="dropdown-line-a">Việc làm đã ứng tuyển</a>
+                            <a class="dropdown-line-a" href="/viec-da-ung-tuyen">Việc làm đã ứng tuyển</a>
                         </div>
                     </div>
                 </li>
@@ -30,25 +46,25 @@
                         <div class="dropdown-content">
                             <div class="dropdown-line">
                                 <font-awesome-icon icon="id-badge" class='dropdown-icon'/>
-                                <a class="dropdown-line-a">Quản lý CV</a>
+                                <a class="dropdown-line-a" href="/my-cv">Quản lý CV</a>
                             </div>
                             <div class="dropdown-line">
                                 <font-awesome-icon icon="envelope-open-text" class='dropdown-icon'/>
-                                <a class="dropdown-line-a">Thư xin việc</a>
+                                <a class="dropdown-line-a" href="/my-letter">Thư xin việc</a>
                             </div>
                         </div>
                 </li>
 
                 <li class="Navbar-dropdown">
-                    <a class="Navbar-dropbtn">Công ty</a>
+                    <a class="Navbar-dropbtn" href="/cong-ty">Công ty</a>
                 </li>          
             </ul>
         </div>
 
         <div :style="{marginRight: '22px'}">
-            <button class="navbar-button" :style="{backgroundColor: 'white', border: '1px solid #e65100', color: '#e65100' }">Đăng nhập</button>
-            <button class="navbar-button" :style="{backgroundColor: '#e65100', border: '1px solid #e65100', color: 'white'}">Đăng ký</button>
-            <button class="navbar-button" :style="{backgroundColor: 'black', border: '1px solid black', color: 'white'}">Nhà tuyển dụng</button>
+            <button @click="dangNhap" class="navbar-button" :style="{backgroundColor: 'white', border: '1px solid #e65100', color: '#e65100' }">Đăng nhập</button>
+            <button @click="dangky" class="navbar-button" :style="{backgroundColor: '#e65100', border: '1px solid #e65100', color: 'white'}">Đăng ký</button>
+            <button @click="dangkyAdmin" class="navbar-button" :style="{backgroundColor: 'black', border: '1px solid black', color: 'white'}">Nhà tuyển dụng</button>
         </div>
     </div>
 </template>

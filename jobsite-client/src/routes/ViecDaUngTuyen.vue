@@ -103,7 +103,7 @@ input,select {
   border-radius: 0.25rem;
   font-family: inherit;
 }
-.input-icon {
+.input-icon2 {
   margin-top: 2px;
   padding-left: 0px;
   padding-right: 85px;

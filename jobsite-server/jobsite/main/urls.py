@@ -1,11 +1,14 @@
 from django.urls import include, path
 from django.views.generic import TemplateView
 
-from .user import api
+from . import api
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name="main.html")),
-    path('register', api.Registration.as_view(), name='register'),
-    path('login-google', api.LoginGoogle.as_view(), name='login-google'),
-    path('test-auth', api.TestAuth.as_view(), name='test-auth'),
+    path('user/', include('main.user.urls')),
+    path('company/', include('main.company.urls')),
+    path('job/', include('main.job.urls')),
+    path('employer/', include('main.employer.urls')),
+    path('employee/', include('main.employee.urls')),
+    path('province/list', api.ListProvince.as_view()),
 ]

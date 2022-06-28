@@ -1,0 +1,4 @@
+1. Tạo tài khoản 
+2. Đăng nhập vào tài khoản (qua Google login, hoặc tài khoản đã đăng ký)
+3. Đăng ký employer, tạo company (chờ thằng chủ web duyệt)
+4. Đăng ký employee

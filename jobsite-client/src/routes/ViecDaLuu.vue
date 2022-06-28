@@ -24,7 +24,7 @@
         </select>
         <button class="button-search">
           <span class="text-button">Tìm kiếm</span>
-          <font-awesome-icon icon="magnifying-glass" class='input-icon'/>
+          <font-awesome-icon icon="magnifying-glass" class='input-icon2'/>
         </button>
       </form>
       
@@ -113,7 +113,7 @@ input,select {
   border-radius: 0.25rem;
   font-family: inherit;
 }
-.input-icon {
+.input-icon2 {
   margin-top: 2px;
   padding-left: 0px;
   padding-right: 85px;

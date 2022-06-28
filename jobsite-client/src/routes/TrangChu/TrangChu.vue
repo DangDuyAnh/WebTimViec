@@ -6,7 +6,9 @@ export default {
   },
   data() {
     return {
-      index: 0
+      index: 0,
+      congViec: '',
+      diaDiem: ''
     }
   }, 
     methods: {
@@ -15,7 +17,13 @@ export default {
         },
         decrement() {
 		    this.index--
-		}
+		},
+        search() {
+            window.location = '/tim-viec-lam?congviec=' + this.congViec + '&diadiem=' + this.diaDiem
+        },
+        goByTag () {
+            window.location = '/tim-viec-lam?tag=nganhang'
+        }
     },
 }
 </script>
@@ -26,19 +34,19 @@ export default {
         <div class="search-box">
             <div class="input-wrapper">
                 <h1 class="input-label">Công việc</h1>
-                <input>
+                <input v-model="congViec">
                 <font-awesome-icon icon="magnifying-glass" class='input-icon'/>
             </div>
             <div class="input-wrapper">
                 <h1 class="input-label">Địa điểm</h1>
-                <input>
+                <input v-model="diaDiem">
                 <font-awesome-icon icon="location-dot" class='input-icon'/>
             </div>
-            <button class="navbar-button" :style="{backgroundColor: '#e65100', border: '1px solid #e65100', color: 'white', padding: '5px 15px', margin: '5px 8px'}">Tìm kiếm</button>
+            <button @click="search" class="navbar-button" :style="{backgroundColor: '#e65100', border: '1px solid #e65100', color: 'white', padding: '5px 15px', margin: '5px 8px'}">Tìm kiếm</button>
         </div>
 
         <div :style="{display: 'flex', justifyContent: 'center'}">
-            <a class="tao-CV">Tạo CV của bạn</a>
+            <a class="tao-CV" href="/my-cv">Tạo CV của bạn</a>
         </div>
         
         <div class="job-part">
@@ -57,7 +65,7 @@ export default {
                     <div class="card" :style="{backgroundColor: '#bce6eb'}">
                         <h1>Kế toán / Kiểm toán</h1>
                     </div>    
-                    <div class="card" :style="{backgroundColor: '#ffda77'}">
+                    <div class="card" :style="{backgroundColor: '#ffda77'}" @click="goByTag">
                         <h1>Ngân hàng</h1>
                     </div>
                     <div class="card" :style="{backgroundColor: '#fdcfdf'}">

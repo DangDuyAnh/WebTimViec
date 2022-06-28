@@ -25,13 +25,18 @@ from rest_framework import status
 #from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 import datetime
-#import random
 
-from .model import User
+from ..company.models import Company
+from ..employee.models import Employee
+from ..employer.models import Employer
+
+from .model import User, UserRole, UserRoleRelationship
 from .serializer import UserSerializer, UserFullSerializer
 from .utils import generate_access_token, generate_refresh_token
 
 from ..utils import Utils
+
+from .role import RoleID
 
 # Create your views here.
 
@@ -140,7 +145,7 @@ class Registration(APIView):
 
         try:
             User.objects.get(username=user_name)
-            return Response('User name existed', status.HTTP_400_BAD_REQUEST)
+            return Response('User name exists', status.HTTP_400_BAD_REQUEST)
         except User.DoesNotExist:
             user = self.insert_user(user_name, password, email)
 
@@ -155,3 +160,37 @@ class Registration(APIView):
             }
 
             return Response(data, status.HTTP_200_OK)
+
+
+class SetRole(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user: User = request.user
+        role: str = request.data['role_id']
+        roleId = int(role)
+
+        rels = UserRoleRelationship.objects.filter(user=user.id)
+
+        for r in rels.iterator():
+            if r.user_role.id == roleId:
+                return Response('Role exists', status.HTTP_400_BAD_REQUEST)
+
+        try:
+            if roleId == RoleID.EMPLOYEE:
+                UserRoleRelationship.objects.create(user=user, user_role=UserRole.objects.get(id=roleId))
+                Employee.objects.create(user=user)
+
+            elif roleId == RoleID.EMPLOYER:
+                company_id = request.data['company_id']
+                Employer.objects.create(user=user, company=Company.objects.get(id=company_id))
+                UserRoleRelationship.objects.create(user=user, user_role=UserRole.objects.get(id=roleId))
+                
+            else:
+                return Response('Admin role', status.HTTP_400_BAD_REQUEST)
+
+        except:
+            traceback.print_exc()
+            return Response('Fatal error', status.HTTP_400_BAD_REQUEST)
+
+        return Response('Done')
