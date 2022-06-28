@@ -1,3 +1,25 @@
+<script>
+import {post} from '../../utility/api'
+import { authenticationService } from '../../utility/authenticationService'
+export default {
+    data() {
+        return {
+        username: '',
+        password: '',
+        email: ''
+        }
+    },
+    methods: {
+        async send() {
+            const data = await post("/user/register", {username: this.username, password: this.password, email: this.email});
+            let json = await data.json();
+            authenticationService.login(json.user, json.access_token)
+            window.location = '/'
+        },
+    }
+}
+</script>
+
 <template>
     <div class="jobsite">
         <div class="container-login">
@@ -6,17 +28,17 @@
                     <div class="title">Tạo tài khoản</div>
                     <div class="input-account">
                         <div class="form-fields">
-                            <input id="username" name="user" type="text" placeholder="Nhập tài khoản">
+                            <input v-model="username" id="username" name="user" type="text" placeholder="Nhập tài khoản">
                         </div>
                         <div class="form-fields">
-                            <input id="email" name="email" type="text" placeholder="Địa chỉ email">
+                            <input v-model="password" id="email" name="email" type="text" placeholder="Địa chỉ email">
                         </div>
                         <div class="form-fields">
-                            <input id="password" name="password" type="text" placeholder="Nhập mật khẩu">
+                            <input v-model="email" id="password" name="password" type="text" placeholder="Nhập mật khẩu">
                         </div>
                     </div>
                     <div class="form-fields">
-                        <button class="login" name="commit" type="submit">
+                        <button class="login" name="commit" type="submit" @click="send">
                             Đăng kí
                         </button>
                     </div>

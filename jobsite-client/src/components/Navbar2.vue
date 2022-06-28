@@ -1,3 +1,18 @@
+<script>
+import { authenticationService } from '../utility/authenticationService';
+export default {
+    methods: {
+        goToChat() {
+            window.location = '/chat'
+        },
+        dangXuat() {
+            authenticationService.logout();
+            window.location = '/'
+        }
+    }
+}
+</script>
+
 <template>
     <div class="Navbar">
 
@@ -47,7 +62,8 @@
 
         <div :style="{marginRight: '22px', display: 'flex', alignItems: 'center'}">
 
-            <font-awesome-icon icon="comments" :style="{color: '#ff7b00', fontSize: '20px', marginRight: '30px', cursor: 'pointer'}"/>
+            <font-awesome-icon icon="comments" :style="{color: '#ff7b00', fontSize: '20px', marginRight: '30px', cursor: 'pointer'}"
+            @click='goToChat'/>
 
             <div class="Navbar-dropdown">
                 <div :style="{display: 'flex', alignItems: 'center', backgroundColor: '#f5f5f5', padding: '7px 12px', borderRadius: '30px'}">
@@ -57,7 +73,7 @@
                 </div>
 
                 <div class="dropdown-content">
-                    <div class="dropdown-line" :style="{minWidth: '0px', width: '160px'}">
+                    <div class="dropdown-line" :style="{minWidth: '0px', width: '160px'}" @click="dangXuat">
                         <a class="dropdown-line-a" :style="{color: '#ff7b00'}">Đăng xuất</a>
                     </div>
                 </div>

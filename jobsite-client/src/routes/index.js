@@ -26,10 +26,6 @@ const routes = [
     component: TrangChu,
   },
   {
-    path: "/viec-lam",
-    component: ViecLam,
-  },
-  {
     path: '/admin',
     component: Admin,
   },

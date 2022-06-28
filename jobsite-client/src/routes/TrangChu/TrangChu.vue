@@ -1,14 +1,18 @@
 <script>
-import Navbar from '../../components/Navbar.vue';
+import Navbar2 from '../../components/Navbar.vue';
+import Navbar from '../../components/Navbar2.vue';
+import { authenticationService } from '../../utility/authenticationService';
 export default {
   components: {
-    Navbar
+    Navbar,
+    Navbar2
   },
   data() {
     return {
       index: 0,
       congViec: '',
-      diaDiem: ''
+      diaDiem: '',
+      userToken: authenticationService.getUserToken()
     }
   }, 
     methods: {
@@ -23,13 +27,18 @@ export default {
         },
         goByTag () {
             window.location = '/tim-viec-lam?tag=nganhang'
+        },
+        check() {
+            if (this.userToken) return 1;
+            else return 0;
         }
     },
 }
 </script>
 
 <template>
-    <Navbar />
+    <Navbar v-if="userToken"/>
+    <Navbar2 v-else/>
     <div class="container">
         <div class="search-box">
             <div class="input-wrapper">

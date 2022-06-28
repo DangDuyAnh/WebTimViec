@@ -52,8 +52,18 @@
 <script>
 
 import axios from 'axios'
+import {post} from '../../utility/api'
+import { authenticationService } from '../../utility/authenticationService'
 
 export default {
+
+    data() {
+        return {
+        username: '',
+        password: '',
+        email: ''
+        }
+    },  
   mounted() {
 
     console.log("mounted")
