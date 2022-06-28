@@ -194,6 +194,59 @@ CREATE TABLE IF NOT EXISTS `auth_user_user_permissions` (
 /*!40000 ALTER TABLE `auth_user_user_permissions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `auth_user_user_permissions` ENABLE KEYS */;
 
+-- Dumping structure for table jobsite-db.chat_room
+CREATE TABLE IF NOT EXISTS `chat_room` (
+  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) COLLATE utf16_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+
+-- Dumping data for table jobsite-db.chat_room: ~1 rows (approximately)
+/*!40000 ALTER TABLE `chat_room` DISABLE KEYS */;
+INSERT INTO `chat_room` (`ID`, `name`) VALUES
+	(1, 'user_1_to_user_2'),
+	(2, 'user_1_to_user_3');
+/*!40000 ALTER TABLE `chat_room` ENABLE KEYS */;
+
+-- Dumping structure for table jobsite-db.chat_room_conversation
+CREATE TABLE IF NOT EXISTS `chat_room_conversation` (
+  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `sender_user_id` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `room_id` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `text` varchar(2048) COLLATE utf16_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_chat_room_conversation_chat_room_user` (`sender_user_id`,`room_id`),
+  CONSTRAINT `FK_chat_room_conversation_chat_room_user` FOREIGN KEY (`sender_user_id`, `room_id`) REFERENCES `chat_room_user` (`user_id`, `room_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+
+-- Dumping data for table jobsite-db.chat_room_conversation: ~0 rows (approximately)
+/*!40000 ALTER TABLE `chat_room_conversation` DISABLE KEYS */;
+INSERT INTO `chat_room_conversation` (`ID`, `sender_user_id`, `room_id`, `text`) VALUES
+	(1, 4, 1, 'Hello, World!'),
+	(2, 4, 1, 'Xin chào!'),
+	(3, 6, 1, 'Chào lại!'),
+	(8, 6, 1, 'Hahaha =)))'),
+	(9, 4, 1, 'Hello, World from Postman!'),
+	(10, 4, 1, 'Hello, World from Postman 2!');
+/*!40000 ALTER TABLE `chat_room_conversation` ENABLE KEYS */;
+
+-- Dumping structure for table jobsite-db.chat_room_user
+CREATE TABLE IF NOT EXISTS `chat_room_user` (
+  `user_id` bigint(20) unsigned NOT NULL,
+  `room_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`user_id`,`room_id`),
+  KEY `FK__chat_room__chat_room` (`room_id`),
+  CONSTRAINT `FK__chat_room__chat_room` FOREIGN KEY (`room_id`) REFERENCES `chat_room` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK__chat_room__user` FOREIGN KEY (`user_id`) REFERENCES `user` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+
+-- Dumping data for table jobsite-db.chat_room_user: ~2 rows (approximately)
+/*!40000 ALTER TABLE `chat_room_user` DISABLE KEYS */;
+INSERT INTO `chat_room_user` (`user_id`, `room_id`) VALUES
+	(4, 1),
+	(6, 1);
+/*!40000 ALTER TABLE `chat_room_user` ENABLE KEYS */;
+
 -- Dumping structure for table jobsite-db.company
 CREATE TABLE IF NOT EXISTS `company` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -205,13 +258,14 @@ CREATE TABLE IF NOT EXISTS `company` (
   PRIMARY KEY (`ID`),
   KEY `FK_company_province` (`province_id`) USING BTREE,
   CONSTRAINT `FK_company_province` FOREIGN KEY (`province_id`) REFERENCES `province` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
--- Dumping data for table jobsite-db.company: ~2 rows (approximately)
+-- Dumping data for table jobsite-db.company: ~3 rows (approximately)
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
 INSERT INTO `company` (`ID`, `name`, `address`, `province_id`, `desc`, `status`) VALUES
 	(1, 'Công ty 1', 'số 1 ngõ Độc Lập, đường Tự Do, quận Hạnh Phúc', 1, 'công ty test 1', 1),
-	(2, 'Công ty 2', 'Thiên Đàng', 2, 'công ty test 2', 1);
+	(2, 'Công ty 2', 'Thiên Đàng', 2, 'công ty test 2', 1),
+	(3, 'Công ty 3', 'Địa Ngục', 1, 'công ty test 3', 1);
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 
 -- Dumping structure for table jobsite-db.django_admin_log
@@ -378,12 +432,13 @@ CREATE TABLE IF NOT EXISTS `employer` (
   KEY `FK_employer_company` (`company_id`),
   CONSTRAINT `FK__employer__user` FOREIGN KEY (`user_id`) REFERENCES `user` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_employer_company` FOREIGN KEY (`company_id`) REFERENCES `company` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
--- Dumping data for table jobsite-db.employer: ~1 rows (approximately)
+-- Dumping data for table jobsite-db.employer: ~2 rows (approximately)
 /*!40000 ALTER TABLE `employer` DISABLE KEYS */;
 INSERT INTO `employer` (`ID`, `user_id`, `company_id`, `date_of_birth`, `gender`, `image_link`, `status`) VALUES
-	(1, 4, 1, '2000-11-10', 'male', 'images/test1.png', 1);
+	(1, 4, 1, '2000-11-10', 'male', 'images/test1.png', 1),
+	(2, 6, 3, '2002-06-28', 'female', 'images/test1.png', 1);
 /*!40000 ALTER TABLE `employer` ENABLE KEYS */;
 
 -- Dumping structure for table jobsite-db.job
@@ -500,8 +555,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table jobsite-db.user: ~1 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`ID`, `username`, `password`, `first_name`, `last_name`, `social_account`, `social_account_id`, `social_auth_iss`, `joined_date`, `token`, `token_expires`) VALUES
-	(4, 'Nguyễn Hữu Kiệt', '28d3cf225a817ef98f79e87f85eca91080e6f77b41c21b342511bbee930f6600d65b598e61bdea4a40e5679f9f01713705b9998fb9fc813b29eabfcfea3a922406b708ddf3ed64ab74e84c0db156883b9870a5ab2d44470062182afad9f140ce3aa16762f4c3627ea6e2f174e8e0da82d9c9845642541f6f062d620ad85c78b2', 'Kiệt', 'Nguyễn Hữu', 'kietnguyen10112000@gmail.com', '114594750559756865595', 'https://accounts.google.com', '2022-06-13 21:13:15', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJleHAiOjE2NTY0Mjk2MTksImlhdCI6MTY1NjM0MzIxOX0.7tM7BYWkAZvf9IHu7thjHclMggiaSevHTPCDENUlkL4', '2022-06-28 15:20:19'),
-	(6, 'tha_thu', 'c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646', NULL, NULL, 'haahha@gmail.com', NULL, NULL, '2022-06-20 22:36:26', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2LCJleHAiOjE2NTU4MjU3ODcsImlhdCI6MTY1NTczOTM4N30.loAxbbVnwJBr1g0QheaKVGlfdJD59xlCtGcV8p6-dXE', '2022-06-21 15:36:27'),
+	(4, 'Nguyễn Hữu Kiệt', '28d3cf225a817ef98f79e87f85eca91080e6f77b41c21b342511bbee930f6600d65b598e61bdea4a40e5679f9f01713705b9998fb9fc813b29eabfcfea3a922406b708ddf3ed64ab74e84c0db156883b9870a5ab2d44470062182afad9f140ce3aa16762f4c3627ea6e2f174e8e0da82d9c9845642541f6f062d620ad85c78b2', 'Kiệt', 'Nguyễn Hữu', 'kietnguyen10112000@gmail.com', '114594750559756865595', 'https://accounts.google.com', '2022-06-13 21:13:15', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJleHAiOjE2NTY1MTcyMjQsImlhdCI6MTY1NjQzMDgyNH0.vKK3kapLmZxEosZGmlEzaarWxML3Ltc455N9HCBBOyU', '2022-06-29 15:40:24'),
+	(6, 'tha_thu', 'c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646', NULL, NULL, 'haahha@gmail.com', NULL, NULL, '2022-06-20 22:36:26', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2LCJleHAiOjE2NTY1MTI1NzIsImlhdCI6MTY1NjQyNjE3Mn0.CnECmy_WXY051FEnIk94CbrDtTIyZHvW_McKHQBBQyA', '2022-06-29 14:22:52'),
 	(7, 'tha_thu2', 'c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646', NULL, NULL, 'haahha@gmail.com', NULL, NULL, '2022-06-27 21:23:33', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3LCJleHAiOjE2NTY0MjYyMTMsImlhdCI6MTY1NjMzOTgxM30.geoSPnfSqrqJpxAJfFRi2ierOnjmbbUFlZ9SC0dCKZI', '2022-06-28 14:23:33');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
