@@ -8,14 +8,14 @@
             Tạo tài khoản đề tìm ứng viên và bắt đầu đăng việc ngay
         </h1>
 
-        <input placeholder="Email"/>
-        <input placeholder="Mật khẩu" type="password"/>
+        <input placeholder="Username" v-model="username"/>
+        <input placeholder="Password" type="password" v-model="password"/>
         <h1 :style="{fontSize: '22px', fontWeight: 'bold', color: 'black', marginTop: '40px', marginBottom: '20px'}">
             Thông tin công ty
         </h1>
-        <input placeholder="Tên công ty"/>
-        <input placeholder="Người liên hệ"/>
-
+        <input placeholder="Tên công ty" v-model="companyName"/>
+        <input placeholder="Email người tuyển dụng" v-model="email"/>
+        <input placeholder="Mô tả Công ty" v-model="desc"/>
         <div :style="{width: '500px'}">
             <h1 :style="{fontSize: '17px', fontWeight: 'bold', color: 'black', marginBottom: '10px'}">Địa chỉ</h1>
         </div>
@@ -29,7 +29,7 @@
                     Hàn Quốc
                 </option>
             </select>
-            <select>
+            <select v-model="city">
                 <option>
                     Chọn tỉnh / thành
                 </option>
@@ -40,19 +40,65 @@
                     Hồ Chí Minh
                 </option>
             </select>
-            <select :style="{width: '168px'}">
+            <select :style="{width: '168px'}" v-model="quan">
                 <option>
                     Chọn quận / huyện
                 </option>
-                <option>
+                <option v-if="city==='Hà Nội'">
                     Hai Bà Trưng
                 </option>
+                <option v-if="city==='Hà Nội'">
+                    Hoàn Kiếm
+                </option>
+                <option v-if="city==='Hà Nội'">
+                    Đống Đa
+                </option>
+
+                <option v-if="city==='Hồ Chí Minh'">
+                    Quận 1
+                </option>
+                <option v-if="city==='Hồ Chí Minh'">
+                    Quận 2
+                </option>
+
             </select>
         </div>
 
-        <input placeholder="Số nhà, phố, phường"/>
+        <input placeholder="Số nhà, phố, phường" v-model="address"/>
 
-        <button>Đăng ký ngay</button>
+        <button @click="registerAdmin">Đăng ký ngay</button>
     </div>
 </div>
 </template>
+
+<script>
+import axios from 'axios'
+export default {
+    data() {
+        return{
+            email: '',
+            password: '',
+            companyName: '',
+            username: '',
+            country: 'Việt Nam',
+            province: '1',
+            quan: 'Chọn quận / huyện',
+            address: '',
+            city: 'Chọn tỉnh / thành',
+            desc: ''
+        }
+    }, 
+    methods: {
+        async registerAdmin() {
+            if (this.city === 'Hồ Chí Minh') this.province === '2'
+            else this.province === '1'
+            let sendData = {name: this.companyName, 
+            address: this.address + ' quận ' + this.quan + ' TP. ' + this.city, province_id: this.province,
+            desc: this.desc}
+            console.log(sendData)
+            res = await axios.post('http://localhost:8000/api/company/register', sendData)
+            console.log(res.data)
+        }
+    }
+}
+</script>

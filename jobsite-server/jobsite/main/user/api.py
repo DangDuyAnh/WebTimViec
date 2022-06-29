@@ -162,6 +162,40 @@ class Registration(APIView):
             return Response(data, status.HTTP_200_OK)
 
 
+class Login(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def post(self, request):
+        user_name = request.data['username']
+        password = request.data['password']
+
+        users = User.objects.filter(username=user_name)
+
+        if not users.exists():
+            return Response('User name not found', status.HTTP_400_BAD_REQUEST)
+
+        user: User = users.first()
+        inputPassword = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        if inputPassword != user.password:
+            return Response('Password incorrect', status.HTTP_400_BAD_REQUEST)
+
+        if (user.token_expires < timezone.now()):
+            user.token, user.token_expires = generate_access_token(user)
+            user.save()
+
+        res = Response()
+        serializer_context = {
+            'request': request,
+        }
+        serialized_user = UserSerializer(user, context=serializer_context)
+        res.data = {
+            'access_token': user.token,
+            'user': serialized_user.data,
+        }
+        return res
+
+
 class SetRole(APIView):
     permission_classes = [IsAuthenticated]
 

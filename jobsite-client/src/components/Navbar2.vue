@@ -1,6 +1,11 @@
 <script>
 import { authenticationService } from '../utility/authenticationService';
 export default {
+    data(){
+        return {
+            username : authenticationService.getUser().username
+        }
+    },
     methods: {
         goToChat() {
             window.location = '/chat'
@@ -68,12 +73,12 @@ export default {
             <div class="Navbar-dropdown">
                 <div :style="{display: 'flex', alignItems: 'center', backgroundColor: '#f5f5f5', padding: '7px 12px', borderRadius: '30px'}">
                     <img src='../assets/img_avatar3.png' :style="{width: '35px', height: '35px', borderRadius: '50%', marginRight: '10px'}"/>
-                    <h1 :style="{margin: 0, padding: 0, fontSize: '16px', fontWeight: 'bold'}">User Name</h1>
+                    <h1 :style="{margin: 0, padding: 0, fontSize: '16px', fontWeight: 'bold'}">{{username}}</h1>
                     <font-awesome-icon icon="angle-down" class='icon-admin-2' :style="{color: '#ff7b00'}"/>
                 </div>
 
                 <div class="dropdown-content">
-                    <div class="dropdown-line" :style="{minWidth: '0px', width: '160px'}" @click="dangXuat">
+                    <div class="dropdown-line" :style="{minWidth: '0px', width: '120px'}" @click="dangXuat">
                         <a class="dropdown-line-a" :style="{color: '#ff7b00'}">Đăng xuất</a>
                     </div>
                 </div>

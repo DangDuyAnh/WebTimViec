@@ -1,6 +1,7 @@
 <script>
 import {post} from '../../utility/api'
 import { authenticationService } from '../../utility/authenticationService'
+import axios from 'axios'
 export default {
     data() {
         return {
@@ -10,11 +11,16 @@ export default {
         }
     },
     methods: {
-        async send() {
-            const data = await post("/user/register", {username: this.username, password: this.password, email: this.email});
-            let json = await data.json();
-            authenticationService.login(json.user, json.access_token)
-            window.location = '/'
+        send() {
+            // const data =  post("/user/register", {username: this.username, password: this.password, email: this.email});
+            // authenticationService.login(data.user, data.access_token)
+            // window.location = '/';
+            axios.post('http://localhost:8000/api/user/register', {username: this.username, password: this.password, email: this.email})
+            .then((data) => {
+                data = data.data
+                authenticationService.login(data.user, data.access_token)
+                window.location = '/'
+        })
         },
     }
 }
@@ -31,10 +37,10 @@ export default {
                             <input v-model="username" id="username" name="user" type="text" placeholder="Nhập tài khoản">
                         </div>
                         <div class="form-fields">
-                            <input v-model="password" id="email" name="email" type="text" placeholder="Địa chỉ email">
+                            <input v-model="email" id="email" name="email" type="email" placeholder="Địa chỉ email">
                         </div>
                         <div class="form-fields">
-                            <input v-model="email" id="password" name="password" type="text" placeholder="Nhập mật khẩu">
+                            <input v-model="password" id="password" name="password" type="password" placeholder="Nhập mật khẩu">
                         </div>
                     </div>
                     <div class="form-fields">

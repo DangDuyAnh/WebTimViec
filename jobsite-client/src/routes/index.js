@@ -1,6 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
 import TrangChu from "./TrangChu/TrangChu.vue";
-import ViecLam from "./ViecLam.vue";
 import Admin from './Admin/Admin.vue';
 import CreateRecruit from './Admin/CreateRecruit.vue';
 import DetailRecruit from './Admin/DetailRecruit.vue';
@@ -19,6 +18,7 @@ import PhienDichVien from './PhienDichVien.vue'
 import NhanVienKho from './NhanVienKho.vue'
 import ViecDaLuu from './ViecDaLuu.vue'
 import ViecDaUngTuyen from './ViecDaUngTuyen.vue'
+import { authenticationService } from '../utility/authenticationService'
 
 const routes = [
   {
@@ -44,6 +44,7 @@ const routes = [
   {
     path: "/dang-nhap",
     component: Login,
+    name: 'dang-nhap'
   },
   {
     path: "/dang-ky",
@@ -104,5 +105,14 @@ const router = createRouter({
   routes,
 });
 
+// router.beforeEach(async (to, from) => {
+//   const userRoutes = ['/my-cv', '/viec-da-luu', '/viec-da-ung-tuyen', '/my-letter', '/chat']
+//   const adminRoutes = ['/admin/cong-ty', 'admin', '/admin/create-recruit', '/admin/detail-recruit', 'admin/chat']
+//   if (
+//     (authenticationService.getUserToken() === undefined || authenticationService.getUserToken() === null) && (to.name !== 'dang-nhap') 
+//   ) {
+//     return { name: 'dang-nhap' }
+//   }
+// })
 
 export default router;
