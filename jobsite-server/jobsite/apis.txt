@@ -18,7 +18,7 @@ User
 + /user/login
     Post
     username, password
-    
+
 + /user/register
 
 + /user/set-role
@@ -87,3 +87,39 @@ Employee
 + /employee/applied-list
     Get
     Query param: job_id
+
+
+Chat room
++ /chat-room/create-pair
+    Tạo ra một phòng chat với 2 user
+    Post
+    Có Auth
+    Tham số: user_id (không phải mình, mà là đứa còn lại), room_name
+
++ /chat-room/send
+    Post
+    Có Auth
+    Tham số: room_id, text (cái cần gửi)
+
++ /chat-room/conversation
+    Lấy tất cả đoạn hoại thoại của phòng chat
+    Get
+    Có Auth
+    Query param: room_id (http://localhost:8000/api/chat-room/conversation?room_id=1)
+
++ /chat-room/list
+    Lấy tất cả các id phòng chat mà user hiện tại đã tham gia
+    Get
+    Có Auth
+
++ /chat-room/members-list
+    Lấy tất cả id của các user khác có trong phòng chat
+    Get
+    Có Auth
+    Query param: room_id (http://localhost:8000/api/chat-room/members-list?room_id=1)
+
++ /chat-room/members-detail-list
+    Lấy tất cả detail của các user khác có trong phòng chat
+    Get
+    Có Auth
+    Query param: room_id
