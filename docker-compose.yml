@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  database:
+    image: mariadb:10.6
+    environment:
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=true
+      - MYSQL_DATABASE=jobsite-db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=
+    volumes:
+      - ./jobsite-server/mariadb_data:/var/lib/mysql
+      - ./jobsite-server/db:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+
+      
+  jobsite-server:
+    build:
+      context: jobsite-server
+      dockerfile: ./Dockerfile
+    command: bash -c "./wait-for-it.sh database:3306 --timeout=0; python jobsite/manage.py runserver 0.0.0.0:8000"
+    restart: on-failure
+    ports:
+      - 8000:8000
+    depends_on:
+      - database
+    links:
+      - database
+
+  jobsite-client:
+    build:
+      context: jobsite-client
+      dockerfile: ./Dockerfile
+    command: bash -c "./wait-for-it.sh jobsite-server:8000 --timeout=0; npm run dev"
+    ports:
+      - 3000:3000
+    depends_on:
+      - jobsite-server
