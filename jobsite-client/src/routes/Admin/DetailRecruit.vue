@@ -1,6 +1,6 @@
 <template>
 
-    <div id="myModal" className="modal modal-active">
+    <div id="myModal" className="modal modal-active" v-if="modal">
         <div className="modal-content">
             <!-- <span class="close-2">&times;</span> -->
             <font-awesome-icon icon="xmark" class="close-2"></font-awesome-icon>
@@ -131,14 +131,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="fontawesome.html"
-                                aria-expanded="false">
-                                <font-awesome-icon icon="user" class='icon-admin'/>
-                                <span class="hide-menu">Ứng viên</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="map-google.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/chat"
                                 aria-expanded="false">
                                 <font-awesome-icon icon="comment" class='icon-admin'/>
                                 <span class="hide-menu">Trò chuyện</span>
@@ -192,48 +185,48 @@
                             <div :style="{marginLeft: '170px'}">
                                 <div :style="{display: 'flex'}">
                                     <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px', fontSize: '16px'}">Tiêu đề công việc: </p>
-                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó</p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">{{job.title}}</p>
                                 </div>
                                 <div :style="{display: 'flex'}">
                                     <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px'}">Số lượng cần tuyển: </p>
-                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó</p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">{{job.avaiable_slot}}</p>
                                 </div>
                                 <div :style="{display: 'flex'}">
                                     <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px'}">Ngành nghề: </p>
-                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó, gì gì đó 2, gì gì đó 3</p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">{{job.field}}</p>
                                 </div>
                                 <div :style="{display: 'flex'}">
                                     <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px'}">Mức lương: </p>
-                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó, gì gì đó 2, gì gì đó 3</p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">{{job.salary_min}} - {{job.salary_max}} VNĐ</p>
                                 </div>
                                 <div :style="{display: 'flex'}">
                                     <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px', fontSize: '16px'}">Thời gian ứng tuyển: </p>
-                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó</p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">{{job.public_date}} - {{job.expired_date}}</p>
                                 </div>
                                 <div :style="{display: 'flex'}">
                                     <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px'}">Cấp bậc: </p>
-                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó</p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">{{job.position}}</p>
                                 </div>
                                 <div :style="{display: 'flex'}">
                                     <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px'}">Yêu cầu kinh nghiệm: </p>
-                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó, gì gì đó 2, gì gì đó 3</p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">{{job.required_experience}}</p>
                                 </div>
                                 <div :style="{display: 'flex'}">
                                     <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px'}">Hình thức làm việc: </p>
-                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">Gì gì đó, gì gì đó 2, gì gì đó 3</p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px'}">{{job.type}}</p>
                                 </div>
 
                                 <div :style="{display: 'flex', margin: '50px 0px 10px 0px'}">
                                     <p class="booking-pay-line" :style="{fontWeight:'bold', width: '200px', color: 'green'}">Đã ứng tuyển: </p>
-                                    <p className="booking-pay-line" :style="{fontSize:'16px', color: 'green'}">12/15 ứng viên</p>
+                                    <p className="booking-pay-line" :style="{fontSize:'16px', color: 'green'}">{{job.accepted_applicant}}/{{job.avaiable_slot}} ứng viên</p>
                                 </div>
 
                                 <div :style="{display: 'flex', alignItems: 'center'}">
                                     <p class="booking-pay-line" :style="{fontWeight:'bold', width: '210px'}">Danh sách ứng viên: </p>
                                     <div :style="{width: '600px'}">
                                         <select class="form-select shadow-none row border-top">
-                                            <option>Ứng viên đã tuyển</option>
                                             <option>Ứng viên đang chờ</option>
+                                            <option>Ứng viên đã tuyển</option>
                                         </select>
                                     </div>
                                 </div>
@@ -316,6 +309,32 @@
         <!-- ============================================================== -->
     </div>
 </template>
+
+<script>
+import axios from 'axios'
+import { authenticationService } from "../../utility/authenticationService";
+
+    export default {
+        data() {
+            return{
+                modal: false,
+                job: ''
+            }
+        },
+        mounted(){
+                    let config = {
+        headers: {
+        'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+        }
+        }
+            axios.get('http://localhost:8000/api/job/detail?id=' + this.$route.params.id, config)
+            .then(data => {
+                this.job = data.data;
+                console.log(data.data)
+            })
+        }
+    }
+</script>
 
 <style>
     .booking-pay-line {

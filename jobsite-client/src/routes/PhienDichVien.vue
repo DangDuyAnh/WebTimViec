@@ -7,9 +7,9 @@
         </h1>
       </div>
       <form class="box-search">
-        <input class="search-company" placeholder="Nhập tên vị trí, công ty, từ khóa">
-        <select class="search-city">
-          <option value="" disabled selected >Nhập tên tỉnh, thành phố</option>
+        <input class="search-company" placeholder="Nhập tên vị trí, công ty, từ khóa" v-model="ten">
+        <select class="search-city" v-model="thanhPho">
+          <option value="" disabled selected>Nhập tên tỉnh, thành phố</option>
           <option></option>
 					<option>Hà Nội</option>
 					<option>TP Hồ Chí Minh</option>
@@ -35,10 +35,10 @@
     </div>
     <div class="box-buttonjob">
       <div class="list-button" >
-        <select class="btn-job" >
+        <select class="btn-job" v-model="nganh">
           <option>Ngành nghề</option>
           <option>BỘ PHẬN HỖ TRỢ</option>
-          <option>TÀI CHÍNH KẾ TOÁN</option>
+          <option>Kế toán</option>
           <option>KHÁCH SẠN DU LỊCH</option>
           <option>DỊCH VỤ</option>
           <option>SẢN XUẤT</option>
@@ -97,19 +97,19 @@
           5 việc làm sẵn có
         </h7>
       </div>
-      <div class="job-detail">
+      <div class="job-detail" v-for="(item, index) in list" :style="{cursor: 'pointer'}">
         <div class="logo-company">
             <img  class="logo-company-0" src="https://dxwd4tssreb4w.cloudfront.net/image/91c5b0f7f67e4ebc5f5377b27a157415" alt="">
         </div>
-        <div class="row-if-job" >
-            <a href="/tim-viec-lam/nhan-vien-kho"><h3 class="row-name-job">NHÂN VIÊN KHO (tiếng trung cơ bản)</h3></a>
-            <li>Công ty TNHH Cửu Tinh Việt Nam </li> 
-            <li>Bà Rịa - Vũng Tàu</li>
-            <li>Thương lượng | Nhân viên</li>
+        <div class="row-if-job" @click="moveTo(item.id)">
+            <a href="/tim-viec-lam/nhan-vien-kho"><h3 class="row-name-job">{{item.title}}</h3></a>
+            <li>Company {{index+1}}</li> 
+            <li>{{item.public_date}} - {{item.expired_date}}</li>
+            <li>{{item.field}}</li>
         </div>
         <div class="row-if-job-1">
-          <li>Trên 1 năm kinh nghiệm</li>
-          <li>Trình độ: Không yêu cầu</li>
+          <li>Vị trí: {{item.position}}</li>
+          <li>Kinh nghiệm: {{item.required_experience}}</li>
           <button
                 class="btn-save-0"
                 :class="[isActive ? 'save' : 'unsave']"
@@ -118,87 +118,22 @@
             </button>
         </div>
       </div>
-      <div class="job-detail">
-        <div class="logo-company">
-            <img  class="logo-company-0" src="https://dxwd4tssreb4w.cloudfront.net/image/91c5b0f7f67e4ebc5f5377b27a157415" alt="">
-        </div>
-        <div class="row-if-job" >
-            <a href="/tim-viec-lam/nhan-vien-kho"></a>
-            <h3 class="row-name-job">KỸ SƯ IT</h3>
-            <li>Công ty TNHH Cửu Tinh Việt Nam</li>
-            <li>Bà Rịa - Vũng Tàu</li>
-            <li>$ 50.000.000 VND - 100.000.000 VND | Trưởng phòng</li>
-            
-        </div>
-        <div class="row-if-job-1">
-          <li>5 -10 năm kinh nghiệm</li>
-          <li>Trình độ: Đại học</li>
-          <button class="save">Lưu</button>
-        </div>
-      </div>
-      <div class="job-detail">
-        <div class="logo-company">
-            <img  class="logo-company-0" src="https://dxwd4tssreb4w.cloudfront.net/image/91c5b0f7f67e4ebc5f5377b27a157415" alt="">
-        </div>
-        <div class="row-if-job" >
-            <a href="/tim-viec-lam/nhan-vien-kho"></a>
-            <h3 class="row-name-job">PHIÊN DỊCH VIÊN</h3>
-            <li>Công ty TNHH Cửu Tinh Việt Nam</li>
-            <li>Bà Rịa - Vũng Tàu</li>
-            <li>$ 15.000.000 VND | Nhân viên</li>
-            
-        </div>
-        <div class="row-if-job-1">
-          <li>trên 3 năm kinh nghiệm</li>
-          <li>Trình độ: Không yêu cầu</li>
-          <button class="save">Lưu</button>
-        </div>
-      </div>
-      <div class="job-detail">
-        <div class="logo-company">
-            <img  class="logo-company-0" src="https://dxwd4tssreb4w.cloudfront.net/image/91c5b0f7f67e4ebc5f5377b27a157415" alt="">
-        </div>
-        <div class="row-if-job" >
-            <a href="/tim-viec-lam/nhan-vien-kho"></a>
-            <h3 class="row-name-job">QUẢN LÝ NHÂN SỰ</h3>
-            <li>Công ty TNHH Cửu Tinh Việt Nam</li>
-            <li>Bà Rịa - Vũng Tàu</li>
-            <li>Thương lượng | Giám đốc</li>
-            
-        </div>
-        <div class="row-if-job-1">
-          <li>5 -10 năm kinh nghiệm</li>
-          <li>Trình độ: Đại học</li>
-          <button class="save">Lưu</button>
-        </div>
-      </div>
-      <div class="job-detail">
-        <div class="logo-company">
-            <img  class="logo-company-0" src="https://dxwd4tssreb4w.cloudfront.net/image/91c5b0f7f67e4ebc5f5377b27a157415" alt="">
-        </div>
-        <div class="row-if-job" >
-            <a href="/tim-viec-lam/nhan-vien-kho"></a>
-            <h3 class="row-name-job">KẾ TOÁN</h3>
-            <li>Công ty TNHH Cửu Tinh Việt Nam</li>
-            <li>Bà Rịa - Vũng Tàu</li>
-            <li>$ 5.000.000 VND | Trưởng phòng</li>
-            
-        </div>
-        <div class="row-if-job-1">
-          <li>5 -10 năm kinh nghiệm</li>
-          <li>Trình độ: Đại học</li>
-          <button class="save">Lưu</button>
-        </div>
-      </div>
+      
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+import { authenticationService } from '../utility/authenticationService';
 export default {
   data() {
     return {
       isActive: false,
+      thanhPho: '',
+      ten: '',
+      nganh: 'Ngành nghề',
+      list: [],
     };
   },
   methods: {
@@ -206,7 +141,23 @@ export default {
       this.isActive = this.isActive ? false : true;
       
     },
+    moveTo(id) {
+      window.location = '/tim-viec-lam/detail/' + id
+    }
   },
+  mounted() {
+
+    let config = {
+        headers: {
+        'Authorization': 'Bearer ' + authenticationService.getUserToken()
+        }
+    }
+    axios.get('http://localhost:8000/api/job/filter?field=kế%20toán', config)
+    .then(data => {
+      let temp = data.data
+      this.list = [...temp]
+    })
+  }
 };
 
 </script>

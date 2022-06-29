@@ -88,7 +88,7 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin"
                                 aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
@@ -107,13 +107,6 @@
                                 aria-expanded="false">
                                 <font-awesome-icon icon="file-circle-plus" class='icon-admin'/>
                                 <span class="hide-menu">Tuyển dụng</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="fontawesome.html"
-                                aria-expanded="false">
-                                <font-awesome-icon icon="user" class='icon-admin'/>
-                                <span class="hide-menu">Ứng viên</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -178,7 +171,7 @@
                                             style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                                     </div>
                                 </li>
-                                <li class="ms-auto"><span class="counter text-success">659</span></li>
+                                <li class="ms-auto"><span class="counter text-success"></span></li>
                             </ul>
                         </div>
                     </div>
@@ -191,7 +184,7 @@
                                             style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                                     </div>
                                 </li>
-                                <li class="ms-auto"><span class="counter text-purple">869</span></li>
+                                <li class="ms-auto"><span class="counter text-purple">{{dangUngTuyen.length}}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -213,47 +206,25 @@
 
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12">
-                        <div class="white-box white-box-extra">
+                        <div class="white-box white-box-extra" v-for="item in dangUngTuyen">
                             <div>
                                 <div>
-                                    <span :style="{margin:0, padding: 0, marginBottom: 0, fontWeight: '800', fontSize: '16px'}">1/5/2000 - 3/3/2007</span>
+                                    <span :style="{margin:0, padding: 0, marginBottom: 0, fontWeight: '800', fontSize: '16px'}">{{item.public_date}} - {{item.expired_date}}</span>
                                 </div>
                                 <div :style="{margin: '15px 0px'}">
-                                    <span :style="{margin:0, padding: 0, marginBottom: 0, fontSize: '16px'}">Tiêu đề công việc</span>
+                                    <span :style="{margin:0, padding: 0, marginBottom: 0, fontSize: '16px'}">{{item.title}}</span>
                                 </div>
                                 <div :style="{margin: 0, padding: 0}">
-                                    <span :style="{margin:0, padding: 0, color: 'green'}">Đã tuyển 12/15 ứng viên</span></div>
-                                <div>
+                                    <span :style="{margin:0, padding: 0, color: 'green'}">Đã tuyển {{item.accepted_applicant}}/{{item.avaiable_slot}} ứng viên</span></div>
+                                <!-- <div>
                                     <span :style="{margin:0, padding: 0, color: '#F33E15'}">Có 5 ứng viên đang chờ</span>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div :style="{display: 'flex', flexDirection: 'column', justifyContent: 'center'}">
                                 <button class="button-admin" :style="{color: 'green', border: '1px solid green'}">Hoàn thành</button>
-                                <button class="button-admin" :style="{color: 'blue', border: '1px solid blue'}">Chỉnh sửa</button>
-                                <button class="button-admin" :style="{color: 'red', border: '1px solid red'}">Xóa</button>
-                            </div>
-                        </div>
-
-                        <div class="white-box white-box-extra">
-                            <div>
-                                <div>
-                                    <span :style="{margin:0, padding: 0, marginBottom: 0, fontWeight: '800', fontSize: '16px'}">1/5/2000 - 3/3/2007</span>
-                                </div>
-                                <div :style="{margin: '15px 0px'}">
-                                    <span :style="{margin:0, padding: 0, marginBottom: 0, fontSize: '16px'}">Tiêu đề công việc</span>
-                                </div>
-                                <div :style="{margin: 0, padding: 0}">
-                                    <span :style="{margin:0, padding: 0, color: 'green'}">Đã tuyển 12/15 ứng viên</span></div>
-                                <div>
-                                    <span :style="{margin:0, padding: 0, color: '#F33E15'}">Có 5 ứng viên đang chờ</span>
-                                </div>
-                            </div>
-
-                            <div :style="{display: 'flex', flexDirection: 'column', justifyContent: 'center'}">
-                                <button class="button-admin" :style="{color: 'green', border: '1px solid green'}">Hoàn thành</button>
-                                <button class="button-admin" :style="{color: 'blue', border: '1px solid blue'}">Chỉnh sửa</button>
-                                <button class="button-admin" :style="{color: 'red', border: '1px solid red'}">Xóa</button>
+                                <button class="button-admin" :style="{color: 'blue', border: '1px solid blue'}" @click="chinhSua(item.id)">Chỉnh sửa</button>
+                                <button class="button-admin" :style="{color: 'red', border: '1px solid red'}" @click="xoa(item.id)">Xóa</button>
                             </div>
                         </div>
 
@@ -278,6 +249,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { authenticationService } from "../../utility/authenticationService";
 export default {
     data() {
@@ -285,11 +257,18 @@ export default {
             admin : authenticationService.getAdmin(),
             openLogout : false,
             dangUngTuyen: [],
-            daUngTuyen: []
         }
     },
     mounted(){
-        console.log("mounted")
+        let config = {
+        headers: {
+        'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+        }
+        }
+        axios.get("http://localhost:8000/api/job/filter?company=" + authenticationService.getCompanyId(), config)
+        .then(data => {
+            this.dangUngTuyen = data.data
+        })
     },
     methods: {
         toggleLogout() {
@@ -298,6 +277,20 @@ export default {
         clickLogout() {
             authenticationService.logout();
             window.location = '/'
+        },
+        xoa(id) {
+            console.log(id)
+            let config = {
+            headers: {
+            'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+            }
+            }
+            axios.post("http://localhost:8000/api/job/delete", {id: id} , config)
+            let temp = this.dangUngTuyen.filter(item => item.id !== id)
+            this.dangUngTuyen = [...temp]
+        },
+        chinhSua(id) {
+            window.location = '/admin/detail-recruit/' + id
         }
     }
 }

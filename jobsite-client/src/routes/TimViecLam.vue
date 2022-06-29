@@ -7,8 +7,8 @@
         </h1>
       </div>
       <form class="box-search">
-        <input class="search-company" placeholder="Nhập tên vị trí, công ty, từ khóa">
-        <select class="search-city">
+        <input class="search-company" placeholder="Nhập tên vị trí, công ty, từ khóa" v-model="ten">
+        <select class="search-city" v-model="thanhPho">
           <option value="" disabled selected >Nhập tên tỉnh, thành phố</option>
           <option></option>
 					<option>Hà Nội</option>
@@ -35,10 +35,10 @@
     </div>
     <div class="box-buttonjob">
       <div class="list-button" >
-        <select class="btn-job" >
+        <select class="btn-job" v-model="nganh">
           <option>Ngành nghề</option>
           <option>BỘ PHẬN HỖ TRỢ</option>
-          <option>TÀI CHÍNH KẾ TOÁN</option>
+          <option>Kế toán</option>
           <option>KHÁCH SẠN DU LỊCH</option>
           <option>DỊCH VỤ</option>
           <option>SẢN XUẤT</option>
@@ -47,7 +47,7 @@
           <option>IT - CÔNG NGHỆ THÔNG TIN</option>
           <option>XÂY DỰNG / BẤT ĐỘNG SẢN</option>
         </select>
-        <select class="btn-job" >
+        <select class="btn-job" v-model="capbac">
           <option>Cấp bậc</option>
           <option>Thực tập</option>
           <option>Mới đi làm</option>
@@ -55,14 +55,14 @@
           <option>Trưởng phòng</option>
           <option>Giám đốc</option>
         </select>
-        <select class="btn-job" >
+        <select class="btn-job" v-model="kinhnghiem">
           <option>Kinh nghiệm</option>
           <option>Chưa có kinh nghiệm</option>
           <option>Trên 1 năm kinh nghiệm</option>
           <option>Trên 3 năm kinh nghiệm</option>
           <option>Trên 5 năm kinh nghiệm</option>
         </select>
-        <select class="btn-job" >
+        <select class="btn-job" v-model="luong">
           <option>Mức lương</option>
           <option>Trên 5 triệu</option>
           <option>Trên 10 triệu</option>
@@ -70,7 +70,7 @@
           <option>Trên 20 triệu</option>
           <option>Trên 30 triệu</option>
         </select>
-        <select class="btn-job" >
+        <select class="btn-job" v-model="hocvan">
           <option>Học vấn</option>
           <option>Trung cấp</option>
           <option>Cao đẳng</option>
@@ -86,7 +86,7 @@
           <option>1 tháng</option>
         </select>
       </div>
-      <button class="button-search">Bộ Lọc</button>
+      <button class="button-search" @click="timKiem">Bộ Lọc</button>
     </div>
     <div class="content-job">
       <div class="title-content-job">
@@ -209,7 +209,7 @@ input,select {
   font-family: inherit;
 }
 .button-search {
-  height: 38px;
+  height: 60px;
   width: 110px;
   box-sizing: border-box;
   margin-left: 15px;
@@ -297,3 +297,24 @@ h6 {
   margin-top: 5px;
 }
 </style>
+
+<script>
+export default {
+  data() {
+    return {
+      ten: '',
+      thanhPho: 'Nhập tên tỉnh, thành phố',
+      nganh: 'Ngành nghề',
+      capbac: 'Cấp bậc',
+      kinhnghiem: 'Kinh nghiệm',
+      luong: 'Mức lương',
+      hocvan: 'Học vấn',
+    }
+  },
+  methods : {
+    timKiem() {
+      window.location = '/tim-viec-lam-filter?ten=' + this.ten + '&thanhpho=' + this.thanhPho +'&nganh=kế toán'
+    }
+  }
+}
+</script>

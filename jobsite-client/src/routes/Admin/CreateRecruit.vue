@@ -95,7 +95,7 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin"
                                 aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
@@ -114,13 +114,6 @@
                                 aria-expanded="false">
                                 <font-awesome-icon icon="file-circle-plus" class='icon-admin'/>
                                 <span class="hide-menu">Tuyển dụng</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="fontawesome.html"
-                                aria-expanded="false">
-                                <font-awesome-icon icon="user" class='icon-admin'/>
-                                <span class="hide-menu">Ứng viên</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -392,7 +385,7 @@ export default {
                 position: this.capBac,
                 required_experience: this.kinhNghiem,
                 type: this.type,
-                company: '10',
+                company: authenticationService.getCompanyId(),
                 public_date: this.formatDate(this.timeStart),
                 expired_date: this.formatDate(this.timeEnd)
             }
@@ -405,7 +398,8 @@ export default {
                     'Authorization': 'Bearer ' + authenticationService.getAdminToken()
                     }
                 }
-            await axios.post('http://localhost:8000/api/job/register', sendObj, config)
+            let res = await axios.post('http://localhost:8000/api/job/register', sendObj, config)
+            console.log(res)
             window.location = '/admin'
             } catch {
             }

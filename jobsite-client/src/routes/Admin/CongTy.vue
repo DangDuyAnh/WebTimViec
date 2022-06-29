@@ -72,9 +72,6 @@
                                 <font-awesome-icon icon="angle-down" class='icon-admin-2'/>
                             </div>
                             </div>
-                            <div :style="'position: absolute'" class="logout">
-                                <p>Logout</p>
-                            </div>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -119,14 +116,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="fontawesome.html"
-                                aria-expanded="false">
-                                <font-awesome-icon icon="user" class='icon-admin'/>
-                                <span class="hide-menu">Ứng viên</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="map-google.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/chat"
                                 aria-expanded="false">
                                 <font-awesome-icon icon="comment" class='icon-admin'/>
                                 <span class="hide-menu">Trò chuyện</span>
@@ -184,14 +174,14 @@
                                         <p :style="{fontSize:'16px', padding: 0, marginBottom:'15px', fontWeight: 'bold'}">Thông tin chung: </p>
                                         <label class="col-md-12 p-0">Tên công ty</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" class="form-control p-0 border-0">
+                                            <input type="text" class="form-control p-0 border-0" v-model="ten">
                                         </div>
                                     </div>
 
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Mô tả công ty</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <textarea rows="5" class="form-control p-0 border-0"></textarea>
+                                            <textarea rows="5" class="form-control p-0 border-0" v-model="moTa"></textarea>
                                         </div>
                                     </div>
 
@@ -208,7 +198,7 @@
                                         <label class="col-sm-12">Quốc gia</label>
 
                                         <div class="col-sm-12 border-bottom">
-                                            <select class="form-select shadow-none p-0 border-0 form-control-line">
+                                            <select class="form-select shadow-none p-0 border-0 form-control-line" v-model="quocGia">
                                                 <option>Việt Nam</option>
                                                 <option>Hàn Quốc</option>
                                             </select>
@@ -219,7 +209,7 @@
                                         <label class="col-sm-12">Thành phố</label>
 
                                         <div class="col-sm-12 border-bottom">
-                                            <select class="form-select shadow-none p-0 border-0 form-control-line">
+                                            <select class="form-select shadow-none p-0 border-0 form-control-line" v-model="thanhPho">
                                                 <option>Hà Nội</option>
                                                 <option>Hồ Chí Minh</option>
                                             </select>
@@ -231,7 +221,7 @@
                                         <label class="col-sm-12">Quận / Huyện</label>
 
                                         <div class="col-sm-12 border-bottom">
-                                            <select class="form-select shadow-none p-0 border-0 form-control-line">
+                                            <select class="form-select shadow-none p-0 border-0 form-control-line" v-model="quan">
                                                 <option>Hai Bà Trưng</option>
                                                 <option>Hoàn Kiếm</option>
                                             </select>
@@ -241,13 +231,13 @@
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Số nhà, phố, phường</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" class="form-control p-0 border-0" value="số 1 Đại Cồ Việt">
+                                            <input type="text" class="form-control p-0 border-0" v-model="diaChi">
                                         </div>
                                     </div>
 
                                     <div class="form-group mb-4">
                                         <div class="col-sm-12">
-                                            <button class="btn btn-success">Lưu</button>
+                                            <div class="btn btn-success" @click="loadlai">Lưu</div>
                                         </div>
                                     </div>
                                 </form>
@@ -275,58 +265,45 @@
 <script>
 import DatePicker from 'vue-datepicker-next';
 import 'vue-datepicker-next/index.css';
-
+import { authenticationService } from '../../utility/authenticationService';
+import axios from 'axios';
 export default {
     components: { DatePicker },
-  data() {
+      data() {
     return {
-      tags: [],
-      text: '',
-      from: undefined,
-      to: undefined,
-      savedFrom: 0,
-      savedTo: 0,
-      timeStart: null,
-      timeEnd: null
+        company: '',
+        ten: '',
+        moTa: '',
+        diaChi: '',
+        quocGia: '',
+        thanhPho: '',
+        quan: ''
     }
   },
-    methods: {
-        increment() {
-            this.index++
-        },
-        decrement() {
-		    this.index--
-		},
-        addTag(e){
-            let tag = e.target.value.replace(/\s+/g, ' ');
-            if(tag.length > 1 && !this.tags.includes(tag)){
-                this.text = ''
-                if(this.tags.length < 10){
-                    tag.split(',').forEach(tag => {
-                        this.tags.push(tag);
-                        createTag();
-                    });
-                }
-               
-            }
-        },
-        remove(index) {
-            this.tags = [...this.tags.slice(0, index), ...this.tags.slice(index + 1)];
-        },
-    },
-    watch: {
-        from: function(newValue) {
-        this.savedFrom = newValue
-        const result = newValue.replace(/\D/g, "")
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        this.from = result;
-        },
-        to: function(newValue) {
-        this.savedTo = newValue
-        const result = newValue.replace(/\D/g, "")
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        this.to = result;
-        },
+  mounted() {
+        let config = {
+    headers: {
+    'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+    }
+        }
+    axios.get('http://localhost:8000/api/employer/company', config)
+    .then(res => {
+        let data = res.data
+        this.ten = data.name,
+        this.diaChi = data.address,
+        this.moTa = data.desc,
+        this.quocGia = 'Việt Nam';
+        if (data.province === 1) 
+        this.thanhPho = 'Hà Nội'
+        else this.thanhPho = "Hồ Chí Minh"
+
+        if (this.$route.query.desc !== undefined) this.moTa = this.$route.query.desc
+    })
+  },
+  methods: {
+    loadlai() {
+        window.location = '/admin/cong-ty?desc=' + this.moTa
+    }
   }
 }
 </script>

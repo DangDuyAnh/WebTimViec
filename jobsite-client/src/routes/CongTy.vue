@@ -1,9 +1,19 @@
 <script>
 import Navbar from '../components/Navbar.vue';
+import { authenticationService } from '../utility/authenticationService';
+import axios from 'axios';
 export default {
   components: {
     Navbar
   },
+  data() {
+    return {
+        company: ''
+    }
+  },
+  mounted() {
+    
+  }
 }
 </script>
 

@@ -129,7 +129,7 @@ class Detail(APIView):
 
     def get(self, request):
         try:
-            job_id = request.data['id']
+            job_id = request.query_params['id']
             job: Job = Job.objects.get(id=job_id)
             company = job.company
 
@@ -138,4 +138,5 @@ class Detail(APIView):
 
             return Response(job_dict)
         except:
+            traceback.print_exc()
             return Response('Error', status.HTTP_400_BAD_REQUEST)

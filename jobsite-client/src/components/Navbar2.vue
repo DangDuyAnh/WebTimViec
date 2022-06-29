@@ -32,15 +32,15 @@ export default {
                     <div class="dropdown-content">
                         <div class="dropdown-line">
                             <font-awesome-icon icon="magnifying-glass" class='dropdown-icon'/>
-                            <a class="dropdown-line-a">Tìm việc làm</a>
+                            <a class="dropdown-line-a" href="/tim-viec-lam">Tìm việc làm</a>
                         </div>
                         <div class="dropdown-line">
                             <font-awesome-icon icon="floppy-disk" class='dropdown-icon'/>
-                            <a class="dropdown-line-a">Việc làm đã lưu</a>
+                            <a class="dropdown-line-a" href="/viec-da-luu">Việc làm đã lưu</a>
                         </div>
                         <div class="dropdown-line">
                             <font-awesome-icon icon="share-from-square" class='dropdown-icon'/>
-                            <a class="dropdown-line-a">Việc làm đã ứng tuyển</a>
+                            <a class="dropdown-line-a" href="/viec-da-ung-tuyen">Việc làm đã ứng tuyển</a>
                         </div>
                     </div>
                 </li>
@@ -50,17 +50,17 @@ export default {
                         <div class="dropdown-content">
                             <div class="dropdown-line">
                                 <font-awesome-icon icon="id-badge" class='dropdown-icon'/>
-                                <a class="dropdown-line-a">Quản lý CV</a>
+                                <a class="dropdown-line-a" href="/my-cv">Quản lý CV</a>
                             </div>
                             <div class="dropdown-line">
                                 <font-awesome-icon icon="envelope-open-text" class='dropdown-icon'/>
-                                <a class="dropdown-line-a">Thư xin việc</a>
+                                <a class="dropdown-line-a" href="/my-letter">Thư xin việc</a>
                             </div>
                         </div>
                 </li>
 
                 <li class="Navbar-dropdown">
-                    <a class="Navbar-dropbtn">Công ty</a>
+                    <a class="Navbar-dropbtn" href="/cong-ty">Công ty</a>
                 </li>          
             </ul>
         </div>

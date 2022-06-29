@@ -44,12 +44,10 @@ export default {
             <div class="input-wrapper">
                 <h1 class="input-label">Công việc</h1>
                 <input v-model="congViec">
-                <font-awesome-icon icon="magnifying-glass" class='input-icon'/>
             </div>
             <div class="input-wrapper">
                 <h1 class="input-label">Địa điểm</h1>
                 <input v-model="diaDiem">
-                <font-awesome-icon icon="location-dot" class='input-icon'/>
             </div>
             <button @click="search" class="navbar-button" :style="{backgroundColor: '#e65100', border: '1px solid #e65100', color: 'white', padding: '5px 15px', margin: '5px 8px'}">Tìm kiếm</button>
         </div>

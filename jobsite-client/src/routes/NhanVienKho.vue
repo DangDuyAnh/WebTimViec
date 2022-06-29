@@ -42,16 +42,16 @@
                 </div>
                 <div class="info-detal-company">
                     <div class="name-company">
-                        <strong><h2 id="job-name">NHÂN VIÊN KHO (Tiếng Trung cơ bản)</h2></strong>
-                        <li id="company-name">Công Ty TNHH Cửu Tinh Việt Nam</li>
+                        <strong><h2 id="job-name">{{job.title}}</h2></strong>
+                        <li id="company-name">Công Ty: {{job.company.name}}</li>
                         <strong><li id="salary">$ Thương lượng</li></strong>
-                        <li id="location">Thị xã phú mỹ, Bà Rịa - Vũng tàu</li>
+                        <li id="location">{{job.company.address}}</li>
                         <div class="row-btn-save">
                             <button
                                 :class="[isActive ? 'blue' : 'white']"
-                                @click="toggle"
+                                @click="luu"
                                 >{{isActive ? 'Lưu' : 'Đã lưu'}}</button>
-                            <button id="send-cv">Nộp đơn</button>
+                            <button id="send-cv" @click="nopDon">Nộp đơn</button>
                         </div>
                     </div>
                 </div>
@@ -155,21 +155,6 @@
     
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      isActive: false,
-    };
-  },
-  methods: {
-    toggle() {
-      this.isActive = this.isActive ? false : true;
-    },
-  },
-};
-
-</script>
 <style>
 .box-header {
   margin-top: 0px;
@@ -388,3 +373,65 @@ p {
     flex-direction: column;
 }
 </style>
+
+<script>
+import axios from 'axios';
+import { authenticationService } from '../utility/authenticationService';
+export default {
+  data() {
+    return {
+      isActive: true,
+      thanhPho: '',
+      ten: '',
+      nganh: 'Ngành nghề',
+      job: {
+        company: ''
+      },
+    };
+  },
+  methods: {
+    toggle() {
+      this.isActive = this.isActive ? false : true;
+      
+    },
+    moveTo(id) {
+      window.location = '/tim-viec-lam/detail/' + id
+    },
+    luu() {
+        let config = {
+        headers: {
+        'Authorization': 'Bearer ' + authenticationService.getUserToken()
+        }
+        }
+        axios.post('http://localhost:8000/api/employee/save?job_id=' + this.$route.params.id, config)
+        .then(data => {
+            window.location = '/viec-da-luu'
+        })
+    },
+    nopdon() {
+        let config = {
+        headers: {
+        'Authorization': 'Bearer ' + authenticationService.getUserToken()
+        }
+        }
+        axios.post('http://localhost:8000/api/employee/apply?job_id=' + this.$route.params.id, config)
+        .then(data => {
+            window.location = '/viec-da-ung-tuyen'
+        })
+    }
+  },
+  mounted() {
+
+    let config = {
+        headers: {
+        'Authorization': 'Bearer ' + authenticationService.getUserToken()
+        }
+    }
+    axios.get('http://localhost:8000/api/job/detail?id=' + this.$route.params.id, config)
+    .then(data => {
+      this.job = data.data
+    })
+  }
+};
+
+</script>

@@ -99,7 +99,7 @@ class Save(APIView):
         if not jobs.exists():
             return Response('job_id not found', http_status.HTTP_400_BAD_REQUEST)
         
-        new = EmployeeSavedJob.objects.create(employee=employee, job=jobs.first(), status=0)
+        new = EmployeeSavedJob.objects.create(employee=employee, job=jobs.first())
 
         return Response(Utils.model_to_dict(new))
 

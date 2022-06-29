@@ -36,7 +36,7 @@ const routes = [
     name: '/admin/create-recruit'
   },
   {
-    path: '/admin/detail-recruit',
+    path: '/admin/detail-recruit/:id',
     component: DetailRecruit,
     name: '/admin/detail-recruit'
   },
@@ -73,11 +73,11 @@ const routes = [
     component: TimViecLam
   },
   {
-    path: '/tim-viec-lam/phien-dich-vien',
+    path: '/tim-viec-lam-filter',
     component: PhienDichVien
   },
   {
-    path: '/tim-viec-lam/nhan-vien-kho',
+    path: '/tim-viec-lam/detail/:id',
     component: NhanVienKho
   },
   {
