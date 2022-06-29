@@ -73,6 +73,8 @@
 
 <script>
 import axios from 'axios'
+import {post} from '../../utility/api'
+import { authenticationService } from '../../utility/authenticationService'
 export default {
     data() {
         return{
@@ -96,8 +98,17 @@ export default {
             address: this.address + ' quận ' + this.quan + ' TP. ' + this.city, province_id: this.province,
             desc: this.desc}
             console.log(sendData)
-            res = await axios.post('http://localhost:8000/api/company/register', sendData)
-            console.log(res.data)
+            let res = await axios.post('http://localhost:8000/api/company/register', sendData)
+            console.log(res.data.id)
+            let company_id = res.data.id
+            res = await axios.post('http://localhost:8000/api/user/register', {username: this.username, 
+            password: this.password, email: this.email})
+            console.log(res.data.access_token)
+            let access_token = res.data.access_token
+            let admin = res.data.user
+            res = await post("/user/set-role", {role_id: '3', company_id: company_id}, access_token);
+            authenticationService.loginAdmin(admin, access_token, company_id);
+            window.location = '/admin'
         }
     }
 }

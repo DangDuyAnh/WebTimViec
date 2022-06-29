@@ -27,10 +27,22 @@ class Registration(APIView):
     def post(self, request):
         employer: Employer = request.user.employer
 
-        job = Job(**request.data)
+        job = Job()
+        job.company = employer.company
+        job.title = request.data['title']
+        job.public_date = request.data['title']
+        job.expired_date = request.data['expired_date']
+        job.field = request.data['field']
+        job.salary_min = request.data['salary_min']
+        job.salary_max = request.data['salary_max']
+        job.position = request.data['position']
+        job.type = request.data['type']
+        job.required_experience = request.data['required_experience']
+        job.avaiable_slot = request.data['avaiable_slot']
+        job.accepted_applicant = request.data['accepted_applicant']
 
-        if job.company != employer.company:
-            return Response('job must belong to employer\'s company', status.HTTP_400_BAD_REQUEST)
+        #if job.company != employer.company:
+        #    return Response('job must belong to employer\'s company', status.HTTP_400_BAD_REQUEST)
 
         job.save()
 

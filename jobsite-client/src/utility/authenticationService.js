@@ -3,6 +3,7 @@ function logout() {
     localStorage.removeItem('userToken');
     localStorage.removeItem('admin');
     localStorage.removeItem('adminToken');
+    localStorage.removeItem('companyId')
 }
 
 function login(user, token){
@@ -22,9 +23,10 @@ function getUserToken() {
     return localStorage.getItem('userToken')
 }
 
-function loginAdmin(admin, token) {
+function loginAdmin(admin, token, companyId) {
     localStorage.setItem('admin', JSON.stringify(admin));
     localStorage.setItem('adminToken', token);
+    localStorage.setItem('companyId', companyId)
 }
 
 function getAdmin() {

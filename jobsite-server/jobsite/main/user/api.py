@@ -217,7 +217,7 @@ class SetRole(APIView):
 
             elif roleId == RoleID.EMPLOYER:
                 company_id = request.data['company_id']
-                Employer.objects.create(user=user, company=Company.objects.get(id=company_id))
+                Employer.objects.create(user=user, company=Company.objects.get(id=company_id), status=1)
                 UserRoleRelationship.objects.create(user=user, user_role=UserRole.objects.get(id=roleId))
                 
             else:

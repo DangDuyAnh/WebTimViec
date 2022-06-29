@@ -28,23 +28,27 @@ const routes = [
   {
     path: '/admin',
     component: Admin,
+    name: '/admin'
   },
   {
     path: '/admin/create-recruit',
-    component: CreateRecruit
+    component: CreateRecruit,
+    name: '/admin/create-recruit'
   },
   {
     path: '/admin/detail-recruit',
-    component: DetailRecruit
+    component: DetailRecruit,
+    name: '/admin/detail-recruit'
   },
   {
     path: '/admin/chat',
-    component: Chat
+    component: Chat,
+    name: '/admin/chat'
   },
   {
     path: "/dang-nhap",
     component: Login,
-    name: 'dang-nhap'
+    name: '/dang-nhap'
   },
   {
     path: "/dang-ky",
@@ -57,10 +61,12 @@ const routes = [
   {
     path: "/admin/cong-ty",
     component: CongTy,
+    name: '/admin/cong-ty'
   },
   {
     path: '/my-cv',
     component: MyCV,
+    name: '/my-cv'
   },
   {
     path: '/tim-viec-lam',
@@ -76,15 +82,18 @@ const routes = [
   },
   {
     path: '/viec-da-luu',
-    component: ViecDaLuu
+    component: ViecDaLuu,
+    name: '/viec-da-luu'
   },
   {
     path: '/viec-da-ung-tuyen',
-    component: ViecDaUngTuyen
+    component: ViecDaUngTuyen,
+    name: '/viec-da-ung-tuyen'
   },
   {
     path: '/my-letter',
-    component: MyLetter
+    component: MyLetter,
+    name: '/my-letter'
   },
   {
     path: '/cong-ty',
@@ -96,7 +105,8 @@ const routes = [
   },
   {
     path: '/chat',
-    component: ChatEmployee
+    component: ChatEmployee,
+    name: '/chat'
   }
 ];
 
@@ -105,14 +115,22 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach(async (to, from) => {
-//   const userRoutes = ['/my-cv', '/viec-da-luu', '/viec-da-ung-tuyen', '/my-letter', '/chat']
-//   const adminRoutes = ['/admin/cong-ty', 'admin', '/admin/create-recruit', '/admin/detail-recruit', 'admin/chat']
-//   if (
-//     (authenticationService.getUserToken() === undefined || authenticationService.getUserToken() === null) && (to.name !== 'dang-nhap') 
-//   ) {
-//     return { name: 'dang-nhap' }
-//   }
-// })
+router.beforeEach(async (to, from) => {
+  const userRoutes = ['/my-cv', '/viec-da-luu', '/viec-da-ung-tuyen', '/my-letter', '/chat']
+  const adminRoutes = ['/admin/cong-ty', '/admin', '/admin/create-recruit', '/admin/detail-recruit', '/admin/chat']
+  if (
+    (authenticationService.getUserToken() === undefined || authenticationService.getUserToken() === null) && (to.name !== 'dang-nhap') 
+    && userRoutes.includes(to.name)
+  ) {
+    return { name: '/dang-nhap' }
+  }
+
+  if (
+    (authenticationService.getAdminToken() === undefined || authenticationService.getAdminToken() === null) && (to.name !== 'dang-nhap') 
+    && adminRoutes.includes(to.name)
+  ) {
+    return { name: '/dang-nhap' }
+  }
+})
 
 export default router;

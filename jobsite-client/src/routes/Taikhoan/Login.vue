@@ -52,7 +52,7 @@
 <script>
 
 import axios from 'axios'
-import {post} from '../../utility/api'
+import {post, get} from '../../utility/api'
 import { authenticationService } from '../../utility/authenticationService'
 
 export default {
@@ -74,13 +74,20 @@ export default {
   },
 
   methods: {
-    login() {
-        axios.post('http://localhost:8000/api/user/login', {username: this.username, password: this.password})
-        .then((data) => {
-            data = data.data
-            authenticationService.login(data.user, data.access_token)
+    async login() {
+        let res = await axios.post('http://localhost:8000/api/user/login', {username: this.username, password: this.password})
+        let data = res.data
+        console.log(data.access_token)
+        try {
+        let res2 = await get('/employer/company', data.access_token);
+            if (res2.id !== undefined  || res2.id !== null) {
+                authenticationService.loginAdmin(data.user, data.access_token, res2.id)
+                window.location = '/admin';
+        }
+        } catch {
+            authenticationService.login(data.user, data.access_token);
             window.location = '/'
-        })
+        }
     },
     loginGoogle() {
             console.log('log in Google')

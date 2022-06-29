@@ -31,7 +31,7 @@ class Registration(APIView):
         company.address = request.data['address']
         company.province_id = request.data['province_id']
         company.desc = request.data['desc']
-        company.status = 0
+        company.status = 1
         company.save()
         
         return Response(Utils.model_to_dict(company))

@@ -54,16 +54,16 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li :style="'position: relative'">
-                            <div :style="'display: flex; padding-right: 20px'">
+                            <div :style="'display: flex; padding-right: 20px'" @click="toggleLogout">
                             <a class="profile-pic" href="#">
                                 <img src="./plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                    class="img-circle"><span class="text-white font-medium">Admin</span>
+                                    class="img-circle"><span class="text-white font-medium">{{admin.username}}</span>
                             </a>
                             <div :style="'display:flex; align-items:center; position: absolute; left: 90px; height: 100%'">
                                 <font-awesome-icon icon="angle-down" class='icon-admin-2'/>
                             </div>
                             </div>
-                            <div :style="'position: absolute'" class="logout">
+                            <div :style="'position: absolute'" class="logout" v-if="openLogout" @click="clickLogout">
                                 <p>Logout</p>
                             </div>
                         </li>
@@ -204,7 +204,7 @@
                                             style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                                     </div>
                                 </li>
-                                <li class="ms-auto"><span class="counter text-info">911</span>
+                                <li class="ms-auto"><span class="counter text-info">22</span>
                                 </li>
                             </ul>
                         </div>
@@ -278,14 +278,35 @@
 </template>
 
 <script>
-
+import { authenticationService } from "../../utility/authenticationService";
+export default {
+    data() {
+        return {
+            admin : authenticationService.getAdmin(),
+            openLogout : false,
+            dangUngTuyen: [],
+            daUngTuyen: []
+        }
+    },
+    mounted(){
+        console.log("mounted")
+    },
+    methods: {
+        toggleLogout() {
+            this.openLogout = !this.openLogout
+        },
+        clickLogout() {
+            authenticationService.logout();
+            window.location = '/'
+        }
+    }
+}
 </script>
 
 
 <style>
 @import './css/style.min.css';
 @import './Admin.css';
-
 
 .icon-admin {
     width: 15px;
@@ -318,7 +339,6 @@
     padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
-    display: none;
 }
 
 
