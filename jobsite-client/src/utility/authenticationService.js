@@ -37,4 +37,8 @@ function getAdminToken() {
     return localStorage.getItem('adminToken');
 }
 
-export const authenticationService = {logout, login, getUser, getUserToken, changeUser, loginAdmin, getAdmin, getAdminToken};
+function getCompanyId() {
+    return localStorage.getItem('companyId');
+}
+
+export const authenticationService = {logout, login, getUser, getUserToken, changeUser, loginAdmin, getAdmin, getAdminToken, getCompanyId};

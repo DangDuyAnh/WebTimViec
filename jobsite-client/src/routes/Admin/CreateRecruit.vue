@@ -179,18 +179,18 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
-                                <form class="form-horizontal form-material">
+                                <div class="form-horizontal form-material">
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Tiêu đề công việc</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <textarea rows="5" class="form-control p-0 border-0"></textarea>
+                                            <textarea rows="5" class="form-control p-0 border-0" v-model="tieuDe"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Số lượng cần tuyển</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" class="form-control p-0 border-0">
+                                            <input type="text" class="form-control p-0 border-0" v-model="soLuongCanTuyen">
                                         </div>
                                     </div>
 
@@ -254,7 +254,7 @@
                                         <label class="col-sm-12">Cấp bậc</label>
 
                                         <div class="col-sm-12 border-bottom">
-                                            <select class="form-select shadow-none p-0 border-0 form-control-line">
+                                            <select class="form-select shadow-none p-0 border-0 form-control-line" v-model="capBac">
                                                 <option>--Chọn cấp bậc--</option>
                                                 <option>Fresher</option>
                                                 <option>Giám đốc</option>
@@ -271,7 +271,7 @@
                                         <label class="col-sm-12">Yêu cầu kinh nghiệm</label>
 
                                         <div class="col-sm-12 border-bottom">
-                                            <select class="form-select shadow-none p-0 border-0 form-control-line">
+                                            <select class="form-select shadow-none p-0 border-0 form-control-line" v-model="kinhNghiem">
                                                 <option>--Chọn số năm kinh nghiệm--</option>
                                                 <option>Không cần kinh nghiệm</option>
                                                 <option>Dưới 1 năm</option>
@@ -285,7 +285,7 @@
                                         <label class="col-sm-12">Hình thức làm việc</label>
 
                                         <div class="col-sm-12 border-bottom">
-                                            <select class="form-select shadow-none p-0 border-0 form-control-line">
+                                            <select class="form-select shadow-none p-0 border-0 form-control-line" v-model="type">
                                                 <option>Offline</option>
                                                 <option>Remote</option>
                                             </select>
@@ -294,10 +294,10 @@
 
                                     <div class="form-group mb-4">
                                         <div class="col-sm-12">
-                                            <button class="btn btn-success">Đăng tin</button>
+                                            <button class="btn btn-success" @click="dangTin">Đăng tin</button>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -322,6 +322,8 @@
 <script>
 import DatePicker from 'vue-datepicker-next';
 import 'vue-datepicker-next/index.css';
+import { post } from '../../utility/api'; 
+import { authenticationService } from '../../utility/authenticationService';
 
 export default {
     components: { DatePicker },
@@ -334,10 +336,28 @@ export default {
       savedFrom: 0,
       savedTo: 0,
       timeStart: null,
-      timeEnd: null
+      timeEnd: null,
+      tieuDe: '',
+      soLuongCanTuyen: '',
+      capBac: '--Chọn cấp bậc--',
+      kinhNghiem: '--Chọn số năm kinh nghiệm--',
+      type: 'Offline',
     }
   },
     methods: {
+        formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+
+        return [year, month, day].join('/');
+    },
         increment() {
             this.index++
         },
@@ -351,7 +371,6 @@ export default {
                 if(this.tags.length < 10){
                     tag.split(',').forEach(tag => {
                         this.tags.push(tag);
-                        createTag();
                     });
                 }
                
@@ -360,6 +379,30 @@ export default {
         remove(index) {
             this.tags = [...this.tags.slice(0, index), ...this.tags.slice(index + 1)];
         },
+        async dangTin() {
+            let field = ''
+            this.tags.forEach((item, index)=> {
+                if (index < (this.tags.length - 1))
+                    field += item + ', '
+                else field += item
+            })
+            let sendObj = {
+                title: this.tieuDe,
+                salary_min : this.savedFrom,
+                salary_max : this.savedTo,
+                avaiable_slot: this.soLuongCanTuyen,
+                field: field,
+                position: this.capBac,
+                required_experience: this.kinhNghiem,
+                type: this.type,
+                company: authenticationService.getCompanyId(),
+                public_date: this.formatDate(this.timeStart),
+                expired_date: this.formatDate(this.timeEnd)
+            }
+            console.log(sendObj)
+            let res = await post('/job/register', sendObj, authenticationService.getAdminToken())
+            console.log(res.data)
+        }
     },
     watch: {
         from: function(newValue) {

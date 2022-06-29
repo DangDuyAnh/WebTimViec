@@ -339,6 +339,7 @@ export default {
     padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
+    z-index: 100;
 }
 
 

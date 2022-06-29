@@ -1,15 +1,5 @@
-<template>
 
-    <div id="myModal" className="modal modal-active">
-        <div className="modal-content">
-            <!-- <span class="close-2">&times;</span> -->
-            <font-awesome-icon icon="xmark" class="close-2"></font-awesome-icon>
-            <p :style="{textAlign: 'center', fontWeight: 'bold', fontSize: '20px', marginTop: 0}">CV ứng viên</p>
-            <img src='../../assets/CV1.png'/>
-            <p :style="{textAlign: 'center', fontWeight: 'bold', fontSize: '20px', marginTop: 0}">Thư xin việc ứng viên</p>
-            <img src='../../assets/Letter1.png'/>
-        </div>
-    </div> 
+<template>
 
         <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">

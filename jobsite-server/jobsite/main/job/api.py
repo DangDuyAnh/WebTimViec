@@ -30,7 +30,7 @@ class Registration(APIView):
         job = Job()
         job.company = employer.company
         job.title = request.data['title']
-        job.public_date = request.data['title']
+        job.public_date = request.data['public_date']
         job.expired_date = request.data['expired_date']
         job.field = request.data['field']
         job.salary_min = request.data['salary_min']
