@@ -7,20 +7,22 @@
       </div>
       <form class="box-search">
         <input class="search-company" placeholder="Nhập tên vị trí, công ty, từ khóa">
-        <select class="search-city" type="text" name="country" placeholder="Nhập tỉnh, thành phố" >
-            <option value="HI">Hà Nội</option>
-            <option value="CA">TP Hồ Chí Minh</option>
-            <option value="NV">Hải Dương</option>
-            <option value="OR">Hải Phòng</option>
-            <option value="WA">Bắc Ninh</option>
-            <option value="AZ">Đà Nẵng</option>
-            <option value="CO">Nghệ An</option>
-            <option value="ID">Thanh Hóa</option>
-            <option value="MT">Quảng Ninh</option>
-            <option value="NE">Thái Bình</option>
-            <option value="NM">TT Huể</option>
-            <option value="ND">Hà Tĩnh</option>
-            <option value="UT">Thái Nguyên</option>
+        <select class="search-city">
+          <option value="" disabled selected >Nhập tên tỉnh, thành phố</option>
+          <option></option>
+					<option>Hà Nội</option>
+					<option>TP Hồ Chí Minh</option>
+					<option>Hải Dương</option>
+					<option>Hải Phòng</option>
+          <option>Bắc Ninh</option>
+          <option>Đà Nẵng</option>
+          <option>Nghệ An</option>
+          <option>Thanh Hóa</option>
+          <option>Quảng Ninh</option>
+          <option>Thái Bình</option>
+          <option>TT Huể</option>
+          <option>Hà Tĩnh</option>
+          <option>Thái Nguyên</option>
         </select>
         <button class="button-search">
           <span class="text-button">Tìm kiếm</span>
@@ -103,7 +105,7 @@ input,select {
   border-radius: 0.25rem;
   font-family: inherit;
 }
-.input-icon2 {
+.input-icon {
   margin-top: 2px;
   padding-left: 0px;
   padding-right: 85px;

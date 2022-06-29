@@ -8,24 +8,26 @@
       </div>
       <form class="box-search">
         <input class="search-company" placeholder="Nhập tên vị trí, công ty, từ khóa">
-        <select class="search-city" type="text" name="country" placeholder="Nhập tỉnh, thành phố" >
-					<option value="HI">Hà Nội</option>
-					<option value="CA">TP Hồ Chí Minh</option>
-					<option value="NV">Hải Dương</option>
-					<option value="OR">Hải Phòng</option>
-          <option value="WA">Bắc Ninh</option>
-          <option value="AZ">Đà Nẵng</option>
-          <option value="CO">Nghệ An</option>
-          <option value="ID">Thanh Hóa</option>
-          <option value="MT">Quảng Ninh</option>
-          <option value="NE">Thái Bình</option>
-          <option value="NM">TT Huể</option>
-          <option value="ND">Hà Tĩnh</option>
-          <option value="UT">Thái Nguyên</option>
+        <select class="search-city">
+          <option value="" disabled selected >Nhập tên tỉnh, thành phố</option>
+          <option></option>
+					<option>Hà Nội</option>
+					<option>TP Hồ Chí Minh</option>
+					<option>Hải Dương</option>
+					<option>Hải Phòng</option>
+          <option>Bắc Ninh</option>
+          <option>Đà Nẵng</option>
+          <option>Nghệ An</option>
+          <option>Thanh Hóa</option>
+          <option>Quảng Ninh</option>
+          <option>Thái Bình</option>
+          <option>TT Huể</option>
+          <option>Hà Tĩnh</option>
+          <option>Thái Nguyên</option>
         </select>
         <button class="button-search">
           <span class="text-button">Tìm kiếm</span>
-          <font-awesome-icon icon="magnifying-glass" class='input-icon2'/>
+          <font-awesome-icon icon="magnifying-glass" class='input-icon'/>
         </button>
       </form>
       <div class="box-user"></div>
@@ -101,10 +103,14 @@
         </div>
         <div class="row-if-job" >
             <a href="/tim-viec-lam/nhan-vien-kho"><h3 class="row-name-job">NHÂN VIÊN KHO (tiếng trung cơ bản)</h3></a>
-            <li>Công ty TNHH Cửu Tinh Việt Nam</li>
+            <li>Công ty TNHH Cửu Tinh Việt Nam </li> 
             <li>Bà Rịa - Vũng Tàu</li>
-            <li>Thương lương | Nhân viên</li>
-            <button
+            <li>Thương lượng | Nhân viên</li>
+        </div>
+        <div class="row-if-job-1">
+          <li>Trên 1 năm kinh nghiệm</li>
+          <li>Trình độ: Không yêu cầu</li>
+          <button
                 class="btn-save-0"
                 :class="[isActive ? 'save' : 'unsave']"
                 @click="toggle"
@@ -121,8 +127,13 @@
             <h3 class="row-name-job">KỸ SƯ IT</h3>
             <li>Công ty TNHH Cửu Tinh Việt Nam</li>
             <li>Bà Rịa - Vũng Tàu</li>
-            <li>$ 5000+ | Nhân viên</li>
-            <button class="save">Lưu</button>
+            <li>$ 50.000.000 VND - 100.000.000 VND | Trưởng phòng</li>
+            
+        </div>
+        <div class="row-if-job-1">
+          <li>5 -10 năm kinh nghiệm</li>
+          <li>Trình độ: Đại học</li>
+          <button class="save">Lưu</button>
         </div>
       </div>
       <div class="job-detail">
@@ -134,8 +145,13 @@
             <h3 class="row-name-job">PHIÊN DỊCH VIÊN</h3>
             <li>Công ty TNHH Cửu Tinh Việt Nam</li>
             <li>Bà Rịa - Vũng Tàu</li>
-            <li>Thương lương | Nhân viên</li>
-            <button class="save">Lưu</button>
+            <li>$ 15.000.000 VND | Nhân viên</li>
+            
+        </div>
+        <div class="row-if-job-1">
+          <li>trên 3 năm kinh nghiệm</li>
+          <li>Trình độ: Không yêu cầu</li>
+          <button class="save">Lưu</button>
         </div>
       </div>
       <div class="job-detail">
@@ -147,8 +163,13 @@
             <h3 class="row-name-job">QUẢN LÝ NHÂN SỰ</h3>
             <li>Công ty TNHH Cửu Tinh Việt Nam</li>
             <li>Bà Rịa - Vũng Tàu</li>
-            <li>Thương lương | Nhân viên</li>
-            <button class="save">Lưu</button>
+            <li>Thương lượng | Giám đốc</li>
+            
+        </div>
+        <div class="row-if-job-1">
+          <li>5 -10 năm kinh nghiệm</li>
+          <li>Trình độ: Đại học</li>
+          <button class="save">Lưu</button>
         </div>
       </div>
       <div class="job-detail">
@@ -160,8 +181,13 @@
             <h3 class="row-name-job">KẾ TOÁN</h3>
             <li>Công ty TNHH Cửu Tinh Việt Nam</li>
             <li>Bà Rịa - Vũng Tàu</li>
-            <li>$ 1000+ | Nhân viên</li>
-            <button class="save">Lưu</button>
+            <li>$ 5.000.000 VND | Trưởng phòng</li>
+            
+        </div>
+        <div class="row-if-job-1">
+          <li>5 -10 năm kinh nghiệm</li>
+          <li>Trình độ: Đại học</li>
+          <button class="save">Lưu</button>
         </div>
       </div>
     </div>
@@ -233,7 +259,7 @@ input,select {
   border-radius: 0.25rem;
   font-family: inherit;
 }
-.input-icon2 {
+.input-icon {
   margin-top: 2px;
   padding-left: 0px;
   padding-right: 85px;
@@ -269,7 +295,7 @@ input,select {
     
 }
 .job-detail {
-    width: 100%;
+    width: 1000px;
     height: 141px;
     border: 1px ridge #DCDCDC;
     border-radius: 1rem;
@@ -287,9 +313,14 @@ input,select {
     padding-top: 20px;
 }
 .row-if-job {
-    width: 800px;
+    width: 470px;
     padding-top: 15px;
     padding-left: 30px;
+}
+.row-if-job-1 {
+    width: 300px;
+    padding-top: 50px;
+    
 }
 .row-name-job {
     color: red;
@@ -298,14 +329,16 @@ input,select {
     background-color: white;
     border: #DCDCDC;
     color: #0069DB;
-    margin-left: 1000px;
+    margin-left: 260px;
     width: 70px;
+    padding-top: 15px;
 }
 .save{
     background-color: white;
     border: #DCDCDC;
     color: #0069DB;
-    margin-left: 1000px;
+    margin-left: 260px;
     width: 70px;
+    padding-top: 15px;
 }
 </style>
