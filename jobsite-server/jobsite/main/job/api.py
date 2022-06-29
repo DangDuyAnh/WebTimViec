@@ -39,14 +39,14 @@ class Registration(APIView):
         job.type = request.data['type']
         job.required_experience = request.data['required_experience']
         job.avaiable_slot = request.data['avaiable_slot']
-        job.accepted_applicant = request.data['accepted_applicant']
+        job.accepted_applicant = 0
 
         #if job.company != employer.company:
         #    return Response('job must belong to employer\'s company', status.HTTP_400_BAD_REQUEST)
 
         job.save()
 
-        return Response('Done')
+        return Response(Utils.model_to_dict(job))
 
 class Delete(APIView):
     authentication_classes = [EmployerJWTAuthentication]
@@ -77,9 +77,20 @@ class Update(APIView):
         jobs = Job.objects.filter(id=job_id)
 
         if jobs.exists() and jobs.first().company == employer.company:
-            job = Job(**data)
+            job: Job = jobs.first()
+            job.title = request.data['title']
+            job.public_date = request.data['title']
+            job.expired_date = request.data['expired_date']
+            job.field = request.data['field']
+            job.salary_min = request.data['salary_min']
+            job.salary_max = request.data['salary_max']
+            job.position = request.data['position']
+            job.type = request.data['type']
+            job.required_experience = request.data['required_experience']
+            job.avaiable_slot = request.data['avaiable_slot']
+            job.accepted_applicant = request.data['accepted_applicant']
             job.save()
-            return Response('Done')
+            return Response(Utils.model_to_dict(job))
         else:
             return Response('Error', status.HTTP_400_BAD_REQUEST)
 

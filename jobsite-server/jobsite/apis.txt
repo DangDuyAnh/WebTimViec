@@ -36,17 +36,19 @@ Job
 
 + /job/delete
     Post
-    Đầu vào form-data: 'job_id'
+    Đầu vào form-data: 'id' (job id)
     (có check employer thuộc company)
 
 + /job/update
     Post
-    Đầu vào form-data: full một bản ghi của job như trong csdl
+    Đầu vào form-data: 'id' (job id) + full một bản ghi của job như trong csdl
     (có check employer thuộc company)
 
 + /job/list
 
 + /job/detail
+    Get
+    Query param: 'id'
 
 + /job/filter
     Get

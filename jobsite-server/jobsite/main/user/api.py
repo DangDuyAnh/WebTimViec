@@ -228,3 +228,17 @@ class SetRole(APIView):
             return Response('Fatal error', status.HTTP_400_BAD_REQUEST)
 
         return Response('Done')
+
+
+class GetRole(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user: User = request.user
+        roles = UserRoleRelationship.objects.filter(user=user)
+
+        if not roles.exists():
+            return Response('User doesn\'t have a role', status.HTTP_400_BAD_REQUEST)
+
+        return Response(Utils.query_set_to_list(roles))
+
