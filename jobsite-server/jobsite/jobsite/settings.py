@@ -98,7 +98,8 @@ DATABASES = {
         'NAME': 'jobsite-db',
         'USER': 'root',
         'PASSWORD': '',
-        'HOST': 'localhost',
+        #'HOST': 'localhost',
+        'HOST': 'database',
         'PORT': '3306',
 
         #'ENGINE': 'django.db.backends.sqlite3',
