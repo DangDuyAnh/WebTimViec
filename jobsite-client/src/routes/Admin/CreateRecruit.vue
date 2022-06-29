@@ -73,9 +73,6 @@
                                 <font-awesome-icon icon="angle-down" class='icon-admin-2'/>
                             </div>
                             </div>
-                            <div :style="'position: absolute'" class="logout">
-                                <p>Logout</p>
-                            </div>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -98,7 +95,7 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.html"
                                 aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
@@ -127,7 +124,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="map-google.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/chat"
                                 aria-expanded="false">
                                 <font-awesome-icon icon="comment" class='icon-admin'/>
                                 <span class="hide-menu">Trò chuyện</span>
@@ -322,7 +319,7 @@
 <script>
 import DatePicker from 'vue-datepicker-next';
 import 'vue-datepicker-next/index.css';
-import { post } from '../../utility/api'; 
+import axios from 'axios';
 import { authenticationService } from '../../utility/authenticationService';
 
 export default {
@@ -333,8 +330,8 @@ export default {
       text: '',
       from: undefined,
       to: undefined,
-      savedFrom: 0,
-      savedTo: 0,
+      savedFrom: undefined,
+      savedTo: undefined,
       timeStart: null,
       timeEnd: null,
       tieuDe: '',
@@ -388,36 +385,32 @@ export default {
             })
             let sendObj = {
                 title: this.tieuDe,
-                salary_min : this.savedFrom,
-                salary_max : this.savedTo,
+                salary_min : this.from,
+                salary_max : this.to,
                 avaiable_slot: this.soLuongCanTuyen,
                 field: field,
                 position: this.capBac,
                 required_experience: this.kinhNghiem,
                 type: this.type,
-                company: authenticationService.getCompanyId(),
+                company: '10',
                 public_date: this.formatDate(this.timeStart),
                 expired_date: this.formatDate(this.timeEnd)
             }
-            console.log(sendObj)
-            let res = await post('/job/register', sendObj, authenticationService.getAdminToken())
-            console.log(res.data)
+
+            console.log(authenticationService.getAdminToken())
+            console.log(this.from)
+            try {
+            let config = {
+                    headers: {
+                    'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+                    }
+                }
+            await axios.post('http://localhost:8000/api/job/register', sendObj, config)
+            window.location = '/admin'
+            } catch {
+            }
         }
-    },
-    watch: {
-        from: function(newValue) {
-        this.savedFrom = newValue
-        const result = newValue.replace(/\D/g, "")
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        this.from = result;
-        },
-        to: function(newValue) {
-        this.savedTo = newValue
-        const result = newValue.replace(/\D/g, "")
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        this.to = result;
-        },
-  }
+    }
 }
 </script>
 

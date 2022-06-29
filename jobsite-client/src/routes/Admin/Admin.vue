@@ -117,7 +117,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="map-google.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/chat"
                                 aria-expanded="false">
                                 <font-awesome-icon icon="comment" class='icon-admin'/>
                                 <span class="hide-menu">Trò chuyện</span>
@@ -204,7 +204,7 @@
                                             style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                                     </div>
                                 </li>
-                                <li class="ms-auto"><span class="counter text-info">22</span>
+                                <li class="ms-auto"><span class="counter text-info"></span>
                                 </li>
                             </ul>
                         </div>
@@ -339,7 +339,7 @@ export default {
     padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
-    z-index: 100;
+    z-index: -1000;
 }
 
 

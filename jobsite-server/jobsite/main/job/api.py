@@ -1,3 +1,4 @@
+from dateutil import parser as date_parser
 import json
 from django.utils import timezone
 from django.core import serializers
@@ -30,15 +31,15 @@ class Registration(APIView):
         job = Job()
         job.company = employer.company
         job.title = request.data['title']
-        job.public_date = request.data['public_date']
-        job.expired_date = request.data['expired_date']
+        job.public_date = date_parser.parse(request.data['public_date'])
+        job.expired_date = date_parser.parse(request.data['expired_date'])
         job.field = request.data['field']
-        job.salary_min = request.data['salary_min']
-        job.salary_max = request.data['salary_max']
+        job.salary_min = int(request.data['salary_min'])
+        job.salary_max = int(request.data['salary_max'])
         job.position = request.data['position']
         job.type = request.data['type']
         job.required_experience = request.data['required_experience']
-        job.avaiable_slot = request.data['avaiable_slot']
+        job.avaiable_slot = int(request.data['avaiable_slot'])
         job.accepted_applicant = 0
 
         #if job.company != employer.company:
@@ -79,16 +80,16 @@ class Update(APIView):
         if jobs.exists() and jobs.first().company == employer.company:
             job: Job = jobs.first()
             job.title = request.data['title']
-            job.public_date = request.data['title']
-            job.expired_date = request.data['expired_date']
+            job.public_date = date_parser.parse(request.data['public_date'])
+            job.expired_date = date_parser.parse(request.data['expired_date'])
             job.field = request.data['field']
-            job.salary_min = request.data['salary_min']
-            job.salary_max = request.data['salary_max']
+            job.salary_min = int(request.data['salary_min'])
+            job.salary_max = int(request.data['salary_max'])
             job.position = request.data['position']
             job.type = request.data['type']
             job.required_experience = request.data['required_experience']
-            job.avaiable_slot = request.data['avaiable_slot']
-            job.accepted_applicant = request.data['accepted_applicant']
+            job.avaiable_slot = int(request.data['avaiable_slot'])
+            job.accepted_applicant = int(request.data['accepted_applicant'])
             job.save()
             return Response(Utils.model_to_dict(job))
         else:
