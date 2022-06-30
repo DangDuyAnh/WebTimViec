@@ -2,7 +2,7 @@
   "name": "jobsite-client",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview --port 5050"
   },

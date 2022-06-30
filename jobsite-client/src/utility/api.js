@@ -1,5 +1,7 @@
 
-const API_URL = 'http://localhost:8000/api'
+import process from 'process'
+//const API_URL = 'http://localhost:8000/api'
+const API_URL = `${process.env.VUE_APP_SERVER_HOST}:${process.env.VUE_APP_SERVER_PORT}`
 
 export const post = (url, body, token = undefined) => {
   let _token

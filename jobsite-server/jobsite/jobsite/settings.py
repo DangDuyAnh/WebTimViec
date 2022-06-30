@@ -99,8 +99,11 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '',
         #'HOST': 'localhost',
-        'HOST': 'database',
-        'PORT': '3306',
+        #'HOST': 'database',
+        #'PORT': '3306',
+
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
 
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': BASE_DIR / 'db.sqlite3',
@@ -176,14 +179,17 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-
+CLIENT_HOST = os.getenv('CLIENT_HOST')
+CLIENT_PORT = os.getenv('CLIENT_PORT')
 #CORS_ALLOW_ALL_ORIGINS = True # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+    #'http://localhost:3000',
+    f'{CLIENT_HOST}:{CLIENT_PORT}'
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
-    'http://localhost:3000',
+    #'http://localhost:3000',
+    f'{CLIENT_HOST}:{CLIENT_PORT}'
 ]
 
 
