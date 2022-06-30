@@ -12,7 +12,15 @@ export default {
     }
   },
   mounted() {
+    let config = {
+        headers: {
+            'Authorization': 'Bearer ' + authenticationService.getUserToken()
+        }
+    }
     
+    axios.get('http://localhost:8000/api/employer/company/list', config).then(res => {
+        console.log(res.data)
+    })
   }
 }
 </script>
