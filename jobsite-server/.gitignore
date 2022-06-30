@@ -5,3 +5,4 @@ bin
 pyvenv.cfg
 *.py[co]
 mariadb_data
+.env
