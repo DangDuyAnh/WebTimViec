@@ -10,6 +10,8 @@ class Employee(models.Model):
     literacy = models.CharField(max_length=64, blank=True, null=True)
     specialist_knowledge = models.CharField(max_length=256, blank=True, null=True)
     experience = models.CharField(max_length=256, blank=True, null=True)
+    main_cv_id = models.BigIntegerField(blank=True, null=True)
+    main_letter_id = models.BigIntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -47,9 +49,9 @@ class EmployeeCv(models.Model):
         unique_together = (('employee', 'cv_id'),)
 
 
-class EmployeeLetterCv(models.Model):
+class EmployeeLetter(models.Model):
     employee = models.OneToOneField('Employee', models.DO_NOTHING, primary_key=True)
-    letter_cv_id = models.PositiveBigIntegerField()
+    letter_id = models.PositiveBigIntegerField()
 
     class Meta:
         managed = False

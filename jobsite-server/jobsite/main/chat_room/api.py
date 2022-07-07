@@ -35,16 +35,17 @@ class CreatePair(APIView):
 
         user2: User = users.first()
         
-        chat_room_name = request.data['room_name']
+        chat_room_name1 = f'{user.id} to {user2.id}'
+        chat_room_name2 = f'{user2.id} to {user.id}'
         
-        if ChatRoom.objects.filter(name=chat_room_name).exists():
+        if ChatRoom.objects.filter(name=chat_room_name1).exists() or ChatRoom.objects.filter(name=chat_room_name2).exists():
             return Response('Chat room duplicate', status.HTTP_400_BAD_REQUEST)
 
         chat_room: ChatRoom = ChatRoom()
-        chat_room.name = chat_room_name
+        chat_room.name = chat_room_name1
         chat_room.save()
 
-        chat_room_user = ChatRoomUser()
+        """ chat_room_user = ChatRoomUser()
         chat_room_user.user = user
         chat_room_user.room = chat_room
         chat_room_user.save()
@@ -52,7 +53,10 @@ class CreatePair(APIView):
         chat_room_user2 = ChatRoomUser()
         chat_room_user2.user = user2
         chat_room_user2.room = chat_room
-        chat_room_user2.save()
+        chat_room_user2.save() """
+
+        ChatRoomUser.objects.create(user=user, room=chat_room)
+        ChatRoomUser.objects.create(user=user2, room=chat_room)
 
         return Response(Utils.model_to_dict(chat_room))
 

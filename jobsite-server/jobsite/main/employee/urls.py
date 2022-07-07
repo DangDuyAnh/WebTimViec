@@ -13,8 +13,10 @@ urlpatterns = [
     path('add-cv', api.AddCV.as_view(), name='add-cv'),
     path('remove-cv', api.RemoveCV.as_view(), name='remove-cv'),
     path('cv-list', api.ListCV.as_view(), name='cv-list'),
+    path('set-main-cv', api.SetMainCV.as_view(), name='set-main-cv'),
 
-    path('add-letter-cv', api.AddCV.as_view(), name='add-letter-cv'),
-    path('remove-letter-cv', api.RemoveCV.as_view(), name='remove-letter-cv'),
-    path('cv-letter-list', api.ListLetterCV.as_view(), name='cv-letter-list'),
+    path('add-letter', api.AddLetter.as_view(), name='add-letter'),
+    path('remove-letter', api.RemoveLetter.as_view(), name='remove-letter'),
+    path('set-main-letter', api.SetMainLetter.as_view(), name='set-main-letter'),
+    path('letter-list', api.ListLetter.as_view(), name='letter-list'),
 ]

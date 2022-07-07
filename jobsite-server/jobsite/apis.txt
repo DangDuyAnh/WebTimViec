@@ -99,22 +99,28 @@ Employee
     Post
     Data: cv_id
 
++ /employee/set-main-cv
+    Post
+    Data: cv_id
+
 + /employee/cv-list
-    Post
-    Data: cv_id
+    Get
 
-+ /employee/add-letter-cv
-    Post
-    Data: cv_id
 
-+ /employee/remove-letter-cv
++ /employee/add-letter
     Post
-    Data: cv_id
+    Data: letter_id
 
-+ /employee/cv-letter-list
++ /employee/remove-letter
     Post
-    Data: cv_id
+    Data: letter_id
 
++ /employee/letter-list
+    Get
+
++ /employee/set-main-letter
+    Post
+    Data: letter_id
 
 
 Chat room
