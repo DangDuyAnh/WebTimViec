@@ -50,9 +50,9 @@ Job
     Get
     Query param: 'id'
 
-+ /job/filter
++ /job/include
     Get
-    Query param: bất kì trường nào trong csdl, nhưng chỉ dùng được dấu '=' (vd: /job/filter?job_id=1)
+    Query param: bất kì trường nào trong csdl, nhưng chỉ dùng được dấu '=' (vd: /job/include?job_id=1)
 
 
 Employer
@@ -89,6 +89,32 @@ Employee
 + /employee/applied-list
     Get
     Query param: job_id
+
+
++ /employee/add-cv
+    Post
+    Data: cv_id
+
++ /employee/remove-cv
+    Post
+    Data: cv_id
+
++ /employee/cv-list
+    Post
+    Data: cv_id
+
++ /employee/add-letter-cv
+    Post
+    Data: cv_id
+
++ /employee/remove-letter-cv
+    Post
+    Data: cv_id
+
++ /employee/cv-letter-list
+    Post
+    Data: cv_id
+
 
 
 Chat room

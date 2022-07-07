@@ -8,6 +8,6 @@ urlpatterns = [
     path('delete', api.Delete.as_view(), name='delete'),
     path('update', api.Update.as_view(), name='update'),
     path('list', api.List.as_view(), name='list'),
-    path('filter', api.Filter.as_view(), name='filter'),
+    path('include', api.Filter.as_view(), name='include'),
     path('detail', api.Detail.as_view(), name='detail'),
 ]
