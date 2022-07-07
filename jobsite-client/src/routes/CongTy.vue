@@ -12,7 +12,16 @@ export default {
     }
   },
   mounted() {
-    
+    let config = {
+        headers: {
+            'Authorization': 'Bearer ' + authenticationService.getUserToken()
+        }
+    }
+    axios.get('http://localhost:8000/api/company/list', config).then(res => {
+        console.log(res)
+        let data = res.data
+        this.company = [...data]
+    })
   }
 }
 </script>
@@ -41,60 +50,21 @@ export default {
                             <span class="checkmark"></span>
                         </label>
                         <label class="container-checkbox">Đà Nẵng
-                            <input type="checkbox" checked="checked">
+                            <input type="checkbox">
                             <span class="checkmark"></span>
                         </label>
                     </div>
 
                     <div :style="{width: '920px', display: 'flex', flexWrap: 'wrap'}">
-                        <div class="card-congty">
+                        <div class="card-congty" v-for="item in company">
                             <div class="congty-wrapper">
                                 <img :style="{width: '150px', height: '150px'}" src='../assets/logo.jpg'/>
                             </div>
-                            <h1 :style="{fontSize: '18px', fontWeight: '700', color: 'black'}">Công ty gì đấy</h1>
+                            <h1 :style="{fontSize: '18px', fontWeight: '700', color: 'black'}">{{item.name}}</h1>
                             <h1 :style="{fontSize: '14px', fontWeight: '600', color: '#0069DB'}">3 việc đang ứng tuyển</h1>
                             <h1 :style="{fontSize: '14px', fontWeight: '400', color: '#6c757d'}">Hà Nội</h1>
                         </div>   
-                        <div class="card-congty">
-                            <div class="congty-wrapper">
-                                <img :style="{width: '150px', height: '150px'}" src='../assets/logo.jpg'/>
-                            </div>
-                            <h1 :style="{fontSize: '18px', fontWeight: '700', color: 'black'}">Công ty gì đấy</h1>
-                            <h1 :style="{fontSize: '14px', fontWeight: '600', color: '#0069DB'}">3 việc đang ứng tuyển</h1>
-                            <h1 :style="{fontSize: '14px', fontWeight: '400', color: '#6c757d'}">Hà Nội</h1>
-                        </div> 
-                        <div class="card-congty">
-                            <div class="congty-wrapper">
-                                <img :style="{width: '150px', height: '150px'}" src='../assets/logo.jpg'/>
-                            </div>
-                            <h1 :style="{fontSize: '18px', fontWeight: '700', color: 'black'}">Công ty gì đấy</h1>
-                            <h1 :style="{fontSize: '14px', fontWeight: '600', color: '#0069DB'}">3 việc đang ứng tuyển</h1>
-                            <h1 :style="{fontSize: '14px', fontWeight: '400', color: '#6c757d'}">Hà Nội</h1>
-                        </div>   
-                        <div class="card-congty">
-                            <div class="congty-wrapper">
-                                <img :style="{width: '150px', height: '150px'}" src='../assets/logo.jpg'/>
-                            </div>
-                            <h1 :style="{fontSize: '18px', fontWeight: '700', color: 'black'}">Công ty gì đấy</h1>
-                            <h1 :style="{fontSize: '14px', fontWeight: '600', color: '#0069DB'}">3 việc đang ứng tuyển</h1>
-                            <h1 :style="{fontSize: '14px', fontWeight: '400', color: '#6c757d'}">Hà Nội</h1>
-                        </div>
-                        <div class="card-congty">
-                            <div class="congty-wrapper">
-                                <img :style="{width: '150px', height: '150px'}" src='../assets/logo.jpg'/>
-                            </div>
-                            <h1 :style="{fontSize: '18px', fontWeight: '700', color: 'black'}">Công ty gì đấy</h1>
-                            <h1 :style="{fontSize: '14px', fontWeight: '600', color: '#0069DB'}">3 việc đang ứng tuyển</h1>
-                            <h1 :style="{fontSize: '14px', fontWeight: '400', color: '#6c757d'}">Hà Nội</h1>
-                        </div>   
-                        <div class="card-congty">
-                            <div class="congty-wrapper">
-                                <img :style="{width: '150px', height: '150px'}" src='../assets/logo.jpg'/>
-                            </div>
-                            <h1 :style="{fontSize: '18px', fontWeight: '700', color: 'black'}">Công ty gì đấy</h1>
-                            <h1 :style="{fontSize: '14px', fontWeight: '600', color: '#0069DB'}">3 việc đang ứng tuyển</h1>
-                            <h1 :style="{fontSize: '14px', fontWeight: '400', color: '#6c757d'}">Hà Nội</h1>
-                        </div>              
+                        
                     </div>
                 </div>
             </div>

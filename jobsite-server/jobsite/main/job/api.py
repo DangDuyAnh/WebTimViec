@@ -117,7 +117,7 @@ class Filter(APIView):
                 if type(v) == str and v.isdigit():
                     v = int(v)
 
-                if dict_[k] == v:
+                if k in dict_ and dict_[k] == v:
                     ret.append(Utils.model_to_dict(job))
             
         return Response(ret)

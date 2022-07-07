@@ -4,6 +4,31 @@ export default {
   components: {
     Navbar
   },
+  data() {
+    return {
+        company: ''
+    }
+  },
+  mounted() {
+    let config = {
+        headers: {
+            'Authorization': 'Bearer ' + authenticationService.getUserToken()
+        }
+    }
+    axios.get('http://localhost:8000/api/company/list', config).then(res => {
+        console.log(res)
+        let data = res.data
+        this.company = [...data]
+
+        for (let index = 0; index < this.company.length; index++) {
+            const element = this.company[index];
+            element.jobs = []
+            axios.get(`http://localhost:8000/api/job/filter?company=${element.id}`, config).then(res => {
+                element.jobs = [...res.data]
+            })
+        }
+    })
+  }
 }
 </script>
 
