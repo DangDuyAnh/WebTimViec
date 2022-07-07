@@ -35,3 +35,23 @@ class EmployeeSavedJob(models.Model):
         managed = False
         db_table = 'employee_saved_job'
         unique_together = (('employee', 'job'),)
+
+
+class EmployeeCv(models.Model):
+    employee = models.OneToOneField('Employee', models.DO_NOTHING, primary_key=True)
+    cv_id = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'employee_cv'
+        unique_together = (('employee', 'cv_id'),)
+
+
+class EmployeeLetterCv(models.Model):
+    employee = models.OneToOneField('Employee', models.DO_NOTHING, primary_key=True)
+    letter_cv_id = models.PositiveBigIntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'employee_letter_cv'
+        unique_together = (('employee', 'letter_cv_id'),)

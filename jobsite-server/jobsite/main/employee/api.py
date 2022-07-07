@@ -13,7 +13,7 @@ from rest_framework import status as http_status
 
 from main.job.models import Job
 
-from .models import Employee, EmployeeAppliedJob, EmployeeSavedJob
+from .models import Employee, EmployeeAppliedJob, EmployeeSavedJob, EmployeeCv, EmployeeLetterCv
 from ..user.model import User
 from ..user.serializer import UserSerializer
 
@@ -112,3 +112,101 @@ class SavedList(APIView):
         employee: Employee = request.user.employee
         items = EmployeeSavedJob.objects.filter(employee=employee)
         return Response(Utils.query_set_to_list(items))
+
+
+class AddCV(APIView):
+    authentication_classes = [EmployeeJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        employee: Employee = request.user.employee
+        cv_id = int(request.data['cv_id'])
+
+        cvs = EmployeeCv.objects.filter(employee=employee, cv_id=cv_id)
+
+        if cvs.exists():
+            return Response('cv exists', http_status.HTTP_400_BAD_REQUEST)
+
+        newCV = EmployeeCv()
+        newCV.employee = employee
+        newCV.cv_id = cv_id
+        newCV.save()
+
+        return Response(Utils.model_to_dict(newCV), http_status.HTTP_400_BAD_REQUEST)
+
+
+class RemoveCV(APIView):
+    authentication_classes = [EmployeeJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        employee: Employee = request.user.employee
+        cv_id = int(request.data['cv_id'])
+
+        cvs = EmployeeCv.objects.filter(employee=employee, cv_id=cv_id)
+
+        if cvs.exists():
+            cvs.first().delete()
+            return Response('Done')
+        else:
+            return Response('cv doesn\'t exist', http_status.HTTP_400_BAD_REQUEST)
+
+
+class ListCV(APIView):
+    authentication_classes = [EmployeeJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        employee: Employee = request.user.employee
+        cv_id = int(request.query_params['cv_id'])
+        cvs = EmployeeCv.objects.filter(employee=employee, cv_id=cv_id)
+        return Response(Utils.query_set_to_list(cvs))
+
+
+class AddLetterCV(APIView):
+    authentication_classes = [EmployeeJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        employee: Employee = request.user.employee
+        cv_id = int(request.data['cv_id'])
+
+        cvs = EmployeeLetterCv.objects.filter(employee=employee, cv_id=cv_id)
+
+        if cvs.exists():
+            return Response('cv exists', http_status.HTTP_400_BAD_REQUEST)
+
+        newCV = EmployeeLetterCv()
+        newCV.employee = employee
+        newCV.cv_id = cv_id
+        newCV.save()
+
+        return Response(Utils.model_to_dict(newCV), http_status.HTTP_400_BAD_REQUEST)
+
+
+class RemoveLetterCV(APIView):
+    authentication_classes = [EmployeeJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        employee: Employee = request.user.employee
+        cv_id = int(request.data['cv_id'])
+
+        cvs = EmployeeLetterCv.objects.filter(employee=employee, cv_id=cv_id)
+
+        if cvs.exists():
+            cvs.first().delete()
+            return Response('Done')
+        else:
+            return Response('cv doesn\'t exist', http_status.HTTP_400_BAD_REQUEST)
+
+
+class ListLetterCV(APIView):
+    authentication_classes = [EmployeeJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        employee: Employee = request.user.employee
+        cv_id = int(request.query_params['cv_id'])
+        cvs = EmployeeLetterCv.objects.filter(employee=employee, cv_id=cv_id)
+        return Response(Utils.query_set_to_list(cvs))
