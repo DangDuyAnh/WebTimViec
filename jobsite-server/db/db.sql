@@ -374,6 +374,8 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `literacy` varchar(64) COLLATE utf16_unicode_ci DEFAULT NULL,
   `specialist_knowledge` varchar(256) COLLATE utf16_unicode_ci DEFAULT NULL,
   `experience` varchar(256) COLLATE utf16_unicode_ci DEFAULT NULL,
+  `main_cv_id` bigint(20) DEFAULT NULL,
+  `main_letter_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`ID`) USING BTREE,
   KEY `FK_employee_user` (`user_id`),
   CONSTRAINT `FK_employee_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -381,9 +383,9 @@ CREATE TABLE IF NOT EXISTS `employee` (
 
 -- Dumping data for table jobsite-db.employee: ~2 rows (approximately)
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` (`ID`, `user_id`, `date_of_birth`, `gender`, `image_link`, `literacy`, `specialist_knowledge`, `experience`) VALUES
-	(1, 4, '2022-06-28 10:17:09', 'male', 'image/test1.png', '12/12', 'nothing', '0 years'),
-	(2, 6, '2022-06-28 10:18:50', 'female', 'image/test2.png', '1/12', 'smile', '100 years');
+INSERT INTO `employee` (`ID`, `user_id`, `date_of_birth`, `gender`, `image_link`, `literacy`, `specialist_knowledge`, `experience`, `main_cv_id`, `main_letter_id`) VALUES
+	(1, 4, '2022-06-28 10:17:09', 'male', 'image/test1.png', '12/12', 'nothing', '0 years', 0, 0),
+	(2, 6, '2022-06-28 10:18:50', 'female', 'image/test2.png', '1/12', 'smile', '100 years', 0, 0);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 
 -- Dumping structure for table jobsite-db.employee_applied_job
@@ -412,23 +414,23 @@ CREATE TABLE IF NOT EXISTS `employee_cv` (
   CONSTRAINT `FK__employee_cv__employee` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
--- Dumping data for table jobsite-db.employee_cv: ~1 rows (approximately)
+-- Dumping data for table jobsite-db.employee_cv: ~0 rows (approximately)
 /*!40000 ALTER TABLE `employee_cv` DISABLE KEYS */;
 INSERT INTO `employee_cv` (`employee_id`, `cv_id`) VALUES
 	(1, 1);
 /*!40000 ALTER TABLE `employee_cv` ENABLE KEYS */;
 
--- Dumping structure for table jobsite-db.employee_letter_cv
-CREATE TABLE IF NOT EXISTS `employee_letter_cv` (
+-- Dumping structure for table jobsite-db.employee_letter
+CREATE TABLE IF NOT EXISTS `employee_letter` (
   `employee_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `letter_cv_id` bigint(20) unsigned NOT NULL DEFAULT 0,
-  PRIMARY KEY (`employee_id`,`letter_cv_id`),
+  `letter_id` bigint(20) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`employee_id`,`letter_id`) USING BTREE,
   CONSTRAINT `FK__employee_letter_cv__employee` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
--- Dumping data for table jobsite-db.employee_letter_cv: ~0 rows (approximately)
-/*!40000 ALTER TABLE `employee_letter_cv` DISABLE KEYS */;
-/*!40000 ALTER TABLE `employee_letter_cv` ENABLE KEYS */;
+-- Dumping data for table jobsite-db.employee_letter: ~0 rows (approximately)
+/*!40000 ALTER TABLE `employee_letter` DISABLE KEYS */;
+/*!40000 ALTER TABLE `employee_letter` ENABLE KEYS */;
 
 -- Dumping structure for table jobsite-db.employee_saved_job
 CREATE TABLE IF NOT EXISTS `employee_saved_job` (
