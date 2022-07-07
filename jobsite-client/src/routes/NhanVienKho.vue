@@ -51,7 +51,7 @@
                                 :class="[isActive ? 'blue' : 'white']"
                                 @click="luu"
                                 >{{isActive ? 'Lưu' : 'Đã lưu'}}</button>
-                            <button id="send-cv" @click="nopDon">Nộp đơn</button>
+                            <button id="send-cv" @click="nopdon">Nộp đơn</button>
                         </div>
                     </div>
                 </div>
@@ -403,7 +403,7 @@ export default {
         'Authorization': 'Bearer ' + authenticationService.getUserToken()
         }
         }
-        axios.post('http://localhost:8000/api/employee/save?job_id=' + this.$route.params.id, config)
+        axios.post('http://localhost:8000/api/employee/save', {job_id: this.$route.params.id}, config)
         .then(data => {
             window.location = '/viec-da-luu'
         })
@@ -414,7 +414,7 @@ export default {
         'Authorization': 'Bearer ' + authenticationService.getUserToken()
         }
         }
-        axios.post('http://localhost:8000/api/employee/apply?job_id=' + this.$route.params.id, config)
+        axios.post('http://localhost:8000/api/employee/apply', {job_id: this.$route.params.id}, config)
         .then(data => {
             window.location = '/viec-da-ung-tuyen'
         })

@@ -19,7 +19,10 @@ export default {
             .then((data) => {
                 data = data.data
                 authenticationService.login(data.user, data.access_token)
-                window.location = '/'
+                post("/user/set-role", {role_id: '2'}, data.access_token)
+                .then(res => {
+                    window.location = '/'
+                })
         })
         },
     }

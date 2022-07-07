@@ -1,7 +1,7 @@
 
-//import process from 'process'
-//const API_URL = 'http://localhost:8000/api'
-const API_URL = `${import.meta.env.VITE_APP_SERVER_HOST}:${import.meta.env.VITE_APP_SERVER_PORT}`
+import process from 'process'
+const API_URL = 'http://localhost:8000/api'
+// const API_URL = `${process.env.VUE_APP_SERVER_HOST}:${process.env.VUE_APP_SERVER_PORT}`
 
 export const post = (url, body, token = undefined) => {
   let _token

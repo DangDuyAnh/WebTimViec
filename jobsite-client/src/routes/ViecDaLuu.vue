@@ -67,6 +67,41 @@
     </div>
 </template>
 
+<script>
+import axios from 'axios';
+import { authenticationService } from '../utility/authenticationService';
+export default {
+  data() {
+    return {
+      job: []
+    }
+  },
+  mounted(){
+    let config = {
+    headers: {
+    'Authorization': 'Bearer ' + authenticationService.getUserToken()
+    }
+    }
+      axios.get('http://localhost:8000/api/employee/saved-list', config)
+    .then(res => {
+        console.log(res.data)
+        let tempList = res.data
+        let jobArr = []
+        tempList.forEach((item, index) => {
+          axios.get('http://localhost:8000/api/job/detail?id=' + item.job, config)
+          .then(res => {
+            console.log(res.data)
+            jobArr = [...jobArr, res.data]
+          })
+        })
+        console.log(jobArr)
+        this.job = [...jobArr]
+
+    })
+  }
+}
+</script>
+
 <style>
 .box-header {
   margin-top: 0px;
