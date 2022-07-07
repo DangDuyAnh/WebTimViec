@@ -23,10 +23,10 @@ export default {
 		    this.index--
 		},
         search() {
-            window.location = '/tim-viec-lam?congviec=' + this.congViec + '&diadiem=' + this.diaDiem
+            window.location = '/tim-viec-lam-filter?ten=' + this.congViec 
         },
-        goByTag () {
-            window.location = '/tim-viec-lam?tag=nganhang'
+        goByTag (tag) {
+            window.location = '/tim-viec-lam-filter?nganh=' + tag
         },
         check() {
             if (this.userToken) return 1;
@@ -66,13 +66,13 @@ export default {
 
             <div class="job-series">
                 <div class="track" :style="{transform: 'translateX(-'+ (index*186) +'px)'}">
-                    <div class="card" :style="{backgroundColor: '#ffa45b'}">
+                    <div class="card" :style="{backgroundColor: '#ffa45b'}" @click="goByTag('IT')">
                         <h1>Công nghệ thông tin</h1>
                     </div>
-                    <div class="card" :style="{backgroundColor: '#bce6eb'}">
+                    <div class="card" :style="{backgroundColor: '#bce6eb'}" @click="goByTag('Kế toán')">
                         <h1>Kế toán / Kiểm toán</h1>
                     </div>    
-                    <div class="card" :style="{backgroundColor: '#ffda77'}" @click="goByTag">
+                    <div class="card" :style="{backgroundColor: '#ffda77'}" @click="goByTag('Ngân hàng')">
                         <h1>Ngân hàng</h1>
                     </div>
                     <div class="card" :style="{backgroundColor: '#fdcfdf'}">

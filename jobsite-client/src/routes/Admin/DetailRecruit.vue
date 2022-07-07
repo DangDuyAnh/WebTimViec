@@ -22,20 +22,11 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <div class="navbar-brand admin-out-text" href="dashboard.html">
-
-                        <!-- <b class="logo-icon">
-
-                            <img src="./plugins/images/logo-icon.png" alt="homepage" />
-                        </b>
-
-                        <span class="logo-text"> 
-                            <img src="./plugins/images/logo-text.png" alt="homepage" />
-                        </span> -->
+                    <a class="navbar-brand" href="/admin">
                         <span class="logo-text logo-admin"> 
                             JOB SITE
                         </span> 
-                    </div>
+                    </a>
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
@@ -58,7 +49,7 @@
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
-                    <ul class="navbar-nav ms-auto d-flex align-items-center" >
+                    <ul class="navbar-nav ms-auto d-flex align-items-center">
 
                         <!-- ============================================================== -->
                         <!-- Search -->
@@ -75,17 +66,14 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li :style="'position: relative'">
-                            <div :style="'display: flex; padding-right: 20px'">
+                            <div :style="'display: flex; padding-right: 20px'" @click="toggleLogout">
                             <a class="profile-pic" href="#">
                                 <img src="./plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                    class="img-circle"><span class="text-white font-medium">Admin</span>
+                                    class="img-circle"><span class="text-white font-medium">{{admin.username}}</span>
                             </a>
-                            <div :style="'display:flex; align-items:center; position: absolute; left: 90px; height: 100%'">
+                            <div :style="{display: 'flex', alignItems : 'center', position: 'absolute', left: '115px', height: '100%'}">
                                 <font-awesome-icon icon="angle-down" class='icon-admin-2'/>
                             </div>
-                            </div>
-                            <div :style="'position: absolute'" class="logout">
-                                <p>Logout</p>
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -224,7 +212,7 @@
                                 <div :style="{display: 'flex', alignItems: 'center'}">
                                     <p class="booking-pay-line" :style="{fontWeight:'bold', width: '210px'}">Danh sách ứng viên: </p>
                                     <div :style="{width: '600px'}">
-                                        <select class="form-select shadow-none row border-top">
+                                        <select class="form-select shadow-none row border-top" v-model="filter">
                                             <option>Ứng viên đang chờ</option>
                                             <option>Ứng viên đã tuyển</option>
                                         </select>
@@ -233,57 +221,36 @@
 
                                 <div>
                                     <div :style="{marginTop: '40px'}">
-                                        <div class="row-user">
+                                        <div class="row-user" v-for="(item, index) in listCand">
                                             <div :style="{display: 'flex', alignItems: 'center'}">
                                                 <img src="../../assets/img_avatar3.png" class='avatar-circle'/>
-                                                <div class="user-name">User name</div>
-                                                <font-awesome-icon icon="xmark" :style="{marginLeft: '10px', fontSize: '18px',color: '#F33155'}"/>
+                                                <div class="user-name">{{item.user.username}}</div>
+                                                <font-awesome-icon v-if="clicked[index] === 2" icon="xmark" :style="{marginLeft: '10px', fontSize: '18px',color: '#F33155'}"/>
+                                                <font-awesome-icon v-if="clicked[index] === 1" icon="check" :style="{marginLeft: '10px', fontSize: '18px',color: '#7ACE4C'}"/>
                                             </div> 
 
                                             <div :style="{display: 'flex', alignItems: 'center'}">
                                                 <div class="avatar-wrapper-button button-color-yellow">
                                                     <font-awesome-icon icon="id-badge" class='icon-button'/>
                                                 </div>
-                                                <div class="avatar-wrapper-button button-color-blue">
+                                                <div class="avatar-wrapper-button button-color-blue" @click="moveToChat(item)">
                                                     <font-awesome-icon icon="comments" class='icon-button'/>
                                                 </div>
-                                                <div class="avatar-wrapper-button button-color-green">
-                                                    <font-awesome-icon icon="check" class='icon-button'/>
+                                                <div class="avatar-wrapper-button button-color-green" v-if="selectFilter" @click="accept(index)">
+                                                    <font-awesome-icon icon="check" class='icon-button' @click="reset(index)"/>
                                                 </div>
-                                                <div class="avatar-wrapper-button button-color-red">
-                                                    <font-awesome-icon icon="xmark" class='icon-button'/>
+                                                <div class="avatar-wrapper-button button-color-red" v-if="selectFilter" @click="deny(index)">
+                                                    <font-awesome-icon icon="xmark" class='icon-button' @click="reset(index)"/>
                                                 </div>
                                             </div> 
                                         </div>
 
-                                        <div class="row-user">
-                                            <div :style="{display: 'flex', alignItems: 'center'}">
-                                                <img src="../../assets/img_avatar3.png" class='avatar-circle'/>
-                                                <div class="user-name">User name</div>
-                                                <font-awesome-icon icon="check" :style="{marginLeft: '10px', fontSize: '18px',color: '#7ACE4C'}"/>
-                                            </div> 
-
-                                            <div :style="{display: 'flex', alignItems: 'center'}">
-                                                <div class="avatar-wrapper-button button-color-yellow">
-                                                    <font-awesome-icon icon="id-badge" class='icon-button'/>
-                                                </div>
-                                                <div class="avatar-wrapper-button button-color-blue">
-                                                    <font-awesome-icon icon="comments" class='icon-button'/>
-                                                </div>
-                                                <div class="avatar-wrapper-button button-color-green">
-                                                    <font-awesome-icon icon="check" class='icon-button'/>
-                                                </div>
-                                                <div class="avatar-wrapper-button button-color-red">
-                                                    <font-awesome-icon icon="xmark" class='icon-button'/>
-                                                </div>
-                                            </div> 
-                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group mb-4" :style="{margin: '40px 0px 0px 350px'}">
                                     <div class="col-sm-12">
-                                        <button class="btn btn-success" :style="{color: 'white'}">Lưu</button>
+                                        <button class="btn btn-success" :style="{color: 'white'}" @click="save">Lưu</button>
                                     </div>
                                 </div>
 
@@ -317,21 +284,134 @@ import { authenticationService } from "../../utility/authenticationService";
     export default {
         data() {
             return{
+                filter: 'Ứng viên đang chờ',
+                admin : authenticationService.getAdmin(),
                 modal: false,
-                job: ''
+                job: '',
+                listCand: [],
+                selectFilter: true,
+                clicked: [],
             }
         },
-        mounted(){
+        watch: {
+            async filter(newValue, oldValue) {
+                if (newValue === 'Ứng viên đang chờ') {
+                    this.selectFilter = true
                     let config = {
+                    headers: {
+                    'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+                    }
+                    }
+                    axios.get('http://localhost:8000/api/employer/applicant-list?job_id=' + this.$route.params.id + '&status=0', config)
+                    .then(res => {
+                        let array = res.data
+                        let array2 = []
+                        let array3 = []
+                        async function getUser(e) {
+                            let res2 = await axios.get('http://localhost:8000/api/employee/profile?id=' + e.id , config);
+                            array2.push(res2.data)
+                            array3.push(0)
+                        }
+                        Promise.all(array.map(getUser)).then(item => {
+                            this.listCand = [...array2];
+                            this.clicked = [...array3]});
+                    })
+                } else if (newValue === 'Ứng viên đã tuyển') {
+                    this.selectFilter = false
+                    let config = {
+                    headers: {
+                    'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+                    }
+                    }
+                    axios.get('http://localhost:8000/api/employer/applicant-list?job_id=' + this.$route.params.id + '&status=1', config)
+                    .then(res => {
+                        let array = res.data
+                        let array2 = []
+                        let array3 = []
+                        async function getUser(e) {
+                            let res2 = await axios.get('http://localhost:8000/api/employee/profile?id=' + e.id , config);
+                            array2.push(res2.data)
+                            array3.push(0)
+                        }
+                        Promise.all(array.map(getUser)).then(item => {
+                            this.listCand = [...array2];
+                            this.clicked = [...array3]})
+                    })
+                }
+                }
+        },
+        mounted(){
+        let config = {
         headers: {
         'Authorization': 'Bearer ' + authenticationService.getAdminToken()
         }
         }
-            axios.get('http://localhost:8000/api/job/detail?id=' + this.$route.params.id, config)
-            .then(data => {
-                this.job = data.data;
-                console.log(data.data)
-            })
+        axios.get('http://localhost:8000/api/job/detail?id=' + this.$route.params.id, config)
+        .then(data => {
+            this.job = data.data;
+            console.log(data.data)
+        })
+
+        axios.get('http://localhost:8000/api/employer/applicant-list?job_id=' + this.$route.params.id + '&status=0', config)
+        .then(res => {
+            let array = res.data
+            let array2 = []
+            let array3 = []
+            async function getUser(e) {
+                let res2 = await axios.get('http://localhost:8000/api/employee/profile?id=' + e.id , config);
+                array2.push(res2.data)
+                array3.push(0)
+            }
+            Promise.all(array.map(getUser)).then(item => {
+                console.log(array2)
+                this.listCand = [...array2];
+                this.clicked = [...array3]})
+        })        
+        },
+        methods: {
+            moveToChat(item) {
+                let config = {
+                headers: {
+                'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+                }
+                }
+                axios.post('http://localhost:8000/api/chat-room/create-pair', {user_id: item.user.id, room_name: authenticationService.getAdmin().id + item.user.id}, config)
+                .then(res => {
+                    window.location = '/admin/chat'
+                })
+                window.location = '/admin/chat'
+            }
+            ,
+            accept(index) {
+                let array = this.clicked
+                array[index] = 1
+                this.clicked = [...array]
+            },
+            deny (index) {
+                let array = this.clicked
+                array[index] = 2
+                this.clicked  = [...array]
+            },
+            reset (index) {
+                let array = this.clicked
+                array[index] = 0
+                this.clicked  = [...array]
+            },
+            save () {
+                Promise.all(this.clicked.forEach((item, index) => {
+                    let config = {
+                    headers: {
+                    'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+                    }
+                    }
+                    axios.post('http://localhost:8000/api/employer/set-status', {employee_id: this.listCand[index].id, job_id: this.$route.params.id, status: item}, config)
+                    .then(data => {
+                        console.log(data)
+                    })
+                }))
+                window.location = '/admin/detail-recruit/' + this.$route.params.id
+            }, 
+
         }
     }
 </script>

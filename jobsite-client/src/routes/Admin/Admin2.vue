@@ -129,86 +129,117 @@
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
-
-        <div class="page-wrapper" style="min-height: 90vh">
+        <div class="page-wrapper" style="min-height: 250px;">
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
+            <div class="page-breadcrumb bg-white">
+                <div class="row align-items-center">
+                    <div>
+                        <ul class="Navbar-tab">
+                            <li @click="moveToDangTuyen">
+                                <p class = "Navbar-tab-p">Việc đang tuyển</p>
+                            </li>
+
+                            <li @click="moveToDaTuyen">
+                                <p class = "Navbar-tab-p new">Việc đã tuyển</p>
+                            </li>
+
+                        </ul>
+                    </div>
+        
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            <div class="page-breadcrumb bg-white">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Trò chuyện</h4>
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Việc đã tuyển dụng</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash"><canvas width="67" height="30"
+                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-success">{{daUngTuyen.length}}</span></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <div class="d-md-flex">
-                            <ol class="breadcrumb ms-auto">
-                            </ol>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Việc đang tuyển dụng</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash2"><canvas width="67" height="30"
+                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-purple">{{dangUngTuyen.length}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Ứng viên đang chờ</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash3"><canvas width="67" height="30"
+                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-info"></span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <!-- /.col-lg-12 -->
+
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box white-box-extra" v-for="item in daUngTuyen">
+                            <div>
+                                <div>
+                                    <span :style="{margin:0, padding: 0, marginBottom: 0, fontWeight: '800', fontSize: '16px'}">{{item.public_date}} - {{item.expired_date}}</span>
+                                </div>
+                                <div :style="{margin: '15px 0px'}">
+                                    <span :style="{margin:0, padding: 0, marginBottom: 0, fontSize: '16px'}">{{item.title}}</span>
+                                </div>
+                                <div :style="{margin: 0, padding: 0}">
+                                    <span :style="{margin:0, padding: 0, color: 'green'}">Đã tuyển {{item.accepted_applicant}}/{{item.avaiable_slot}} ứng viên</span></div>
+                                <!-- <div>
+                                    <span :style="{margin:0, padding: 0, color: '#F33E15'}">Có 5 ứng viên đang chờ</span>
+                                </div> -->
+                            </div>
+
+                            <div :style="{display: 'flex', flexDirection: 'column', justifyContent: 'center'}">
+                                <button class="button-admin" :style="{color: 'blue', border: '1px solid blue'}" @click="chinhSua(item.id)">Chỉnh sửa</button>
+                                <button class="button-admin" :style="{color: 'red', border: '1px solid red'}" @click="xoa(item.id)">Xóa</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
             </div>
-			<div class="chat-container">
-				<div class="name-list">
-					<div class="one-user one-user-active">
-						<img src="../../assets/img_avatar3.png" class='avatar-circle' st/>
-						<div :style="{fontSize: '15px', fontWeight: 'revert'}">Tên gì đó</div>
-					</div>
-					<div class="one-user">
-						<img src="../../assets/img_avatar3.png" class='avatar-circle' st/>
-						<div :style="{fontSize: '15px', fontWeight: 'revert'}">Tên gì đó</div>
-					</div>
-				</div>
-
-				<div class="conversation">
-					<div class="conversation-title">
-						<img src="../../assets/img_avatar3.png" class='avatar-circle' st/>
-						<div :style="{fontSize: '15px', fontWeight: 'bold'}">Tên gì đó</div>
-					</div>
-
-					<div class="conversation-content">
-						<div class="sender">
-						<div >Hi Aiden, how are you? How is the project coming along? </div>
-						</div>
-						<div class="sender">
-						<div >Hi Aiden, how are you? How is the project coming along? </div>
-						</div>
-						<div class="receiver">
-							<div> Hi Aiden, how are you? How is the project coming along? </div>
-						</div>
-												<div class="sender">
-						<div >Hi Aiden, how are you? How is the project coming along? </div>
-						</div>
-						<div class="sender">
-						<div >Hi Aiden, how are you? How is the project coming along? </div>
-						</div>
-						<div class="receiver">
-							<div> Hi Aiden, how are you? How is the project coming along? </div>
-						</div>
-												<div class="sender">
-						<div >Hi Aiden, how are you? How is the project coming along? </div>
-						</div>
-						<div class="sender">
-						<div >Hi Aiden, how are you? How is the project coming along? </div>
-						</div>
-						<div class="receiver">
-							<div> Hi Aiden, how are you? How is the project coming along? </div>
-						</div>
-					</div>
-
-					<div class="send-button">
-						<input class="send-input"/>
-						<font-awesome-icon icon="paper-plane" :style="{color: '#2962ff', width: '20px', height: '20px'}"/>
-					</div>
-				</div>
-
-			</div>
         </div>
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
@@ -218,29 +249,137 @@
 
 <script>
 import axios from 'axios';
-import { authenticationService } from '../../utility/authenticationService';
-
+import { authenticationService } from "../../utility/authenticationService";
 export default {
-  data() {
-    return {
-      admin : authenticationService.getAdmin(),
-      chatList: [],
-    }
-  },
-  mounted() {
-    let config = {
-    headers: {
-    'Authorization': 'Bearer ' + authenticationService.getAdminToken()
-    }
-    }
-        axios.get('http://localhost:8000/api/chat-room/list' + this.$route.params.id, config)
-        .then(data => {
-            this.job = data.data;
-            console.log(data.data)
-        })
-  },
-    methods: {
-
+    data() {
+        return {
+            admin : authenticationService.getAdmin(),
+            openLogout : false,
+            dangUngTuyen: [],
+            daUngTuyen: []
         }
+    },
+    mounted(){
+        let config = {
+        headers: {
+        'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+        }
+        }
+        axios.get("http://localhost:8000/api/job/filter?company=" + authenticationService.getCompanyId(), config)
+        .then(data => {
+            let dangUngTuyen = data.data.filter(item => item.type !== 'done')
+            let daUngTuyen = data.data.filter(item => item.type === 'done')
+            this.dangUngTuyen = [...dangUngTuyen]
+            this.daUngTuyen = [...daUngTuyen]
+        })
+    },
+    methods: {
+        toggleLogout() {
+            this.openLogout = !this.openLogout
+        },
+        clickLogout() {
+            authenticationService.logout();
+            window.location = '/'
+        },
+        xoa(id) {
+            console.log(id)
+            let config = {
+            headers: {
+            'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+            }
+            }
+            axios.post("http://localhost:8000/api/job/delete", {id: id} , config)
+            let temp = this.dangUngTuyen.filter(item => item.id !== id)
+            this.dangUngTuyen = [...temp]
+        },
+        chinhSua(id) {
+            window.location = '/admin/detail-recruit/' + id
+        },
+        moveToDangTuyen() {
+            window.location = '/admin'
+        },
+        moveToDaTuyen() {
+            window.location = '/admin/da-tuyen-dung'
+        },
+        async hoanThanh(id) {
+            let config = {
+            headers: {
+            'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+            }
+            }
+            let res = await axios.get("http://localhost:8000/api/job/detail?id=" + id, config)
+            let data = res.data
+            console.log(data)
+            data.type = 'done';
+            data.id = id
+            axios.post("http://localhost:8000/api/job/update", data, config)
+            .then((res) => {
+                console.log(res.data)
+            })
+        }
+    }
 }
 </script>
+
+
+<style>
+@import './css/style.min.css';
+@import './Admin.css';
+
+.icon-admin {
+    width: 15px;
+    height: 15px;
+    padding: 2px 10px;
+}
+
+.icon-admin-2 {
+    width: 15px;
+    height: 15px;
+    padding: 2px 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.logo-admin {
+    color: #ff7b00;
+    font-size: 25px;
+    font-weight: 700;
+    margin-left: 15px;
+}
+
+.admin-out-text {
+    text-align: center;
+}
+
+.logout {
+    right: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: -1000;
+}
+
+
+.logout:hover {
+    background-color: #d3d3d3;
+}
+
+.logout p {
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+
+.white-box-extra:hover {
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+
+.white-box-extra {
+    display: flex;
+    justify-content: space-between;
+}
+
+</style>

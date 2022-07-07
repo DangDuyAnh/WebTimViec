@@ -1,16 +1,14 @@
 <template>
+    <Navbar v-if="userToken"/>
+    <Navbar2 v-else/>
   <div>
     <div class="box-header">
       <div class="logo-web">
-        <h1 color="orange">
-          <a class="logo-web" href="#">JOBSITE</a>
-        </h1>
       </div>
       <form class="box-search">
         <input class="search-company" placeholder="Nhập tên vị trí, công ty, từ khóa" v-model="ten">
-        <select class="search-city" v-model="thanhPho">
-          <option value="" disabled selected>Nhập tên tỉnh, thành phố</option>
-          <option></option>
+        <select class="search-city">
+          <option>--Chọn tên tỉnh, thành phố--</option>
 					<option>Hà Nội</option>
 					<option>TP Hồ Chí Minh</option>
 					<option>Hải Dương</option>
@@ -31,7 +29,7 @@
         </button>
       </form>
       <div class="box-user"></div>
-      <hr  width="100%"/>
+
     </div>
     <div class="box-buttonjob">
       <div class="list-button" >
@@ -47,22 +45,24 @@
           <option>IT - CÔNG NGHỆ THÔNG TIN</option>
           <option>XÂY DỰNG / BẤT ĐỘNG SẢN</option>
         </select>
-        <select class="btn-job" >
+        <select class="btn-job" v-model="cap">
           <option>Cấp bậc</option>
-          <option>Thực tập</option>
-          <option>Mới đi làm</option>
-          <option>Nhân viên</option>
-          <option>Trưởng phòng</option>
-          <option>Giám đốc</option>
+                                                <option>Fresher</option>
+                                                <option>Giám đốc</option>
+                                                <option>Nhân viên</option>
+                                                <option>Project Manager</option>
+                                                <option>Thực tập sinh</option>
+                                                <option>Trưởng phòng</option>
+                                                <option>Sennior</option>
         </select>
-        <select class="btn-job" >
+        <select class="btn-job" v-model="kinhNghiem">
           <option>Kinh nghiệm</option>
-          <option>Chưa có kinh nghiệm</option>
-          <option>Trên 1 năm kinh nghiệm</option>
-          <option>Trên 3 năm kinh nghiệm</option>
-          <option>Trên 5 năm kinh nghiệm</option>
+                                                <option>Không cần kinh nghiệm</option>
+                                                <option>Dưới 1 năm</option>
+                                                <option>Từ 1 - 3 năm</option>
+                                                <option>> 5 năm</option>
         </select>
-        <select class="btn-job" >
+        <select class="btn-job">
           <option>Mức lương</option>
           <option>Trên 5 triệu</option>
           <option>Trên 10 triệu</option>
@@ -70,31 +70,28 @@
           <option>Trên 20 triệu</option>
           <option>Trên 30 triệu</option>
         </select>
-        <select class="btn-job" >
+        <select class="btn-job">
           <option>Học vấn</option>
           <option>Trung cấp</option>
           <option>Cao đẳng</option>
           <option>Đại học</option>
           <option>Không yêu cầu</option>
         </select>
-        <select class="btn-job" >
-          <option>Đăng trong</option>
-          <option>Hôm nay</option>
-          <option>3 ngày</option>
-          <option>1 tuần</option>
-          <option>2 tuần</option>
-          <option>1 tháng</option>
+        <select class="btn-job" v-model="hinhThuc">
+          <option>Hình thức</option>
+                                                <option>Offline</option>
+                                                <option>Remote</option>
         </select>
       </div>
-      <button class="button-search">Bộ Lọc</button>
+      <button class="button-search" @click="search">Bộ Lọc</button>
     </div>
     <div class="content-job">
       <div class="row-content-1">
         <h4>
-          <strong>Tuyển dụng việc làm phiên dịch viên</strong>
+          <strong>Danh sách các công việc phù hợp</strong>
         </h4>
         <h7>
-          5 việc làm sẵn có
+          {{list.length}} việc làm sẵn có
         </h7>
       </div>
       <div class="job-detail" v-for="(item, index) in list" :style="{cursor: 'pointer'}">
@@ -102,7 +99,7 @@
             <img  class="logo-company-0" src="https://dxwd4tssreb4w.cloudfront.net/image/91c5b0f7f67e4ebc5f5377b27a157415" alt="">
         </div>
         <div class="row-if-job" @click="moveTo(item.id)">
-            <a href="/tim-viec-lam/nhan-vien-kho"><h3 class="row-name-job">{{item.title}}</h3></a>
+            <h3 class="row-name-job">{{item.title}}</h3>
             <li>Company {{index+1}}</li> 
             <li>{{item.public_date}} - {{item.expired_date}}</li>
             <li>{{item.field}}</li>
@@ -110,12 +107,6 @@
         <div class="row-if-job-1">
           <li>Vị trí: {{item.position}}</li>
           <li>Kinh nghiệm: {{item.required_experience}}</li>
-          <button
-                class="btn-save-0"
-                :class="[isActive ? 'save' : 'unsave']"
-                @click="toggle"
-                >{{isActive ? 'Lưu' : 'Đã lưu'}}
-            </button>
         </div>
       </div>
       
@@ -126,14 +117,27 @@
 <script>
 import axios from 'axios';
 import { authenticationService } from '../utility/authenticationService';
+import Navbar2 from '../components/Navbar.vue';
+import Navbar from '../components/Navbar2.vue';
 export default {
+    components: {
+    Navbar,
+    Navbar2
+  },
   data() {
     return {
-      isActive: false,
-      thanhPho: '',
       ten: '',
       nganh: 'Ngành nghề',
+      cap: 'Cấp bậc',
+      kinhNghiem: 'Kinh nghiệm',
+      hinhThuc: 'Hình thức',
+      queryTen: this.$route.query.ten,
+      queryNganh: this.$route.query.nganh,
+      queryCap: this.$route.query.cap,
+      queryKinhNghiem: this.$route.query.kinhNghiem,
+      queryHinhThuc: this.$route.query.hinhThuc,
       list: [],
+      userToken: authenticationService.getUserToken()
     };
   },
   methods: {
@@ -143,7 +147,17 @@ export default {
     },
     moveTo(id) {
       window.location = '/tim-viec-lam/detail/' + id
+    },
+    search () {
+          let s = ''
+    if (this.ten !== '') s += 'ten=' + this.ten + '&'
+    if (this.nganh !== 'Ngành nghề') s += 'nganh=' + this.nganh + '&'
+    if (this.cap !== 'Cấp bậc') s+= 'cap=' + this.cap + '&'
+    if (this.hinhThuc !== 'Hình thức') s+= 'hinhThuc=' + this.hinhThuc + '&'
+    if (this.kinhNghiem !== 'Kinh nghiệm') s+= 'kinhNghiem=' + this.kinhNghiem + '&' 
+    window.location = '/tim-viec-lam-filter?' + s
     }
+
   },
   mounted() {
 
@@ -152,11 +166,25 @@ export default {
         'Authorization': 'Bearer ' + authenticationService.getUserToken()
         }
     }
-    axios.get('http://localhost:8000/api/job/filter?field=kế%20toán', config)
+    let s = ''
+    if (this.queryTen) s += 'title=' + this.queryTen + '&'
+    if (this.queryNganh) s += 'field=' + this.queryNganh + '&'
+    if (this.queryCap) s+= 'position=' + this.queryCap + '&'
+    if (this.queryHinhThuc) s+= 'type=' + this.queryHinhThuc + '&'
+    if (this.queryKinhNghiem) s+= 'required_experience=' + this.queryKinhNghiem + '&' 
+    if (s !== '') {
+    axios.get('http://localhost:8000/api/job/filter?' + s, config)
     .then(data => {
       let temp = data.data
       this.list = [...temp]
     })
+    } else {
+    axios.get('http://localhost:8000/api/job/list' , config)
+    .then(data => {
+      let temp = data.data
+      this.list = [...temp]
+    })
+    }
   }
 };
 

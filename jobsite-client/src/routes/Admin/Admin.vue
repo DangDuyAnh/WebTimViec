@@ -10,7 +10,7 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="dashboard.html">
+                    <a class="navbar-brand" href="/admin">
                         <span class="logo-text logo-admin"> 
                             JOB SITE
                         </span> 
@@ -59,7 +59,7 @@
                                 <img src="./plugins/images/users/varun.jpg" alt="user-img" width="36"
                                     class="img-circle"><span class="text-white font-medium">{{admin.username}}</span>
                             </a>
-                            <div :style="'display:flex; align-items:center; position: absolute; left: 90px; height: 100%'">
+                            <div :style="{display: 'flex', alignItems : 'center', position: 'absolute', left: '115px', height: '100%'}">
                                 <font-awesome-icon icon="angle-down" class='icon-admin-2'/>
                             </div>
                             </div>
@@ -137,11 +137,11 @@
                 <div class="row align-items-center">
                     <div>
                         <ul class="Navbar-tab">
-                            <li>
+                            <li @click="moveToDangTuyen">
                                 <p class = "Navbar-tab-p new">Việc đang tuyển</p>
                             </li>
 
-                            <li>
+                            <li @click="moveToDaTuyen">
                                 <p class = "Navbar-tab-p">Việc đã tuyển</p>
                             </li>
 
@@ -171,7 +171,7 @@
                                             style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                                     </div>
                                 </li>
-                                <li class="ms-auto"><span class="counter text-success"></span></li>
+                                <li class="ms-auto"><span class="counter text-success">{{daUngTuyen.length}}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -222,7 +222,7 @@
                             </div>
 
                             <div :style="{display: 'flex', flexDirection: 'column', justifyContent: 'center'}">
-                                <button class="button-admin" :style="{color: 'green', border: '1px solid green'}">Hoàn thành</button>
+                                <button class="button-admin" :style="{color: 'green', border: '1px solid green'}" @click="hoanThanh(item.id)">Hoàn thành</button>
                                 <button class="button-admin" :style="{color: 'blue', border: '1px solid blue'}" @click="chinhSua(item.id)">Chỉnh sửa</button>
                                 <button class="button-admin" :style="{color: 'red', border: '1px solid red'}" @click="xoa(item.id)">Xóa</button>
                             </div>
@@ -257,6 +257,7 @@ export default {
             admin : authenticationService.getAdmin(),
             openLogout : false,
             dangUngTuyen: [],
+            daUngTuyen: []
         }
     },
     mounted(){
@@ -267,7 +268,10 @@ export default {
         }
         axios.get("http://localhost:8000/api/job/filter?company=" + authenticationService.getCompanyId(), config)
         .then(data => {
-            this.dangUngTuyen = data.data
+            let dangUngTuyen = data.data.filter(item => item.type !== 'done')
+            let daUngTuyen = data.data.filter(item => item.type === 'done')
+            this.dangUngTuyen = [...dangUngTuyen]
+            this.daUngTuyen = [...daUngTuyen]
         })
     },
     methods: {
@@ -291,6 +295,28 @@ export default {
         },
         chinhSua(id) {
             window.location = '/admin/detail-recruit/' + id
+        },
+        moveToDangTuyen() {
+            window.location = '/admin'
+        },
+        moveToDaTuyen() {
+            window.location = '/admin/da-tuyen-dung'
+        },
+        async hoanThanh(id) {
+            let config = {
+            headers: {
+            'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+            }
+            }
+            let res = await axios.get("http://localhost:8000/api/job/detail?id=" + id, config)
+            let data = res.data
+            console.log(data)
+            data.type = 'done';
+            data.id = id
+            axios.post("http://localhost:8000/api/job/update", data, config)
+            .then((res) => {
+                console.log(res.data)
+            })
         }
     }
 }

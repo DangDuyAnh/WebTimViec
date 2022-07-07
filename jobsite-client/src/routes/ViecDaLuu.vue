@@ -96,7 +96,7 @@ export default {
         })
         console.log(jobArr)
         this.job = [...jobArr]
-
+        
     })
   }
 }
