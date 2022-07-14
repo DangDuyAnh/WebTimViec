@@ -158,8 +158,7 @@ class ListCV(APIView):
 
     def get(self, request):
         employee: Employee = request.user.employee
-        cv_id = int(request.query_params['cv_id'])
-        cvs = EmployeeCv.objects.filter(employee=employee, cv_id=cv_id)
+        cvs = EmployeeCv.objects.filter(employee=employee)
         return Response(Utils.query_set_to_list(cvs))
 
 
