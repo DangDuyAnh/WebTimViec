@@ -112,6 +112,30 @@ class SavedList(APIView):
         employee: Employee = request.user.employee
         items = EmployeeSavedJob.objects.filter(employee=employee)
         return Response(Utils.query_set_to_list(items))
+        
+        
+class SavedRemove(APIView):
+    authentication_classes = [EmployeeJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        employee: Employee = request.user.employee
+
+        job_id = request.data['job_id']
+        jobs = Job.objects.filter(id=job_id)
+        
+        if not jobs.exists():
+            return Response('job_id doesn\'t exist', http_status.HTTP_400_BAD_REQUEST)
+
+        items = EmployeeSavedJob.objects.filter(employee=employee, job=jobs.first())
+
+        if not items.exists():
+            return Response('employee didn\'t save job_id', http_status.HTTP_400_BAD_REQUEST)
+            
+        items.first().delete()
+
+        return Response('Done')
+        
 
 
 class AddCV(APIView):
@@ -127,12 +151,9 @@ class AddCV(APIView):
         if cvs.exists():
             return Response('cv exists', http_status.HTTP_400_BAD_REQUEST)
 
-        newCV = EmployeeCv()
-        newCV.employee = employee
-        newCV.cv_id = cv_id
-        newCV.save()
+        newCV = EmployeeCv.objects.create(employee=employee, cv_id=cv_id)
 
-        return Response(Utils.model_to_dict(newCV), http_status.HTTP_400_BAD_REQUEST)
+        return Response(Utils.model_to_dict(newCV))
 
 
 class RemoveCV(APIView):
@@ -180,19 +201,16 @@ class AddLetter(APIView):
 
     def post(self, request):
         employee: Employee = request.user.employee
-        cv_id = int(request.data['letter_id'])
+        letter_id = int(request.data['letter_id'])
 
-        cvs = EmployeeLetter.objects.filter(employee=employee, cv_id=cv_id)
+        cvs = EmployeeLetter.objects.filter(employee=employee, letter_id=letter_id)
 
         if cvs.exists():
             return Response('letter exists', http_status.HTTP_400_BAD_REQUEST)
 
-        newCV = EmployeeLetter()
-        newCV.employee = employee
-        newCV.cv_id = cv_id
-        newCV.save()
-
-        return Response(Utils.model_to_dict(newCV), http_status.HTTP_400_BAD_REQUEST)
+        newCV = EmployeeLetter.objects.create(employee=employee, letter_id=letter_id)
+        
+        return Response(Utils.model_to_dict(newCV))
 
 
 class RemoveLetter(APIView):

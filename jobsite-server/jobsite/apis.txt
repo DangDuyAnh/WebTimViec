@@ -82,6 +82,10 @@ Employee
     Get
     Query param: job_id
 
++ /employee/saved-remove
+    Post
+    Query param: job_id
+
 + /employee/apply
     Post
     Query param: job_id
