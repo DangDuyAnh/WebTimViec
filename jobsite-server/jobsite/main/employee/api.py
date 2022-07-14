@@ -43,8 +43,9 @@ class SelfProfile(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        employee = Utils.model_to_dict(request.user.employee)
-        user = UserSerializer(employee_model.user, context={
+        _employee = request.user.employee
+        employee = Utils.model_to_dict(_employee)
+        user = UserSerializer(_employee.user, context={
                 'request': request,
             }).data
 
