@@ -249,7 +249,9 @@ class RemoveLetter(APIView):
         cvs = EmployeeLetter.objects.filter(employee=employee, letter_id=letter_id)
 
         if cvs.exists():
-            cvs.first().delete()
+            cv = cvs.first()
+            with connection.cursor() as cursor:
+                cursor.execute(f'DELETE FROM employee_cv WHERE employee_id={employee.id} AND letter_id={letter_id}')
             return Response('Done')
         else:
             return Response('letter doesn\'t exist', http_status.HTTP_400_BAD_REQUEST)
