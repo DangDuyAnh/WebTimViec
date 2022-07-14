@@ -263,8 +263,7 @@ class ListLetter(APIView):
 
     def get(self, request):
         employee: Employee = request.user.employee
-        letter_id = int(request.query_params['letter_id'])
-        cvs = EmployeeLetter.objects.filter(employee=employee, letter_id=letter_id)
+        cvs = EmployeeLetter.objects.filter(employee=employee)
         return Response(Utils.query_set_to_list(cvs))
 
 
