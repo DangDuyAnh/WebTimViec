@@ -36,6 +36,20 @@ class Profile(APIView):
 
         employee['user'] = user
         return Response(employee)
+        
+        
+class SelfProfile(APIView):
+    authentication_classes = [EmployeeJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        employee = Utils.model_to_dict(request.user.employee)
+        user = UserSerializer(employee_model.user, context={
+                'request': request,
+            }).data
+
+        employee['user'] = user
+        return Response(employee)
 
 
 class Apply(APIView):
