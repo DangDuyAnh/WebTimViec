@@ -9,7 +9,8 @@ export default {
   data() {
     return {
       pdf : [],
-      nowPDF: 1
+      nowPDF: 0,
+      mainCV: 1,
     }
   },
   mounted(){
@@ -22,7 +23,10 @@ export default {
     }
     axios.get('http://localhost:8000/api/employee/cv-list', config)
         .then(res => {
-        console.log(res.data)
+          this.nowPDF = res.data.length
+          let array = []
+          res.data.forEach(item => array.push(item.cv_id))
+          this.pdf = [...array]
     })
   },
   methods: {
@@ -34,8 +38,9 @@ export default {
         }
         axios.post('http://localhost:8000/api/employee/add-cv', {cv_id: String(this.nowPDF + 1)}, config)
         .then(res => {
+          console.log(res.data)
+          console.log('DA dep trai')
         })
-        console.log('DA dep trai')
     }
   }
 }
@@ -52,8 +57,10 @@ export default {
         </div>
 
         <div class="image-CV-list">
-            <div class="image-CV">
-              <img src='../assets/CV1.png'/>
+            <div class="image-CV" v-for="(item, index) in pdf">
+              <img src='../assets/CV1.png' v-if="index === 0"/>
+              <img src='../assets/CV1.png' v-if="index === 1"/>
+              <img src='../assets/CV1.png' v-if="index === 2"/>
               <div class="CV-inner">
               <div class="dat-lam-cv">
               <button>Đặt làm CV chính</button>
