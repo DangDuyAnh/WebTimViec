@@ -21,6 +21,8 @@ from ..utils import Utils
 
 from .authentication import EmployeeJWTAuthentication
 
+from django.db import connection
+
 
 class Profile(APIView):
     #authentication_classes = [Sfa]
@@ -147,7 +149,11 @@ class SavedRemove(APIView):
         if not items.exists():
             return Response('employee didn\'t save job_id', http_status.HTTP_400_BAD_REQUEST)
             
-        items.first().delete()
+        
+        with connection.cursor() as cursor:
+            cursor.execute(f'DELETE FROM employee_saved_job WHERE employee_id={employee.id} AND job_id={job_id}')
+            
+        #items.first().delete()
 
         return Response('Done')
         
@@ -181,8 +187,12 @@ class RemoveCV(APIView):
 
         cvs = EmployeeCv.objects.filter(employee=employee, cv_id=cv_id)
 
+
         if cvs.exists():
-            cvs.first().delete()
+            cv = cvs.first()
+            with connection.cursor() as cursor:
+                cursor.execute(f'DELETE FROM employee_cv WHERE employee_id={employee.id} AND cv_id={cv_id}')
+
             return Response('Done')
         else:
             return Response('cv doesn\'t exist', http_status.HTTP_400_BAD_REQUEST)
@@ -202,9 +212,9 @@ class SetMainCV(APIView):
     authentication_classes = [EmployeeJWTAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
+    def post(self, request):
         employee: Employee = request.user.employee
-        cv_id = int(request.query_params['cv_id'])
+        cv_id = int(request.data['cv_id'])
         employee.main_cv_id = cv_id
         employee.save()
         return Response('Done')
