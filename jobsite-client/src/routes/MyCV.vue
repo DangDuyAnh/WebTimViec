@@ -9,10 +9,12 @@ export default {
   data() {
     return {
       pdf : [],
-      nowPDF: 0
+      nowPDF: 1
     }
   },
   mounted(){
+    console.log('user')
+    console.log(authenticationService.getUser())
     let config = {
     headers: {
     'Authorization': 'Bearer ' + authenticationService.getUserToken()
@@ -32,8 +34,8 @@ export default {
         }
         axios.post('http://localhost:8000/api/employee/add-cv', {cv_id: String(this.nowPDF + 1)}, config)
         .then(res => {
-            console.log(res)
         })
+        console.log('DA dep trai')
     }
   }
 }
