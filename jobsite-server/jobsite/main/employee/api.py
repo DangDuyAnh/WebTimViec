@@ -271,9 +271,9 @@ class SetMainLetter(APIView):
     authentication_classes = [EmployeeJWTAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
+    def post(self, request):
         employee: Employee = request.user.employee
-        letter_id = int(request.query_params['letter_id'])
+        letter_id = int(request.data['letter_id'])
         employee.main_letter_id = letter_id
         employee.save()
         return Response('Done')
