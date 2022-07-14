@@ -56,4 +56,4 @@ class EmployeeLetter(models.Model):
     class Meta:
         managed = False
         db_table = 'employee_letter_cv'
-        unique_together = (('employee', 'letter_cv_id'),)
+        unique_together = (('employee', 'letter_id'),)
