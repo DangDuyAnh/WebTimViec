@@ -251,7 +251,7 @@ class RemoveLetter(APIView):
         if cvs.exists():
             cv = cvs.first()
             with connection.cursor() as cursor:
-                cursor.execute(f'DELETE FROM employee_cv WHERE employee_id={employee.id} AND letter_id={letter_id}')
+                cursor.execute(f'DELETE FROM employee_letter WHERE employee_id={employee.id} AND letter_id={letter_id}')
             return Response('Done')
         else:
             return Response('letter doesn\'t exist', http_status.HTTP_400_BAD_REQUEST)
@@ -271,9 +271,9 @@ class SetMainLetter(APIView):
     authentication_classes = [EmployeeJWTAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
+    def post(self, request):
         employee: Employee = request.user.employee
-        letter_id = int(request.query_params['letter_id'])
+        letter_id = int(request.data['letter_id'])
         employee.main_letter_id = letter_id
         employee.save()
         return Response('Done')
