@@ -10,20 +10,11 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <div class="navbar-brand admin-out-text" href="dashboard.html">
-
-                        <!-- <b class="logo-icon">
-
-                            <img src="./plugins/images/logo-icon.png" alt="homepage" />
-                        </b>
-
-                        <span class="logo-text"> 
-                            <img src="./plugins/images/logo-text.png" alt="homepage" />
-                        </span> -->
+                    <a class="navbar-brand" href="/admin">
                         <span class="logo-text logo-admin"> 
                             JOB SITE
                         </span> 
-                    </div>
+                    </a>
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
@@ -46,7 +37,7 @@
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
-                    <ul class="navbar-nav ms-auto d-flex align-items-center" >
+                    <ul class="navbar-nav ms-auto d-flex align-items-center">
 
                         <!-- ============================================================== -->
                         <!-- Search -->
@@ -63,12 +54,12 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li :style="'position: relative'">
-                            <div :style="'display: flex; padding-right: 20px'">
+                            <div :style="'display: flex; padding-right: 20px'" @click="toggleLogout">
                             <a class="profile-pic" href="#">
                                 <img src="./plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                    class="img-circle"><span class="text-white font-medium">Admin</span>
+                                    class="img-circle"><span class="text-white font-medium">{{admin.username}}</span>
                             </a>
-                            <div :style="'display:flex; align-items:center; position: absolute; left: 90px; height: 100%'">
+                            <div :style="{display: 'flex', alignItems : 'center', position: 'absolute', left: '115px', height: '100%'}">
                                 <font-awesome-icon icon="angle-down" class='icon-admin-2'/>
                             </div>
                             </div>
@@ -271,6 +262,7 @@ export default {
     components: { DatePicker },
       data() {
     return {
+        admin : authenticationService.getAdmin(),
         company: '',
         ten: '',
         moTa: '',

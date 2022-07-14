@@ -1,8 +1,49 @@
+<script>
+import Navbar from '../components/Navbar2.vue';
+import axios from 'axios';
+import { authenticationService } from '../utility/authenticationService';
+
+export default {
+  components: {
+    Navbar
+  },
+  data() {
+    return {
+      jobList: []
+    }
+  },
+  mounted() {
+    let config = {
+    headers: {
+    'Authorization': 'Bearer ' + authenticationService.getUserToken()
+    }
+    }
+    axios.get('http://localhost:8000/api/employee/saved-list', config)
+    .then(res => {
+      let array = res.data
+      let array2 = []
+      async function getJob(id) {
+      let res2 = await axios.get('http://localhost:8000/api/job/detail?id=' + id , config);
+      let data = res2.data
+      array2.push(data)
+      }
+      Promise.all(array.map(x => getJob(x.id))).then(item => {
+      this.jobList = {...array2}});
+    })
+  },
+  methods: {
+    goTo(id) {
+      window.location = '/tim-viec-lam/detail/' + id
+    }
+  }
+  }
+</script>
+
 <template>
+    <Navbar />
     <div class="box-header">
       <div class="logo-web">
         <h1 color="orange">
-          <a class="logo-web" href="#">JOBSITE</a>
         </h1>
       </div>
       <form class="box-search">
@@ -47,60 +88,33 @@
     <hr  width="100%"/>
     <div class="container-list-job">
         <div id="title-page">
-            <h3>Việc đã lưu (1)</h3>
+            <h3>Việc đã lưu</h3>
         </div>
-        <div class="list-job-submit">
-            <hr  width="100%"/>
-            <img id="logo-2" src="https://dxwd4tssreb4w.cloudfront.net/image/91c5b0f7f67e4ebc5f5377b27a157415" alt="">
-            <div class="if-job-save">
-                <a href="/tim-viec-lam/nhan-vien-kho"><h4 id="namejob">NHÂN VIÊN KHO (Tiếng Trung cơ bản)</h4></a>
-                <li>Công Ty TNHH Cửu Tinh Việt Nam</li>
-            </div>
-            <button id="delete-job">
-                <font-awesome-icon icon="xmark" class='icon-delete'/>
-            </button>
-            <button id="send-cv-1">
-                <font-awesome-icon icon="share-from-square" :style="{color:'white'}" class='icon-send-cv'/>
-            </button>
+
+        <div class="list-job-submit-1" v-if="jobList.length === 0">
+            <img id="logo-empty" src="https://dxwd4tssreb4w.cloudfront.net/web/images/pages/my_careerlink/applied-jobs-empty.png" alt="">
+            <h5 id="text-empty">Bạn chưa lưu việc làm nào…</h5>
+            <button id="btn-empty">Tìm việc ngay</button>
         </div>
-        <hr  width="100%"/>
+
+        <div v-else>
+          <div class="list-job-submit" v-for="item in jobList">
+              <hr  width="100%"/>
+              <img id="logo-2" src="https://dxwd4tssreb4w.cloudfront.net/image/91c5b0f7f67e4ebc5f5377b27a157415" alt="">
+              <div class="if-job-save" :style="{cursor: 'pointer'}" @click="goTo(item.id)">
+                  <a><h4 id="namejob">{{item.title}}</h4></a>
+                  <li>{{item.company.name}}</li>
+              </div>
+              <button id="delete-job">
+                  <font-awesome-icon icon="xmark" class='icon-delete'/>
+              </button>
+              <button id="send-cv-1">
+                  <font-awesome-icon icon="share-from-square" :style="{color:'white'}" class='icon-send-cv'/>
+              </button>
+          </div>
+        </div>
     </div>
 </template>
-
-<script>
-import axios from 'axios';
-import { authenticationService } from '../utility/authenticationService';
-export default {
-  data() {
-    return {
-      job: []
-    }
-  },
-  mounted(){
-    let config = {
-    headers: {
-    'Authorization': 'Bearer ' + authenticationService.getUserToken()
-    }
-    }
-      axios.get('http://localhost:8000/api/employee/saved-list', config)
-    .then(res => {
-        console.log(res.data)
-        let tempList = res.data
-        let jobArr = []
-        tempList.forEach((item, index) => {
-          axios.get('http://localhost:8000/api/job/detail?id=' + item.job, config)
-          .then(res => {
-            console.log(res.data)
-            jobArr = [...jobArr, res.data]
-          })
-        })
-        console.log(jobArr)
-        this.job = [...jobArr]
-
-    })
-  }
-}
-</script>
 
 <style>
 .box-header {

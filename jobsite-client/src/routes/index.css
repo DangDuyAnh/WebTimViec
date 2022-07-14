@@ -235,7 +235,8 @@
     height: 240px;
     margin-left: 15px;
     margin-right: 15px;
-    margin-bottom: 100px
+    margin-bottom: 100px;
+    cursor: pointer;
   }
 
   .congty-wrapper {

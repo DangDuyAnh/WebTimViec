@@ -11,19 +11,16 @@ export default {
         }
     },
     methods: {
-        send() {
+        async send() {
             // const data =  post("/user/register", {username: this.username, password: this.password, email: this.email});
             // authenticationService.login(data.user, data.access_token)
             // window.location = '/';
-            axios.post('http://localhost:8000/api/user/register', {username: this.username, password: this.password, email: this.email})
-            .then((data) => {
-                data = data.data
-                authenticationService.login(data.user, data.access_token)
-                post("/user/set-role", {role_id: '2'}, data.access_token)
-                .then(res => {
-                    window.location = '/'
-                })
-        })
+            let res = await axios.post('http://localhost:8000/api/user/register', {username: this.username, password: this.password, email: this.email})
+            let access_token = res.data.access_token
+            let user = res.data.user
+            res = await post("/user/set-role", {role_id: '2'}, access_token);
+            authenticationService.login(user, access_token);
+            window.location = '/'
         },
     }
 }

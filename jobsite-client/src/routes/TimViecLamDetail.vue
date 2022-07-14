@@ -1,36 +1,6 @@
 <template>
-    <div class="box-header">
-      <div class="logo-web">
-        <h1 color="orange">
-          <a class="logo-web" href="#">JOBSITE</a>
-        </h1>
-      </div>
-      <form class="box-search">
-        <input class="search-company" placeholder="Nhập tên vị trí, công ty, từ khóa">
-        <select class="search-city">
-            <option value="" disabled selected >Nhập tên tỉnh, thành phố</option>
-            <option></option>
-            <option>Hà Nội</option>
-            <option>TP Hồ Chí Minh</option>
-            <option>Hải Dương</option>
-            <option>Hải Phòng</option>
-            <option>Bắc Ninh</option>
-            <option>Đà Nẵng</option>
-            <option>Nghệ An</option>
-            <option>Thanh Hóa</option>
-            <option>Quảng Ninh</option>
-            <option>Thái Bình</option>
-            <option>TT Huể</option>
-            <option>Hà Tĩnh</option>
-            <option>Thái Nguyên</option>
-        </select>
-        <button class="button-search">
-          <span class="text-button">Tìm kiếm</span>
-          <font-awesome-icon icon="magnifying-glass" class='input-icon'/>
-        </button>
-      </form>
-      <hr  width="100%"/>
-    </div>
+    <Navbar v-if="userToken"/>
+    <Navbar2 v-else/>
     <div class="box-body">
         <div class="container-if-company-0">
             <div class="pannel">
@@ -44,7 +14,7 @@
                     <div class="name-company">
                         <strong><h2 id="job-name">{{job.title}}</h2></strong>
                         <li id="company-name">Công Ty: {{job.company.name}}</li>
-                        <strong><li id="salary">$ Thương lượng</li></strong>
+                        <strong><li id="salary">{{job.salary_min}} - {{job.salary_max}} VNĐ</li></strong>
                         <li id="location">{{job.company.address}}</li>
                         <div class="row-btn-save">
                             <button
@@ -377,7 +347,13 @@ p {
 <script>
 import axios from 'axios';
 import { authenticationService } from '../utility/authenticationService';
+import Navbar2 from '../components/Navbar.vue';
+import Navbar from '../components/Navbar2.vue';
 export default {
+components: {
+    Navbar,
+    Navbar2
+  },
   data() {
     return {
       isActive: true,
@@ -387,6 +363,7 @@ export default {
       job: {
         company: ''
       },
+      userToken: authenticationService.getUserToken()
     };
   },
   methods: {
