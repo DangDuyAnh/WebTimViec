@@ -9,6 +9,7 @@ urlpatterns = [
     path('save', api.Save.as_view(), name='save'),
     path('applied-list', api.AppliedList.as_view(), name='apply-l'),
     path('saved-list', api.SavedList.as_view(), name='save-l'),
+    path('saved-remove', api.SavedRemove.as_view(), name='save-r'),
 
     path('add-cv', api.AddCV.as_view(), name='add-cv'),
     path('remove-cv', api.RemoveCV.as_view(), name='remove-cv'),
