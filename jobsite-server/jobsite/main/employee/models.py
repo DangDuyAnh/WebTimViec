@@ -10,6 +10,8 @@ class Employee(models.Model):
     literacy = models.CharField(max_length=64, blank=True, null=True)
     specialist_knowledge = models.CharField(max_length=256, blank=True, null=True)
     experience = models.CharField(max_length=256, blank=True, null=True)
+    main_cv_id = models.BigIntegerField(blank=True, null=True)
+    main_letter_id = models.BigIntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -35,3 +37,23 @@ class EmployeeSavedJob(models.Model):
         managed = False
         db_table = 'employee_saved_job'
         unique_together = (('employee', 'job'),)
+
+
+class EmployeeCv(models.Model):
+    employee = models.OneToOneField('Employee', models.DO_NOTHING, primary_key=True)
+    cv_id = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'employee_cv'
+        unique_together = (('employee', 'cv_id'),)
+
+
+class EmployeeLetter(models.Model):
+    employee = models.OneToOneField('Employee', models.DO_NOTHING, primary_key=True)
+    letter_id = models.PositiveBigIntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'employee_letter_cv'
+        unique_together = (('employee', 'letter_cv_id'),)

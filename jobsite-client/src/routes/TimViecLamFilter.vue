@@ -173,7 +173,7 @@ export default {
     if (this.queryHinhThuc) s+= 'type=' + this.queryHinhThuc + '&'
     if (this.queryKinhNghiem) s+= 'required_experience=' + this.queryKinhNghiem + '&' 
     if (s !== '') {
-    axios.get('http://localhost:8000/api/job/filter?' + s, config)
+    axios.get('http://localhost:8000/api/job/include?' + s, config)
     .then(data => {
       let temp = data.data
       this.list = [...temp]

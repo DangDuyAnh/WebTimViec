@@ -156,24 +156,50 @@
             </div>
 			<div class="chat-container">
 				<div class="name-list">
-					<div class="one-user one-user-active">
+					<!-- <div class="one-user one-user-active">
 						<img src="../../assets/img_avatar3.png" class='avatar-circle' st/>
 						<div :style="{fontSize: '15px', fontWeight: 'revert'}">Tên gì đó</div>
-					</div>
-					<div class="one-user">
-						<img src="../../assets/img_avatar3.png" class='avatar-circle' st/>
-						<div :style="{fontSize: '15px', fontWeight: 'revert'}">Tên gì đó</div>
+					</div> -->
+					<div v-for="(item , index) in roomIds">
+                        <div v-if="item === active" class="one-user-active">
+                        <div class="one-user">
+                            <img src="../../assets/img_avatar3.png" class='avatar-circle' st/>
+                            <div :style="{fontSize: '15px', fontWeight: 'revert'}">{{chatUsers[item].username}}</div>
+                        </div>
+                        </div>
+
+                        <div v-else>
+                        <div class="one-user" @click="setRoomId(item)">
+                            <img src="../../assets/img_avatar3.png" class='avatar-circle' st/>
+                            <div :style="{fontSize: '15px', fontWeight: 'revert'}">{{chatUsers[item].username}}</div>
+                        </div>
+                        </div>
 					</div>
 				</div>
 
 				<div class="conversation">
 					<div class="conversation-title">
 						<img src="../../assets/img_avatar3.png" class='avatar-circle' st/>
-						<div :style="{fontSize: '15px', fontWeight: 'bold'}">Tên gì đó</div>
+						<div v-if="chatUsers[active]" :style="{fontSize: '15px', fontWeight: 'bold'}">{{chatUsers[active].username}}</div>
 					</div>
 
 					<div class="conversation-content">
-						<div class="sender">
+                        <div v-for="item in conversation">
+                            <div v-if="String(item.sender_user) == String(admin.id)" class="sender">
+                            <div>{{item.text}}</div>
+                            </div>
+
+                            <div v-else class="receiver">
+                            <div>{{item.text}}</div>
+                            </div>
+                        </div>
+						<!-- <div class="sender">
+						<div >Hi Aiden, how are you? How is the project coming along? </div>
+						</div>
+						<div class="receiver">
+							<div> Hi Aiden, how are you? How is the project coming along? </div>
+						</div>
+												<div class="sender">
 						<div >Hi Aiden, how are you? How is the project coming along? </div>
 						</div>
 						<div class="sender">
@@ -190,21 +216,12 @@
 						</div>
 						<div class="receiver">
 							<div> Hi Aiden, how are you? How is the project coming along? </div>
-						</div>
-												<div class="sender">
-						<div >Hi Aiden, how are you? How is the project coming along? </div>
-						</div>
-						<div class="sender">
-						<div >Hi Aiden, how are you? How is the project coming along? </div>
-						</div>
-						<div class="receiver">
-							<div> Hi Aiden, how are you? How is the project coming along? </div>
-						</div>
+						</div> -->
 					</div>
 
 					<div class="send-button">
-						<input class="send-input"/>
-						<font-awesome-icon icon="paper-plane" :style="{color: '#2962ff', width: '20px', height: '20px'}"/>
+						<input class="send-input" v-model="text" @keyup.enter="sendText"/>
+						<font-awesome-icon icon="paper-plane" :style="{color: '#2962ff', width: '20px', height: '20px', cursor: 'pointer'}" @click="sendText"/>
 					</div>
 				</div>
 
@@ -225,6 +242,12 @@ export default {
     return {
       admin : authenticationService.getAdmin(),
       chatList: [],
+      roomIds: [],
+      chatUsers: {},
+      active: 0,
+      title: '',
+      conversation: [],
+      text: ''
     }
   },
   mounted() {
@@ -233,14 +256,65 @@ export default {
     'Authorization': 'Bearer ' + authenticationService.getAdminToken()
     }
     }
-        axios.get('http://localhost:8000/api/chat-room/list' + this.$route.params.id, config)
-        .then(data => {
-            this.job = data.data;
-            console.log(data.data)
-        })
-  },
+        axios.get('http://localhost:8000/api/chat-room/list', config)
+        .then(res => {
+            console.log(res.data)
+            this.roomIds = [...res.data]
+            this.active = res.data[0]
+            let array = {}
+            async function getUser(id) {
+            let res2 = await axios.get('http://localhost:8000/api/chat-room/members-detail-list?room_id=' + id , config);
+            let data = res2.data
+            data = data.filter(item => item.id !== authenticationService.getAdmin().id)[0]
+            array[id] = data
+            console.log('array user')
+            console.log(array)
+            }
+            Promise.all(res.data.map(x => getUser(x))).then(item => {
+                this.chatUsers = {...array}});
+        })       
+        },
     methods: {
-
+        setRoomId(item) {
+            this.active = item
+        },
+        sendText() {
+            let config = {
+            headers: {
+            'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+            }
+            }
+            axios.post('http://localhost:8000/api/chat-room/send', {room_id: this.active, text: this.text}, config)
+            .then(res => {
+                console.log(res.data)
+                this.conversation = [ {text: this.text, sender_user: authenticationService.getAdmin().id},...this.conversation]
+                this.text = ''
+                }
+            )
         }
+        },
+    watch: {
+        active(newQuestion, oldQuestion) {
+            let config = {
+            headers: {
+            'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+            }
+            }
+            axios.get('http://localhost:8000/api/chat-room/conversation?room_id=' + this.active, config)
+            .then(res => {
+                console.log(res.data)
+                this.conversation = [...res.data.reverse()]
+                }
+            )
+
+                this.intervalid1 = setInterval(function(){
+                    axios.get('http://localhost:8000/api/chat-room/conversation?room_id=' + this.active, config)
+                    .then(res => {
+                        this.conversation = [...res.data.reverse()]
+                        }
+                    )
+                }.bind(this), 1500);
+        }
+    }
 }
 </script>

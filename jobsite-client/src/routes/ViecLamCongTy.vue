@@ -27,7 +27,7 @@ export default {
             }
         });
     })
-    axios.get("http://localhost:8000/api/job/filter?company=" + this.$route.params.id, config)
+    axios.get("http://localhost:8000/api/job/include?company=" + this.$route.params.id, config)
     .then(data => {
         let dangUngTuyen = data.data.filter(item => item.type !== 'done')
         console.log(dangUngTuyen)

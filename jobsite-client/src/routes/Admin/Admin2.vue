@@ -265,7 +265,7 @@ export default {
         'Authorization': 'Bearer ' + authenticationService.getAdminToken()
         }
         }
-        axios.get("http://localhost:8000/api/job/filter?company=" + authenticationService.getCompanyId(), config)
+        axios.get("http://localhost:8000/api/job/include?company=" + authenticationService.getCompanyId(), config)
         .then(data => {
             let dangUngTuyen = data.data.filter(item => item.type !== 'done')
             let daUngTuyen = data.data.filter(item => item.type === 'done')

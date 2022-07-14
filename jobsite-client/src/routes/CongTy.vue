@@ -19,7 +19,7 @@ export default {
   mounted() {
     let config = {
     headers: {
-    'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+    'Authorization': 'Bearer ' + authenticationService.getUserToken()
     }
     }
     axios.get('http://localhost:8000/api/company/list', config)
