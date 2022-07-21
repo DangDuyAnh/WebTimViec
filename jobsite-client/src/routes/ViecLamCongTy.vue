@@ -12,6 +12,11 @@ export default {
         dangUngTuyen: [],
     }
   },
+  methods: {
+    moveTo(id){
+        window.location = '/tim-viec-lam/detail/' + id
+    }
+  },
   mounted() {
     let config = {
     headers: {
@@ -57,9 +62,9 @@ export default {
                         </h1>
 
                         <div :style="{paddingLeft: '40px'}">
-                            <div class="job-box" v-for="(item, index) in dangUngTuyen">
+                            <div class="job-box" v-for="(item, index) in dangUngTuyen" >
                                 <img :style="{width: '100px', height: '100px', margin: '30px', border: '1px solid black'}" src='../assets/logo.jpg'/>
-                                <div>
+                                <div @click="moveTo(item.id)">
                                     <h1 :style="{color: 'black', fontSize: '18px', fontWeight: '600', margin: 0, padding: 0, marginBottom: '10px'}">{{item.title}} </h1>
                                     <div :style="{display: 'flex'}">
                                         <h1 :style="{color: 'black', fontSize: '16px', fontWeight: '500', margin: 0, padding: 0, width:'350px'}">{{company.name}}</h1>

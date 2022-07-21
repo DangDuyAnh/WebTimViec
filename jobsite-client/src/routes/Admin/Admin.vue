@@ -315,7 +315,7 @@ export default {
             data.id = id
             axios.post("http://localhost:8000/api/job/update", data, config)
             .then((res) => {
-                console.log(res.data)
+                window.location = '/admin/da-tuyen-dung'
             })
         }
     }

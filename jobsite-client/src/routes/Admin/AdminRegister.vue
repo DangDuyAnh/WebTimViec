@@ -92,10 +92,11 @@ export default {
     }, 
     methods: {
         async registerAdmin() {
-            if (this.city === 'Hồ Chí Minh') this.province === '2'
-            else this.province === '1'
+            let province_id = '2'
+            if (this.city === 'Hồ Chí Minh') province_id = '2'
+            else province_id = '1'
             let sendData = {name: this.companyName, 
-            address: this.address + ' quận ' + this.quan + ' TP. ' + this.city, province_id: this.province,
+            address: this.address + ' quận ' + this.quan + ' TP. ' + this.city, province_id: province_id,
             desc: this.desc}
             console.log(sendData)
             let res = await axios.post('http://localhost:8000/api/company/register', sendData)

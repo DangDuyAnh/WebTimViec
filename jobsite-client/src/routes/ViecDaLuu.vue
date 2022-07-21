@@ -21,19 +21,33 @@ export default {
     axios.get('http://localhost:8000/api/employee/saved-list', config)
     .then(res => {
       let array = res.data
+      console.log(res.data)
       let array2 = []
       async function getJob(id) {
       let res2 = await axios.get('http://localhost:8000/api/job/detail?id=' + id , config);
       let data = res2.data
       array2.push(data)
       }
-      Promise.all(array.map(x => getJob(x.id))).then(item => {
-      this.jobList = {...array2}});
+      Promise.all(array.map(x => getJob(x.job))).then(item => {
+      console.log(array2)
+      this.jobList = [...array2]});
     })
   },
   methods: {
     goTo(id) {
       window.location = '/tim-viec-lam/detail/' + id
+    },
+    deleteM(id) {
+        let config = {
+      headers: {
+      'Authorization': 'Bearer ' + authenticationService.getUserToken()
+      }
+      }
+      axios.post('http://localhost:8000/api/employee/saved-remove', {job_id: id}, config)
+      .then(res => {
+        let array = this.jobList.filter(item => item.id !== id)
+        this.jobList = [...array]
+      })     
     }
   }
   }
@@ -101,11 +115,11 @@ export default {
           <div class="list-job-submit" v-for="item in jobList">
               <hr  width="100%"/>
               <img id="logo-2" src="https://dxwd4tssreb4w.cloudfront.net/image/91c5b0f7f67e4ebc5f5377b27a157415" alt="">
-              <div class="if-job-save" :style="{cursor: 'pointer'}" @click="goTo(item.id)">
+              <div class="if-job-save" :style="{cursor: 'pointer', width: '600px'}" @click="goTo(item.id)">
                   <a><h4 id="namejob">{{item.title}}</h4></a>
                   <li>{{item.company.name}}</li>
               </div>
-              <button id="delete-job">
+              <button id="delete-job" @click="deleteM(item.id)">
                   <font-awesome-icon icon="xmark" class='icon-delete'/>
               </button>
               <button id="send-cv-1">
@@ -267,9 +281,6 @@ button:focus {outline:0;}
 }
 #delete-job {
     margin-top: 20px;
-    margin-left: 420px;
-    width: 40px;
-    height: 40px;
     border-radius: 99rem;
     background-color: white;
     border: 1px solid white;

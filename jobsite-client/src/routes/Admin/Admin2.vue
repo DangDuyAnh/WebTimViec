@@ -289,8 +289,8 @@ export default {
             }
             }
             axios.post("http://localhost:8000/api/job/delete", {id: id} , config)
-            let temp = this.dangUngTuyen.filter(item => item.id !== id)
-            this.dangUngTuyen = [...temp]
+            let temp = this.daUngTuyen.filter(item => item.id !== id)
+            this.daUngTuyen = [...temp]
         },
         chinhSua(id) {
             window.location = '/admin/detail-recruit/' + id

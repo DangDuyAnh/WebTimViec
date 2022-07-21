@@ -30,7 +30,7 @@ export default {
     })
     axios.get('http://localhost:8000/api/employee/self-profile', config)
       .then(res => {
-        if (res.data.main_cv_id === null || res.data.main_cv_id === null) {
+        if (res.data.main_cv_id === null || res.data.main_cv_id === undefined) {
           this.mainCV = -1;
           console.log('yes')
           }
@@ -105,8 +105,7 @@ export default {
               <button @click="setMainCV(item)">Đặt làm CV chính</button>
               </div>
               <p class="tieu-de">CV {{item + 1}}</p>
-              <font-awesome-icon icon="trash" class='trash' v-if="mainCV === item"/>
-              <font-awesome-icon icon="trash" class='trash' @click="deleteM(item)" v-else/>
+              <font-awesome-icon icon="trash" class='trash' @click="deleteM(item)" v-if="mainCV != item"/>
               </div>
             </div>
         </div>

@@ -17,11 +17,14 @@
                         <strong><li id="salary">{{job.salary_min}} - {{job.salary_max}} VNĐ</li></strong>
                         <li id="location">{{job.company.address}}</li>
                         <div class="row-btn-save">
-                            <button
+                            <!-- <button
                                 :class="[isActive ? 'blue' : 'white']"
                                 @click="luu"
-                                >{{isActive ? 'Lưu' : 'Đã lưu'}}</button>
-                            <button id="send-cv" @click="nopdon">Nộp đơn</button>
+                                >{{isActive ? 'Lưu' : 'Đã lưu'}}</button> -->
+                            <button v-if="activeSave" class="blue" disabled>Đã lưu</button>
+                            <button v-else class="white" @click="luu">Lưu</button>
+                            <button v-if="activeApply" class="blue" disabled>Đã nộp đơn</button>
+                            <button v-else class="white" @click="nopdon">Nộp đơn</button>
                         </div>
                     </div>
                 </div>
@@ -53,11 +56,11 @@
                     <h3 :style="{color:'#0069DB'}">Thông tin liên hệ</h3>
                     <br/>
                     <p>Tên liên hệ: <strong>Phòng Nhân Sự</strong> </p>
-                    <p>Địa chỉ: KCN Mỹ xuân A2 , Thị xã Phú Mỹ , Bà Rịa - Vũng Tàu , Viet Nam</p>
+                    <p>Địa chỉ: {{job.company.address}}</p>
                     <p> <strong>- Các ứng viên quan tâm vui lòng nộp hồ sơ trực tuyến qua hệ thống CareerLink, qua email hoặc nộp trực tiếp tại công ty.</strong> </p>
                     <p>Nhận hồ sơ bằng ngôn ngữ:<strong>Tiếng Việt</strong> </p>
-                    <p><strong>Ngày đăng tuyển:</strong> 27-06-2022</p>
-                    <p><strong>Ngày hết hạn:</strong> 27-07-2022</p>
+                    <p><strong>Ngày đăng tuyển:</strong> {{job.public_date}}</p>
+                    <p><strong>Ngày hết hạn:</strong> {{job.expired_date}}</p>
                     <p></p>
                 </div>
             </div>
@@ -68,14 +71,11 @@
                     <img id="logo-1" src="https://dxwd4tssreb4w.cloudfront.net/image/91c5b0f7f67e4ebc5f5377b27a157415" alt="">
                 </div>
                 <div id="name-1">
-                    <span ><a href="#" :style="{color:'black'}"><strong>Công Ty TNHH Cửu <br/>Tinh Việt Nam</strong></a> </span>
+                    <span ><a href="#" :style="{color:'black'}"><strong>Công Ty <br/>{{job.company.name}}</strong></a> </span>
                     <p></p>
                     <li>25-99 Nhân sự</li>
                     <p></p>
                     <li>Liên hệ: Phòng Nhân Sự</li>
-                </div>
-                <div id="meta-company">
-                    <p><strong>Công Ty TNHH Cửu Tinh Việt Nam trực thuộc Tập Đoàn cổ phần khống chế Cửu Tinh Trung Quốc.Công ty chúng tôi có cơ sở sản xuất Công Ty TNHH Cửu Tinh Việt Nam thành lập từ năm 2013 trực thuộc Tập Đoàn cổ phần Cửu Tinh Trung Quốc</strong></p>
                 </div>
             </div>
             <div class="job-company-df">
@@ -83,39 +83,15 @@
                     <h3>Việc làm cùng công ty</h3>
                     <hr width="95%">
                 </div>
-                <div class="list-job-df">
+                <div class="list-job-df" v-for="jobItem in sameList">
                     <div id="logo-company">
                     <img id="logo-1" src="https://dxwd4tssreb4w.cloudfront.net/image/91c5b0f7f67e4ebc5f5377b27a157415" alt="">
-                </div>
+                    </div>
                 <div id="name-1">
-                    <span ><a href="#" :style="{color:'black'}"><strong>TRỢ LÝ (BIẾT TIẾNG <br/> TRUNG)</strong></a> </span>
+                    <span ><a href="#" :style="{color:'black'}"><strong>{{jobItem.title}}</strong></a> </span>
                     <p></p>
-                    <li>Bà Rịa - Vũng Tàu</li>
-                    <strong><li id="salary">$ Thương lượng</li></strong>
-                </div>
-                </div>
-                <hr width="99%">
-                <div class="list-job-df">
-                    <div id="logo-company">
-                    <img id="logo-1" src="https://dxwd4tssreb4w.cloudfront.net/image/91c5b0f7f67e4ebc5f5377b27a157415" alt="">
-                </div>
-                <div id="name-1">
-                    <span ><a href="#" :style="{color:'black'}"><strong>KỸ SƯ IT</strong></a> </span>
-                    <p></p>
-                    <li>Bà Rịa - Vũng Tàu</li>
-                    <strong><li id="salary">$ Thương lượng</li></strong>
-                </div>
-                </div>
-                <hr width="99%">
-                <div class="list-job-df">
-                    <div id="logo-company">
-                    <img id="logo-1" src="https://dxwd4tssreb4w.cloudfront.net/image/91c5b0f7f67e4ebc5f5377b27a157415" alt="">
-                </div>
-                <div id="name-1">
-                    <span ><a href="#" :style="{color:'black'}"><strong>KIẾM TOÁN</strong></a> </span>
-                    <p></p>
-                    <li>Bà Rịa - Vũng Tàu</li>
-                    <strong><li id="salary">$ Thương lượng</li></strong>
+                    <li>{{job.company.address}}</li>
+                    <strong><li id="salary">$ {{jobItem.salary_min}} - {{jobItem.salary_max}} VNĐ</li></strong>
                 </div>
                 </div>
             </div>
@@ -271,7 +247,7 @@ input,select {
     border-color: #0069DB;
     font-weight: 400;
     color: white;
-    background-color:#87CEFA;
+    background-color: #0069DB;
 }
 #send-cv{
     color: white;
@@ -295,7 +271,7 @@ p {
 }
 .container-if-company-1 {
     margin-left: 10px;
-    width: 315px;
+    width: 425px;
     background-color:#FFFAFA;
     display: flex;
     flex-wrap: wrap;
@@ -304,7 +280,7 @@ p {
 #info-content {
     margin-top: 20px;
     background-color: white;
-    width: 315px;
+    width: 425px;
     height: 450px;
     display: flex;
     flex-wrap: wrap;
@@ -325,8 +301,9 @@ p {
 .job-company-df {
     margin-top: 20px;
     background-color: white;
-    width: 315px;
-    height: 550px;
+    width: 425px;   
+    padding-top: 30px;
+    padding-bottom: 30px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -356,21 +333,19 @@ components: {
   },
   data() {
     return {
-      isActive: true,
       thanhPho: '',
       ten: '',
       nganh: 'Ngành nghề',
       job: {
         company: ''
       },
-      userToken: authenticationService.getUserToken()
+      userToken: authenticationService.getUserToken(),
+      activeSave: false,
+      activeApply: false,
+      sameList: []
     };
   },
   methods: {
-    toggle() {
-      this.isActive = this.isActive ? false : true;
-      
-    },
     moveTo(id) {
       window.location = '/tim-viec-lam/detail/' + id
     },
@@ -407,7 +382,32 @@ components: {
     axios.get('http://localhost:8000/api/job/detail?id=' + this.$route.params.id, config)
     .then(data => {
       this.job = data.data
+      console.log(data.data)
+      let companyId = data.data.company.id
+        axios.get("http://localhost:8000/api/job/include?company=" + companyId, config)
+        .then(res0 => {
+            this.sameList = res0.data
+            console.log(res0.data)
+        })
     })
+    axios.get('http://localhost:8000/api/employee/saved-list', config)
+    .then(res => {
+        let saveList = res.data
+        saveList.forEach(item => {
+            if (item.job == this.$route.params.id)
+                this.activeSave = true
+        })
+    })
+
+    axios.get('http://localhost:8000/api/employee/applied-list', config)
+    .then(res => {
+        let applyList = res.data
+        applyList.forEach(item => {
+            if (item.job == this.$route.params.id)
+                this.activeApply = true
+        })
+    })
+
   }
 };
 

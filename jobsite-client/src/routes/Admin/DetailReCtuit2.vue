@@ -298,8 +298,7 @@ import { authenticationService } from "../../utility/authenticationService";
                 selectFilter: true,
                 clicked: [],
                 cv: -1,
-                letter: -1,
-                routeId : this.$route.params.id
+                letter: -1
             }
         },
         watch: {
@@ -412,36 +411,49 @@ import { authenticationService } from "../../utility/authenticationService";
                 array[index] = 0
                 this.clicked  = [...array]
             },
-            async save () {
+            save () {
                     let config = {
                     headers: {
                     'Authorization': 'Bearer ' + authenticationService.getAdminToken()
                     }
                     }
+                    console.log('List Cand')
+                    function hi() {
+                        console.log(this.listCand)
+                    }
+                    hi()
                     
-                Promise.all(this.clicked.forEach((item, index) => {
-                    let config = {
-                    headers: {
-                    'Authorization': 'Bearer ' + authenticationService.getAdminToken()
-                    }
-                    }
-                    axios.post('http://localhost:8000/api/employer/set-status', {employee_id: this.listCand[index].id, job_id: this.$route.params.id, status: item}, config)
-                    .then(data => {
-                        console.log(data)
-                    })
-                }))
 
-                    // async function getUser(item, index, listCand, routeId) {
-                    //     await axios.post('http://localhost:8000/api/employer/set-status', {employee_id: listCand[index].id, job_id: routeId, status: item}, config)
-                    // }
-                    //     Promise.all(this.clicked.map((item, index) => getUser(item, index, this.listCand, this.$route.params.id)))
+                // Promise.all(this.clicked.forEach((item, index) => {
+                //     let config = {
+                //     headers: {
+                //     'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+                //     }
+                //     }
+                //     axios.post('http://localhost:8000/api/employer/set-status', {employee_id: this.listCand[index].id, job_id: this.$route.params.id, status: item}, config)
+                //     .then(data => {
+                //         console.log(data)
+                //     })
+                // }))
 
-                let res = await axios.get("http://localhost:8000/api/job/detail?id=" + this.$route.params.id, config)
-                let yes = this.clicked.filter (item => item === 1)
-                let data = res.data
-                data.accepted_applicant = data.accepted_applicant + yes.length
-                axios.post("http://localhost:8000/api/job/update", data, config)
-                window.location = '/admin/detail-recruit/' + this.$route.params.id
+                    async function getUser(item, index) {
+                        console.log(this.$route.params.id)
+                        // await axios.post('http://localhost:8000/api/employer/set-status', {employee_id: this.listCand[index].id, job_id: this.$route.params.id, status: item}, config)
+                    }
+                        Promise.all(this.clicked.map((item, index) => getUser(item, index)))
+
+
+                // let config = {
+                // headers: {
+                // 'Authorization': 'Bearer ' + authenticationService.getAdminToken()
+                // }
+                // }
+                // let res = await axios.get("http://localhost:8000/api/job/detail?id=" + this.$route.params.id, config)
+                // let yes = this.clicked.filter (item => item === 1)
+                // let data = res.data
+                // data.accepted_applicant = data.accepted_applicant + yes.length
+                // axios.post("http://localhost:8000/api/job/update", data, config)
+                // window.location = '/admin/detail-recruit/' + this.$route.params.id
             }, 
             closeModal(){
                 this.modal = false

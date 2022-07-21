@@ -25,19 +25,19 @@ export default {
         .then(res => {
           this.nowPDF = res.data.length
           let array = []
-          res.data.forEach(item => array.push(item.cv_id))
+          res.data.forEach(item => array.push(item.letter_id))
           this.pdf = [...array]
     })
     axios.get('http://localhost:8000/api/employee/self-profile', config)
       .then(res => {
-        if (res.data.main_cv_id === null || res.data.main_cv_id === null) {
+        if (res.data.main_letter_id === null || res.data.main_letter_id === undefined) {
           this.mainCV = -1;
           console.log('yes')
           }
         else { 
-          this.mainCV = res.data.main_cv_id;
+          this.mainCV = res.data.main_letter_id;
           console.log('no')
-          console.log(res.data.main_cv_id)
+          console.log(res.data.main_letter_id)
         }
       })
   },
@@ -48,8 +48,9 @@ export default {
         'Authorization': 'Bearer ' + authenticationService.getUserToken()
         }
         }
-        axios.post('http://localhost:8000/api/employee/add-letter', {cv_id: String(this.nowPDF)}, config)
+        axios.post('http://localhost:8000/api/employee/add-letter', {letter_id: String(this.nowPDF)}, config)
         .then(res => {
+          console.log(res)
           this.pdf = [...this.pdf, this.nowPDF]
           this.nowPDF += 1
         })
@@ -60,7 +61,7 @@ export default {
         'Authorization': 'Bearer ' + authenticationService.getUserToken()
         }
         }
-        axios.post('http://localhost:8000/api/employee/set-main-letter', {cv_id: id}, config)
+        axios.post('http://localhost:8000/api/employee/set-main-letter', {letter_id: id}, config)
         .then(res => {
           this.mainCV = id
         })
@@ -71,7 +72,7 @@ export default {
         'Authorization': 'Bearer ' + authenticationService.getUserToken()
         }
         }
-        axios.post('http://localhost:8000/api/employee/remove-letter', {cv_id: id}, config)
+        axios.post('http://localhost:8000/api/employee/remove-letter', {letter_id: id}, config)
         .then(res => {
           let array = this.pdf.filter(item => item !== id)
           this.pdf = [...array]
@@ -87,7 +88,7 @@ export default {
       <div class="boxwhite-cv">
         <div class="cv-da-tai">
           <h1>Thư xin việc đã tải lên</h1>
-          <input type='file' id='file' accept=".pdf" :style="{display: 'none'}"/>
+          <input @change="addCV" type='file' id='file' accept=".pdf" :style="{display: 'none'}"/>
           <label for='file'>Tải mới</label>
         </div>
 
@@ -105,8 +106,7 @@ export default {
               <button @click="setMainCV(item)">Đặt làm Thư xin việc chính</button>
               </div>
               <p class="tieu-de">CV {{item + 1}}</p>
-              <font-awesome-icon icon="trash" class='trash' v-if="mainCV === item"/>
-              <font-awesome-icon icon="trash" class='trash' @click="deleteM(item)" v-else/>
+              <font-awesome-icon icon="trash" class='trash' @click="deleteM(item)" v-if="mainCV != item"/>
               </div>
             </div>
             

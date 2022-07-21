@@ -32,7 +32,7 @@ export default {
                     <div class="dropdown-content">
                         <div class="dropdown-line">
                             <font-awesome-icon icon="magnifying-glass" class='dropdown-icon'/>
-                            <a class="dropdown-line-a" href="/tim-viec-lam">Tìm việc làm</a>
+                            <a class="dropdown-line-a" href="/tim-viec-lam-filter">Tìm việc làm</a>
                         </div>
                         <div class="dropdown-line">
                             <font-awesome-icon icon="floppy-disk" class='dropdown-icon'/>

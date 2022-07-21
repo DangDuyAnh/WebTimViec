@@ -1,5 +1,5 @@
 <script>
-import Navbar from '../components/Navbar.vue';
+import Navbar from '../components/Navbar2.vue';
 import { authenticationService } from '../utility/authenticationService';
 import axios from 'axios';
 export default {

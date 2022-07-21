@@ -27,7 +27,7 @@ export default {
       let data = res2.data
       array2.push(data)
       }
-      Promise.all(array.map(x => getJob(x.id))).then(item => {
+      Promise.all(array.map(x => getJob(x.job))).then(item => {
       this.jobList = {...array2}});
     })
   },
@@ -100,7 +100,7 @@ export default {
           <div class="list-job-submit" v-for="item in jobList">
               <hr  width="100%"/>
               <img id="logo-2" src="https://dxwd4tssreb4w.cloudfront.net/image/91c5b0f7f67e4ebc5f5377b27a157415" alt="">
-              <div class="if-job-save" :style="{cursor: 'pointer'}" @click="goTo(item.id)">
+              <div class="if-job-save" :style="{cursor: 'pointer', width: '600px'}" @click="goTo(item.id)">
                   <a><h4 id="namejob">{{item.title}}</h4></a>
                   <li>{{item.company.name}}</li>
               </div>
