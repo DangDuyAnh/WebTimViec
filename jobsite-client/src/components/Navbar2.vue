@@ -61,7 +61,11 @@ export default {
 
                 <li class="Navbar-dropdown">
                     <a class="Navbar-dropbtn" href="/cong-ty">Công ty</a>
-                </li>          
+                </li>  
+                
+                <li class="Navbar-dropdown">
+                    <a class="Navbar-dropbtn" href="/goi-y">Gợi ý</a>
+                </li> 
             </ul>
         </div>
 

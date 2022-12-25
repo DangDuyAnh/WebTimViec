@@ -19,6 +19,7 @@ import TimViecLamFilter from './TimViecLamFilter.vue'
 import TimViecLamDetail from './TimViecLamDetail.vue'
 import ViecDaLuu from './ViecDaLuu.vue'
 import ViecDaUngTuyen from './ViecDaUngTuyen.vue'
+import GoiY from './GoiY.vue'
 import { authenticationService } from '../utility/authenticationService'
 
 const routes = [
@@ -113,6 +114,11 @@ const routes = [
     path: '/chat',
     component: ChatEmployee,
     name: '/chat'
+  },
+  {
+    path: '/goi-y',
+    component: GoiY,
+    name: '/goi-y'
   }
 ];
 
