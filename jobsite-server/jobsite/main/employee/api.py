@@ -325,14 +325,14 @@ class JobRecommend(APIView):
     authentication_classes = [EmployeeJWTAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
+    def post(self, request):
         user_data = {}
-        user_data['expertise'] = request.query_params['expertise']
-        user_data['resume'] = request.query_params['resume']
+        user_data['expertise'] = request.data['expertise']
+        user_data['resume'] = request.data['resume']
         if len(user_data['resume']) > 100:
             jrec.add_node_to_graph('candidate', user_data)
 
-        num_recommend = int(request.query_params['n'])
+        num_recommend = int(request.data['n'])
         personalized_results = jrec.rank_nodes(False, jrec.target_node, 'job', 0.85)
         personalized_results = {key:item for i, (key,item) in enumerate(personalized_results.items()) if i < num_recommend}     
         
