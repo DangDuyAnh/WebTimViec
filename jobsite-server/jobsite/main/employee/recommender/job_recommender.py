@@ -86,7 +86,7 @@ class JobRecommender:
         # connect this node to other candidate nodes that has similar resume
         for name in candidate_node_names:
             this_node_vector = self.G.nodes[name]['reduced_tfidf']
-            sim = 1 - distance.cosine(vectorized_resume, this_node_vector)
+            sim = 1 - distance.cosine(vectorized_resume[0], this_node_vector[0])
             if sim > constants.COSINE_SIMILARITY_THRESHOLD:
                 self.G.add_edge(node_name, name,
                         edge_type = 'candidate_to_candidate',
@@ -104,7 +104,7 @@ class JobRecommender:
 
         for name in job_node_names:
             this_node_vector = self.G.nodes[name]['reduced_tfidf']
-            sim = 1 - distance.cosine(vectorized_resume, this_node_vector)
+            sim = 1 - distance.cosine(vectorized_resume[0], this_node_vector[0])
             if sim > constants.PROFILE_MATCHED_SIMILARITY_THRESDHOLD:
                 self.G.add_edge(node_name, name, 
                         edge_type = 'candidate_to_job',
