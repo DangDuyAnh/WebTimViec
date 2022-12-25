@@ -333,7 +333,8 @@ class JobRecommend(APIView):
             jrec.add_node_to_graph('candidate', user_data)
 
         num_recommend = int(request.data['n'])
-        personalized_results = jrec.rank_nodes(False, jrec.target_node, 'job', 0.85)
+        alpha = float(request.data['alpha'])
+        personalized_results = jrec.rank_nodes(False, jrec.target_node, 'job', alpha)
         personalized_results = {key:item for i, (key,item) in enumerate(personalized_results.items()) if i < num_recommend}     
         
         ret = []
