@@ -339,6 +339,12 @@ class JobRecommend(APIView):
         ret = []
         for key, value in personalized_results.items():
             job_node = jrec.G.nodes[key]
-            ret.append(job_node)
+            ret.append({
+                'company_id'    : job_node['company_id'],
+                'job_name'      : job_node['job_name'],
+                'taglist'       : job_node['taglist'],
+                'location'      : job_node['location'],
+                'description'   : job_node['description'],
+            })
             
         return Response(ret)
