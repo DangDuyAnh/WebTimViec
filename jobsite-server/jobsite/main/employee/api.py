@@ -339,12 +339,41 @@ class JobRecommend(APIView):
         ret = []
         for key, value in personalized_results.items():
             job_node = jrec.G.nodes[key]
+            company_id = job_node['company_id']
             ret.append({
-                'company_id'    : job_node['company_id'],
+                'company_id'    : company_id,
                 'job_name'      : job_node['job_name'],
                 'taglist'       : job_node['taglist'],
                 'location'      : job_node['location'],
                 'description'   : job_node['description'],
+                'logo_link'     : jrec.G.nodes[company_id]['logo_link'],
+            })
+            
+        return Response(ret)
+
+
+class JobSearch(APIView):
+    authentication_classes = [EmployeeJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        alpha = float(request.data['alpha'])
+        search_keywords = request.data['search_keywords']
+        search_results = jrec.search(search_keywords)
+        personalized_results = jrec._rank_node_with_context(jrec.target_node, 
+                                    search_results, alpha, 'job')     
+        
+        ret = []
+        for key, value in personalized_results.items():
+            job_node = jrec.G.nodes[key]
+            company_id = job_node['company_id']
+            ret.append({
+                'company_id'    : company_id,
+                'job_name'      : job_node['job_name'],
+                'taglist'       : job_node['taglist'],
+                'location'      : job_node['location'],
+                'description'   : job_node['description'],
+                'logo_link'     : jrec.G.nodes[company_id]['logo_link'],
             })
             
         return Response(ret)

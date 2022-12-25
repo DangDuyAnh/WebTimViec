@@ -23,4 +23,5 @@ urlpatterns = [
     path('letter-list', api.ListLetter.as_view(), name='letter-list'),
 
     path('job-recommend', api.JobRecommend.as_view(), name='job-recommend'),
+    path('job-search', api.JobSearch.as_view(), name='job-search'),
 ]

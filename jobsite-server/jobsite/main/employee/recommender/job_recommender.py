@@ -215,7 +215,7 @@ class JobRecommender:
         for node in context_nodes:
             personalized[node] = 1
         ranked_nodes = nx.algorithms.link_analysis.pagerank(self.G,
-                        alpha, personalized, )
+                        alpha)
 
         if return_node_type is not None:
             if return_node_type == 'job':
