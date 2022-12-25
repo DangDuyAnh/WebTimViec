@@ -23,6 +23,22 @@ from .authentication import EmployeeJWTAuthentication
 
 from django.db import connection
 
+import os
+import sys
+import pickle
+
+import time
+from django.conf import settings
+
+import pandas as pd
+import numpy as np
+
+sys.path.append(os.path.join(settings.BASE_DIR, 'main/employee/recommender'))
+
+from .recommender import job_recommender
+from .recommender import latent_semantic_analysis
+from .recommender.network_builder import *
+
 
 class Profile(APIView):
     #authentication_classes = [Sfa]
@@ -277,3 +293,53 @@ class SetMainLetter(APIView):
         employee.main_letter_id = letter_id
         employee.save()
         return Response('Done')
+
+
+
+def load_recommender():
+    graphpath =  os.path.join(settings.BASE_DIR, 'main/employee/recommender/data/graph.pkl')
+    lsapath = os.path.join(settings.BASE_DIR, 'main/employee/recommender/data/lsa.pkl')
+    with open(graphpath, 'rb') as f:
+        G = pickle.load(f)
+
+    with open(lsapath, 'rb') as f:
+        lsa = pickle.load(f)
+
+    jrec = job_recommender.JobRecommender(G, lsa)
+
+    return jrec
+
+all_expertises = ['Java Developer', 'Testing', 'DevOps Engineer', 'Python Developer',
+       'Web Designing', 'Hadoop', 'Blockchain', 'ETL Developer',
+       'Operations Manager', 'Data Science', 'Mechanical Engineer',
+        'Database', 
+        'Business Analyst', 'DotNet Developer', 'Automation Testing',
+       'Network Security Engineer', 'SAP Developer', 'Civil Engineer',
+       ]
+       
+
+jrec = load_recommender()
+user_data = {}
+
+class JobRecommend(APIView):
+    authentication_classes = [EmployeeJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user_data = {}
+        user_data['expertise'] = request.data['expertise']
+        user_data['resume'] = request.data['resume']
+        if len(user_data['resume']) > 100:
+            jrec.add_node_to_graph('candidate', user_data)
+
+        num_recommend = int(request.data['n'])
+        alpha = float(request.data['alpha'])
+        personalized_results = jrec.rank_nodes(False, jrec.target_node, 'job', alpha)
+        personalized_results = {key:item for i, (key,item) in enumerate(personalized_results.items()) if i < num_recommend}     
+        
+        ret = []
+        for key, value in personalized_results.items():
+            job_node = jrec.G.nodes[key]
+            ret.append(job_node)
+            
+        return Response(ret)

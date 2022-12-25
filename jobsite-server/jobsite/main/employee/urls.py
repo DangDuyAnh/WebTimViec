@@ -21,4 +21,6 @@ urlpatterns = [
     path('remove-letter', api.RemoveLetter.as_view(), name='remove-letter'),
     path('set-main-letter', api.SetMainLetter.as_view(), name='set-main-letter'),
     path('letter-list', api.ListLetter.as_view(), name='letter-list'),
+
+    path('job-recommend', api.JobRecommend.as_view(), name='job-recommend'),
 ]
