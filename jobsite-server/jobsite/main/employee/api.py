@@ -329,8 +329,7 @@ class JobRecommend(APIView):
         user_data = {}
         user_data['expertise'] = request.data['expertise']
         user_data['resume'] = request.data['resume']
-        if len(user_data['resume']) > 100:
-            jrec.add_node_to_graph('candidate', user_data)
+        jrec.add_node_to_graph('candidate', user_data)
 
         num_recommend = int(request.data['n'])
         alpha = float(request.data['alpha'])
