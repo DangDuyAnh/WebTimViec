@@ -12,4 +12,6 @@ urlpatterns = [
     path('employee/', include('main.employee.urls')),
     path('chat-room/', include('main.chat_room.urls')),
     path('province/list', api.ListProvince.as_view()),
+
+    path('chat-bot/', include('main.chat_bot.urls')),
 ]
