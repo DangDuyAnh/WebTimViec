@@ -63,6 +63,8 @@ class TopCVSprider(scrapy.Spider):
 
             yield {
                 'url'                     : response.request.url,
+                'CompanyName'             : self.preprocessText(response.xpath('//*[@id="job-detail-page-wraper"]/div[2]/div[2]/div[1]/div[1]/div/a/text()').get()),
+                'CompanyImage'            : self.preprocessText(response.xpath('//*[@id="job-detail-page-wraper"]/div[2]/div[2]/div[1]/a/div/img/@src').extract()[0]),
                 'Salary'                  : self.preprocessText(response.xpath('//*[@id="tab-info"]/div/div/div[1]/div[1]/div/div[1]/div/span/text()').get()),
                 'AvaiableSlots'           : self.preprocessText(response.xpath('//*[@id="tab-info"]/div/div/div[1]/div[1]/div/div[2]/div/span/text()').get()),
                 'WorkingType'             : self.preprocessText(response.xpath('//*[@id="tab-info"]/div/div/div[1]/div[1]/div/div[3]/div/span/text()').get()),
