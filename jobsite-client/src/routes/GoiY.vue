@@ -7,67 +7,24 @@
         <div :style="{width: '800px', marginTop: '50px'}">
             <h3 :style="{fontWeight: 'bold', fontSize: '24px'}">Gợi ý công việc</h3>
             <p :style="{fontSize: '16px', fontWeight: '400', margin: '20px 0px 0px 0px'}">Lĩnh vực</p>
-            <input class="goi-y-input"/>
+            <input class="goi-y-input" v-model="expertise"/>
             <p :style="{fontSize: '16px', fontWeight: '400', margin: '20px 0px 0px 0px'}">CV</p>
-            <textarea :rows="7" class="goi-y-input"></textarea>
+            <textarea :rows="7" class="goi-y-input" v-model="resume"></textarea>
             <div :style="{display: 'flex', justifyContent: 'center', margin: '50px 0px'}">
-                <button class="navbar-button" :style="{backgroundColor: '#e65100', border: '1px solid #e65100', color: 'white', padding: '5px 10px', margin: '5px 8px'}">Tìm kiếm</button>
+                <button class="navbar-button" :style="{backgroundColor: '#e65100', border: '1px solid #e65100', color: 'white', padding: '5px 10px', margin: '5px 8px'}" @click="search()">Tìm kiếm</button>
+            </div>
+            <div :style="{display: 'flex', justifyContent: 'center'}" v-if="load">
+                <div class="loader"></div>
             </div>
             <div :style="{display: 'flex', justifyContent: 'center', width: '100%'}">
                 <div :style="{width: '750px', display: 'flex', flexWrap: 'wrap'}">
-                <div class="card-congty-2">
-                    <div class="congty-wrapper-2">
-                        <img :style="{width: '150px', height: '150px'}" src='../assets/logo.jpg'/>
+                    <div class="card-congty-2" v-for="(item, index) in job">
+                        <div class="congty-wrapper-2">
+                            <img :style="{width: '150px', height: '150px'}" :src="item.logo_link"/>
+                        </div>
+                        <h1 :style="{fontSize: '14px', fontWeight: '400', color: '#6c757d', textAlign: 'center'}">{{item.job_name}}</h1>
                     </div>
-                    <h1 :style="{fontSize: '18px', fontWeight: '700', color: 'black', textAlign: 'center'}">Test</h1>
-                    <h1 :style="{fontSize: '14px', fontWeight: '600', color: '#0069DB', textAlign: 'center'}">Test</h1>
-                    <h1 :style="{fontSize: '14px', fontWeight: '400', color: '#6c757d', textAlign: 'center'}">Test</h1>
                 </div>
-                <div class="card-congty-2">
-                    <div class="congty-wrapper-2">
-                        <img :style="{width: '150px', height: '150px'}" src='../assets/logo.jpg'/>
-                    </div>
-                    <h1 :style="{fontSize: '18px', fontWeight: '700', color: 'black', textAlign: 'center'}">Test</h1>
-                    <h1 :style="{fontSize: '14px', fontWeight: '600', color: '#0069DB', textAlign: 'center'}">Test</h1>
-                    <h1 :style="{fontSize: '14px', fontWeight: '400', color: '#6c757d', textAlign: 'center'}">Test</h1>
-                </div>
-                <div class="card-congty-2">
-                    <div class="congty-wrapper-2">
-                        <img :style="{width: '150px', height: '150px'}" src='../assets/logo.jpg'/>
-                    </div>
-                    <h1 :style="{fontSize: '18px', fontWeight: '700', color: 'black', textAlign: 'center'}">Test</h1>
-                    <h1 :style="{fontSize: '14px', fontWeight: '600', color: '#0069DB', textAlign: 'center'}">Test</h1>
-                    <h1 :style="{fontSize: '14px', fontWeight: '400', color: '#6c757d', textAlign: 'center'}">Test</h1>
-                </div>
-                <div class="card-congty-2">
-                    <div class="congty-wrapper-2">
-                        <img :style="{width: '150px', height: '150px'}" src='../assets/logo.jpg'/>
-                    </div>
-                    <h1 :style="{fontSize: '18px', fontWeight: '700', color: 'black', textAlign: 'center'}">Test</h1>
-                    <h1 :style="{fontSize: '14px', fontWeight: '600', color: '#0069DB', textAlign: 'center'}">Test</h1>
-                    <h1 :style="{fontSize: '14px', fontWeight: '400', color: '#6c757d', textAlign: 'center'}">Test</h1>
-                </div>
-                <div class="card-congty-2">
-                    <div class="congty-wrapper-2">
-                        <img :style="{width: '150px', height: '150px'}" src='../assets/logo.jpg'/>
-                    </div>
-                    <h1 :style="{fontSize: '18px', fontWeight: '700', color: 'black', textAlign: 'center'}">Test</h1>
-                    <h1 :style="{fontSize: '14px', fontWeight: '600', color: '#0069DB', textAlign: 'center'}">Test</h1>
-                    <h1 :style="{fontSize: '14px', fontWeight: '400', color: '#6c757d', textAlign: 'center'}">Test</h1>
-                </div>
-                <div class="card-congty-2">
-                    <div class="congty-wrapper-2">
-                        <img :style="{width: '150px', height: '150px'}" src='../assets/logo.jpg'/>
-                    </div>
-                    <h1 :style="{fontSize: '18px', fontWeight: '700', color: 'black', textAlign: 'center'}">Test</h1>
-                    <h1 :style="{fontSize: '14px', fontWeight: '600', color: '#0069DB', textAlign: 'center'}">Test</h1>
-                    <h1 :style="{fontSize: '14px', fontWeight: '400', color: '#6c757d', textAlign: 'center'}">Test</h1>
-                </div>
-                </div>
-            </div>
-
-            <div :style="{display: 'flex', justifyContent: 'center'}">
-                <div class="loader"></div>
             </div>
         </div>
     </div>
@@ -91,13 +48,18 @@
     }
 
     .card-congty-2 {
-    width: 150px;
-    height: 150px;
+    width: 170px;
+    height: 170px;
     margin-bottom: 100px;
     cursor: pointer;
+    margin-left: 7px;
+    margin-right: 7px;
   }
 
   .congty-wrapper-2 {
+    width: 170px;
+    height: 170px;
+    border: 1px solid #bdbdbd;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -129,6 +91,7 @@
 import Navbar2 from '../components/Navbar.vue';
 import Navbar from '../components/Navbar2.vue';
 import { authenticationService } from '../utility/authenticationService';
+import axios from 'axios';
 export default {
     components: {
     Navbar,
@@ -136,8 +99,30 @@ export default {
   },
   data() {
     return {
-        userToken: authenticationService.getUserToken()
+        userToken: authenticationService.getUserToken(),
+        load: false,
+        job: '',
+        resume: '',
+        expertise: ''
     };
+  },
+  methods: {
+    search() {
+        console.log("hey")
+        this.load = true
+        let config = {
+    headers: {
+    'Authorization': 'Bearer ' + authenticationService.getUserToken()
+    }
+    }
+    axios.post('http://localhost:8000/api/employee/job-search',{alpha: 0.5, search_keywords: this.expertise} ,config)
+    .then(res => {
+        let data = res.data.splice(0, 30)
+        console.log(data)
+        this.load = false
+        this.job = [...data]
+    })
+    }    
   }
 }
 </script>

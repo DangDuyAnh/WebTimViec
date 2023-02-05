@@ -20,6 +20,8 @@ import TimViecLamDetail from './TimViecLamDetail.vue'
 import ViecDaLuu from './ViecDaLuu.vue'
 import ViecDaUngTuyen from './ViecDaUngTuyen.vue'
 import GoiY from './GoiY.vue'
+import TimViecLam2 from './TimViecLam2.vue'
+import ThongTinCaNhan from './Info.vue'
 import { authenticationService } from '../utility/authenticationService'
 
 const routes = [
@@ -80,6 +82,10 @@ const routes = [
     component: TimViecLam
   },
   {
+    path: '/tim-viec-lam-moi-nhat',
+    component: TimViecLam2
+  },
+  {
     path: '/tim-viec-lam-filter',
     component: TimViecLamFilter
   },
@@ -119,6 +125,11 @@ const routes = [
     path: '/goi-y',
     component: GoiY,
     name: '/goi-y'
+  },
+  {
+    path: '/thong-tin-ca-nhan',
+    component: ThongTinCaNhan,
+    name: '/thong-tin-ca-nhan'
   }
 ];
 

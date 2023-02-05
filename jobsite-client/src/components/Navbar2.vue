@@ -82,7 +82,10 @@ export default {
                 </div>
 
                 <div class="dropdown-content">
-                    <div class="dropdown-line" :style="{minWidth: '0px', width: '120px'}" @click="dangXuat">
+                    <div class="dropdown-line" :style="{minWidth: '0px', width: '180px'}">
+                        <a class="dropdown-line-a" :style="{color: '#ff7b00'}">Thông tin cá nhân</a>
+                    </div>
+                    <div class="dropdown-line" :style="{minWidth: '0px', width: '180px'}" @click="dangXuat">
                         <a class="dropdown-line-a" :style="{color: '#ff7b00'}">Đăng xuất</a>
                     </div>
                 </div>
